@@ -1,0 +1,6 @@
+name: lih_cas44
+atom: "Li 0 0 0; H 0 0 {R}"
+basis: sto-3g
+cas: {ncas: 4, nelecas: 4}
+scan: {param: R, values: [1.2, 1.4, 1.6, 1.8, 2.2, 2.8]}
+methods: {jw: true, bk: true, taper: true, ed: true, vqe: true}

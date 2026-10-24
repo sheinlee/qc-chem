@@ -1,0 +1,6 @@
+name: h2_sto3g
+atom: "H 0 0 0; H 0 0 {R}"
+basis: sto-3g
+cas: {ncas: 2, nelecas: 2}
+scan: {param: R, values: [0.5, 0.6, 0.74, 0.9, 1.1, 1.4, 1.8, 2.5]}
+methods: {jw: true, bk: true, taper: true, ed: true, vqe: true}

@@ -1,0 +1,7 @@
+# N2 dissociation, CAS(6,6) = FCI within the 2p-derived valence space (12 qubits)
+name: n2_cas66
+atom: "N 0 0 0; N 0 0 {R}"
+basis: sto-3g
+cas: {ncas: 6, nelecas: 6}
+scan: {param: R, values: [0.9, 1.0, 1.1, 1.2, 1.35, 1.5, 1.7, 2.0, 2.4, 3.0]}
+methods: {jw: true, bk: true, taper: true, ed: true, ed_k: 3, vqe: true}

@@ -5,5 +5,6 @@ ENV=/c/Users/shich/miniconda3/envs/qchem
 export PATH="$ENV:$ENV/Library/bin:$ENV/Library/mingw-w64/bin:$ENV/Scripts:$PATH"
 export CONDA_PREFIX="C:/Users/shich/miniconda3/envs/qchem"
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-8}"
-export PYTHONPATH="$(cd "$(dirname "$0")/.." && pwd -W 2>/dev/null || cd "$(dirname "$0")/.." && pwd)${PYTHONPATH:+;$PYTHONPATH}"
+REPO="$(cd "$(dirname "$0")/.." && pwd -W)"
+export PYTHONPATH="$REPO${PYTHONPATH:+;$PYTHONPATH}"
 exec "$ENV/python.exe" "$@"
