@@ -1,0 +1,12 @@
+# Free Gd3+ ion, 4f-only CAS(7,7), scalar X2C (sfx2c1e), cc-pVDZ-DK. High-spin Sz sector.
+# CASSCF (trivial for high spin) is used so the active orbitals are the proper 4f set regardless of
+# which configuration ROHF converged to. 14 qubits.
+name: gd3_4f
+atom: "Gd 0 0 0"
+basis: cc-pvdz-dk
+charge: 3
+spin: 7
+x2c: true
+cas: {avas_labels: ["Gd 4f"], avas_minao: ano, nelecas: 7, casscf: true, fix_spin: 15.75, relax_reference: {labels: ["Gd 4f"], nelecas: 7, fix_spin: 15.75}}
+composition_labels: ["Gd 4f", "Gd 5d", "Gd 6s", "Gd 5p"]
+methods: {jw: true, bk: false, taper: true, ed: true, ed_k: 6, vqe: false, vqe_allow_14: false}

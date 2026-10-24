@@ -1,0 +1,10 @@
+# Level 2: 4f + 5d, CAS(1,12), 24 qubits, CASSCF. threshold 0.5 keeps ligand-dominated orbitals out.
+name: cecl3_L2_4f5d
+atom: "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0"
+basis: cc-pvdz-dk
+charge: 0
+spin: 1
+x2c: true
+cas: {avas_labels: ["Ce 4f", "Ce 5d"], avas_minao: ano, avas_threshold: 0.5, nelecas: 1, casscf: true, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}}
+composition_labels: ["Ce 4f", "Ce 5d", "Ce 6s", "Ce 5p", "Cl 3p", "Cl 4p", "Cl 3s"]
+methods: {jw: true, bk: false, taper: true, ed: false, vqe: false}

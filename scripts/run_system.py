@@ -40,7 +40,10 @@ def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> di
     asp = make_active_space(
         f"{cfg['name']}_{tag}", mol, ncas=cas.get("ncas"), nelecas=cas.get("nelecas"),
         x2c=cfg.get("x2c", False), avas_labels=cas.get("avas_labels"),
-        avas_threshold=cas.get("avas_threshold", 0.2), casscf=cas.get("casscf", False),
+        avas_threshold=cas.get("avas_threshold", 0.2), avas_minao=cas.get("avas_minao", "minao"),
+        avas_openshell_option=cas.get("avas_openshell_option", 2), relax_reference=cas.get("relax_reference"),
+        casscf=cas.get("casscf", False), solve_ci=cas.get("solve_ci", True),
+        ci_max_memory_mb=cas.get("ci_max_memory_mb", 16000), frac_occ=cfg.get("frac_occ", False),
         fix_spin=cas.get("fix_spin"), composition_labels=cfg.get("composition_labels"))
     nq = asp.n_spin_orbitals
     rec = {"tag": tag, "atom": atom, "n_active_electrons": asp.n_electrons, "nelecas": list(asp.nelecas),
@@ -78,7 +81,7 @@ def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> di
             rec["ed"] = ed
         vqe_limit = 14 if methods.get("vqe_allow_14", False) else MAX_VQE_QUBITS
         if methods.get("vqe", True) and nq <= vqe_limit:
-            v = run_uccsd_vqe(to_pennylane(qjw), asp.n_electrons, nq, allow_14=methods.get("vqe_allow_14", False),
+            v = run_uccsd_vqe(to_pennylane(qjw), asp.nelecas, nq, allow_14=methods.get("vqe_allow_14", False),
                               gtol=methods.get("vqe_gtol", 1e-6), maxiter=methods.get("vqe_maxiter", 500))
             v["error_vs_casci"] = v["energy"] - asp.e_casci
             v["chemical_accuracy_reached"] = abs(v["error_vs_casci"]) < 1.6e-3

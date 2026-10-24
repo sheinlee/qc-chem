@@ -1,0 +1,10 @@
+# Free Pr3+ ion, 4f+5d CAS(2,12), scalar X2C. 24 qubits: explicit JW statistics only (no ED/VQE).
+name: pr3_4f5d
+atom: "Pr 0 0 0"
+basis: cc-pvdz-dk
+charge: 3
+spin: 2
+x2c: true
+cas: {avas_labels: ["Pr 4f", "Pr 5d"], avas_minao: ano, nelecas: 2, casscf: true, fix_spin: 2.0}
+composition_labels: ["Pr 4f", "Pr 5d", "Pr 6s", "Pr 5p"]
+methods: {jw: true, bk: false, taper: true, ed: false, vqe: false}

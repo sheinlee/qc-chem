@@ -1,0 +1,10 @@
+# Free Gd3+ ion, 4f+5d CAS(7,12), scalar X2C. 24 qubits: explicit JW statistics only (no ED/VQE).
+name: gd3_4f5d
+atom: "Gd 0 0 0"
+basis: cc-pvdz-dk
+charge: 3
+spin: 7
+x2c: true
+cas: {avas_labels: ["Gd 4f", "Gd 5d"], avas_minao: ano, nelecas: 7, casscf: true, fix_spin: 15.75, relax_reference: {labels: ["Gd 4f"], nelecas: 7, fix_spin: 15.75}}
+composition_labels: ["Gd 4f", "Gd 5d", "Gd 6s", "Gd 5p"]
+methods: {jw: true, bk: false, taper: true, ed: false, vqe: false}

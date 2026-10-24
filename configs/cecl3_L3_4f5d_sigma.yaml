@@ -1,0 +1,12 @@
+# Level 3: 4f + 5d + the occupied Cl orbitals that mix with Ce 5d (sigma donors), selected by AVAS
+# projection weight >= 0.1 on {4f,5d}. Electron count follows from the selected occupied orbitals.
+# CASCI (cheap), explicit JW statistics only if <= 24 qubits, else lambda from integrals.
+name: cecl3_L3_4f5d_sigma
+atom: "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0"
+basis: cc-pvdz-dk
+charge: 0
+spin: 1
+x2c: true
+cas: {avas_labels: ["Ce 4f", "Ce 5d"], avas_minao: ano, avas_threshold: 0.1, casscf: false, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}}
+composition_labels: ["Ce 4f", "Ce 5d", "Ce 6s", "Ce 5p", "Cl 3p", "Cl 4p", "Cl 3s"]
+methods: {jw: true, bk: false, taper: false, ed: false, vqe: false}

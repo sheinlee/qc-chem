@@ -1,0 +1,64 @@
+{
+ "name": "cecl3_L4_4f_cl3p",
+ "config": {
+  "name": "cecl3_L4_4f_cl3p",
+  "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
+  "basis": "cc-pvdz-dk",
+  "charge": 0,
+  "spin": 1,
+  "x2c": true,
+  "cas": {
+   "avas_labels": [
+    "Ce 4f",
+    "Cl 3p"
+   ],
+   "avas_minao": "ano",
+   "casscf": false,
+   "solve_ci": false,
+   "fix_spin": 0.75,
+   "relax_reference": {
+    "labels": [
+     "Ce 4f"
+    ],
+    "nelecas": 1,
+    "fix_spin": 0.75
+   }
+  },
+  "composition_labels": [
+   "Ce 4f",
+   "Ce 5d",
+   "Ce 6s",
+   "Ce 5p",
+   "Cl 3p",
+   "Cl 4p",
+   "Cl 3s"
+  ],
+  "methods": {
+   "jw": false,
+   "bk": false,
+   "taper": false,
+   "ed": false,
+   "vqe": false
+  }
+ },
+ "versions": {
+  "pyscf": "2.14.0",
+  "openfermion": "1.8.1",
+  "pennylane": "0.45.1",
+  "scipy": "1.17.1",
+  "numpy": "2.4.6",
+  "python": "3.11.17",
+  "machine": "Cloud",
+  "os": "Windows-10-10.0.26200-SP0"
+ },
+ "started": "2026-10-24 10:17:05",
+ "points": [
+  {
+   "tag": "single",
+   "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
+   "error": "ValueError('could not broadcast input array from shape (138,) into shape (8,)')",
+   "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\shich\\project\\qc-chem\\scripts\\run_system.py\", line 132, in main\n    rec = run_point(cfg, tag, atom, methods, outdir)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shich\\project\\qc-chem\\scripts\\run_system.py\", line 40, in run_point\n    asp = make_active_space(\n          ^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shich\\project\\qc-chem\\qcchem\\integrals.py\", line 179, in make_active_space\n    \"atom\": mol.atom if isinstance(mol.atom, str) else str(mol.atom)}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shich\\project\\qc-chem\\qcchem\\integrals.py\", line 133, in relax_open_shell_reference\n    mc.kernel(mo_p)\nValueError: could not broadcast input array from shape (138,) into shape (8,)\n"
+  }
+ ],
+ "finished": "2026-10-24 10:17:49"
+}

@@ -80,14 +80,20 @@ def build_mol(atom: str, basis, charge: int = 0, spin: int = 0, verbose: int = 0
     return gto.M(atom=atom, basis=basis, charge=charge, spin=spin, verbose=verbose, **kw)
 
 
-def run_scf(mol: gto.Mole, x2c: bool = False, conv_tol: float = 1e-10, max_cycle: int = 200):
+def run_scf(mol: gto.Mole, x2c: bool = False, conv_tol: float = 1e-10, max_cycle: int = 200,
+            frac_occ: bool = False):
+    """RHF/ROHF, optionally scalar-relativistic (sfx2c1e).  `frac_occ=True` smears the open-shell
+    electrons evenly over the degenerate frontier orbitals (spherically averaged reference for free
+    ions: avoids the symmetry-broken core polarisation that splits the 4f levels)."""
     mf = scf.RHF(mol) if mol.spin == 0 else scf.ROHF(mol)
     if x2c:
         mf = mf.sfx2c1e()          # scalar-relativistic exact two-component (spin-free)
+    if frac_occ:
+        mf = scf.addons.frac_occ(mf)
     mf.conv_tol = conv_tol
     mf.max_cycle = max_cycle
     mf.kernel()
-    if not mf.converged:
+    if not mf.converged and not frac_occ:
         mf = mf.newton().run()
     return mf
 
@@ -109,6 +115,37 @@ def orbital_composition(mol: gto.Mole, mo_coeff: np.ndarray, mo_idx, labels: lis
     return out
 
 
+def relax_open_shell_reference(mol, mf, labels: list[str], nelecas: int, ncas: Optional[int] = None,
+                               minao: str = "minao", threshold: float = 0.2, fix_spin: Optional[float] = None):
+    """Preliminary CASSCF in the AVAS space spanned by `labels` plus all singly-occupied orbitals
+    (openshell_option=3), with `nelecas` active electrons.  Returns an SCF-like object whose mo_coeff /
+    mo_occ describe the CASSCF determinant-like occupation (core doubly occupied, active natural
+    orbitals with their CASSCF occupations), suitable as input to a second AVAS."""
+    t0 = time.time()
+    ncas_p, nelec_p, mo_p = avas_mod.avas(mf, labels, threshold=threshold, minao=minao, openshell_option=3,
+                                          canonicalize=True)
+    ncas_p = int(ncas_p) if ncas is None else int(ncas)
+    na = (nelecas + mol.spin) // 2
+    nb = nelecas - na
+    mc = mcscf.CASSCF(mf, ncas_p, (na, nb))
+    if fix_spin is not None:
+        mc.fix_spin_(ss=fix_spin)
+    mc.kernel(mo_p)
+    # natural orbitals + occupations in the active space
+    mo_nat, ci_nat, occ_full = mc.cas_natorb(sort=True)      # occ_full has length nmo
+    ncore = mc.ncore
+    occ_nat = np.asarray(occ_full)[ncore:ncore + ncas_p]
+    mf2 = mf.copy()
+    mf2.mo_coeff = mo_nat
+    # AVAS needs integer-like occupations to split occupied/virtual: round the natural occupations
+    mf2.mo_occ = np.where(occ_full > 1.5, 2.0, np.where(occ_full > 0.5, 1.0, 0.0))
+    info = {"labels": labels, "ncas": ncas_p, "nelecas": nelecas, "e_casscf": float(mc.e_tot),
+            "converged": bool(mc.converged), "natural_occupations": [round(float(x), 4) for x in occ_nat],
+            "n_singly_occupied_after": int(np.sum(mf2.mo_occ == 1.0)),
+            "e_scf_before": float(mf.e_tot), "t_seconds": round(time.time() - t0, 1)}
+    return mf2, info
+
+
 def make_active_space(
     name: str,
     mol: gto.Mole,
@@ -117,9 +154,15 @@ def make_active_space(
     x2c: bool = False,
     avas_labels: Optional[list[str]] = None,
     avas_threshold: float = 0.2,
+    avas_minao: str = "minao",
+    avas_openshell_option: int = 2,
+    relax_reference: Optional[dict] = None,
     casscf: bool = False,
     fix_spin: Optional[float] = None,
     composition_labels: Optional[list[str]] = None,
+    solve_ci: bool = True,
+    ci_max_memory_mb: int = 16000,
+    frac_occ: bool = False,
     mf=None,
 ) -> ActiveSpace:
     """Build an active space and fold integrals.
@@ -130,18 +173,25 @@ def make_active_space(
     """
     t0 = time.time()
     if mf is None:
-        mf = run_scf(mol, x2c=x2c)
-    meta: dict = {"basis": str(mol.basis) if isinstance(mol.basis, str) else "dict", "x2c": x2c,
+        mf = run_scf(mol, x2c=x2c, frac_occ=frac_occ)
+    meta: dict = {"basis": str(mol.basis) if isinstance(mol.basis, str) else "dict", "x2c": x2c, "frac_occ": frac_occ,
                   "charge": mol.charge, "spin": mol.spin, "nao": mol.nao, "scf_converged": bool(mf.converged),
                   "atom": mol.atom if isinstance(mol.atom, str) else str(mol.atom)}
 
+    if relax_reference:
+        # HF often puts the open-shell electron(s) of a lanthanide in 5d/6s instead of 4f.  Relax the
+        # reference by a preliminary CASSCF in (target labels + SOMOs), then re-partition occupations.
+        mf, relax_info = relax_open_shell_reference(mol, mf, **relax_reference, minao=avas_minao)
+        meta["relax_reference"] = relax_info
+
     mo = mf.mo_coeff
     if avas_labels:
-        ncas_avas, nelecas_avas, mo = avas_mod.avas(mf, avas_labels, threshold=avas_threshold, canonicalize=True)
+        ncas_avas, nelecas_avas, mo = avas_mod.avas(mf, avas_labels, threshold=avas_threshold, minao=avas_minao,
+                                                    openshell_option=avas_openshell_option, canonicalize=True)
         if ncas is None:
             ncas = int(ncas_avas)
         nelecas = int(nelecas_avas) if nelecas is None else nelecas
-        meta["avas"] = {"labels": avas_labels, "threshold": avas_threshold,
+        meta["avas"] = {"labels": avas_labels, "threshold": avas_threshold, "minao": avas_minao,
                         "ncas": int(ncas_avas), "nelecas": int(nelecas_avas)}
     assert ncas is not None and nelecas is not None, "need ncas/nelecas or avas_labels"
 
@@ -152,8 +202,21 @@ def make_active_space(
         na, nb = int(nelecas[0]), int(nelecas[1])
 
     mc = (mcscf.CASSCF if casscf else mcscf.CASCI)(mf, ncas, (na, nb))
+    mc.max_memory = ci_max_memory_mb
     if fix_spin is not None:
         mc.fix_spin_(ss=fix_spin)
+    if not solve_ci:
+        # integrals only (CI space too large): e_casci is NaN, orbitals are the AVAS/canonical ones
+        mc.mo_coeff = mo
+        h1, ecore = mc.get_h1eff(mo)
+        eri = ao2mo.restore(1, mc.get_h2eff(mo), ncas)
+        meta.update(ncore=int(mc.ncore), ci_solved=False, t_seconds=round(time.time() - t0, 2))
+        if composition_labels:
+            act = range(mc.ncore, mc.ncore + ncas)
+            meta["active_orbital_composition"] = orbital_composition(mol, mo, act, composition_labels)
+        return ActiveSpace(name=name, h1=np.ascontiguousarray(h1), eri=np.ascontiguousarray(eri),
+                           ecore=float(ecore), ncas=int(ncas), nelecas=(na, nb),
+                           e_hf=float(mf.e_tot), e_casci=float("nan"), e_casscf=None, meta=meta)
     mc.kernel(mo)
     e_casscf = float(mc.e_tot) if casscf else None
     if casscf:

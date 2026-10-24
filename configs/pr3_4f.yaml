@@ -1,0 +1,12 @@
+# Free Pr3+ ion, 4f-only CAS(2,7), scalar X2C (sfx2c1e), cc-pVDZ-DK. High-spin Sz sector.
+# CASSCF (trivial for high spin) is used so the active orbitals are the proper 4f set regardless of
+# which configuration ROHF converged to. 14 qubits.
+name: pr3_4f
+atom: "Pr 0 0 0"
+basis: cc-pvdz-dk
+charge: 3
+spin: 2
+x2c: true
+cas: {avas_labels: ["Pr 4f"], avas_minao: ano, nelecas: 2, casscf: true, fix_spin: 2.0}
+composition_labels: ["Pr 4f", "Pr 5d", "Pr 6s", "Pr 5p"]
+methods: {jw: true, bk: false, taper: true, ed: true, ed_k: 6, vqe: true, vqe_allow_14: true}

@@ -1,0 +1,1206 @@
+{
+ "name": "h2_sto3g",
+ "config": {
+  "name": "h2_sto3g",
+  "atom": "H 0 0 0; H 0 0 {R}",
+  "basis": "sto-3g",
+  "cas": {
+   "ncas": 2,
+   "nelecas": 2
+  },
+  "scan": {
+   "param": "R",
+   "values": [
+    0.5,
+    0.6,
+    0.74,
+    0.9,
+    1.1,
+    1.4,
+    1.8,
+    2.5
+   ]
+  },
+  "methods": {
+   "jw": true,
+   "bk": true,
+   "taper": true,
+   "ed": true,
+   "vqe": true
+  }
+ },
+ "versions": {
+  "pyscf": "2.14.0",
+  "openfermion": "1.8.1",
+  "pennylane": "0.45.1",
+  "scipy": "1.17.1",
+  "numpy": "2.4.6",
+  "python": "3.11.17",
+  "machine": "Cloud",
+  "os": "Windows-10-10.0.26200-SP0"
+ },
+ "started": "2026-10-24 10:05:49",
+ "points": [
+  {
+   "tag": "R=0.5",
+   "atom": "H 0 0 0; H 0 0 0.5",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -1.042996274540095,
+   "e_casci": -1.0551597944706248,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 0.5",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.42,
+    "spin_square": [
+     8.05699201436581e-34,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=0.5.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 1.1661592509779566,
+    "lambda_V": 1.1578113077458871,
+    "lambda_total": 2.3239705587238433,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 2.323970558723842,
+    "constant": 0.37983135178095256,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": -1.3322676295501878e-15
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 2.323970558723842,
+    "queries_qpe": 3651,
+    "toffoli_proxy_sparse": 58416,
+    "logical_qubits_proxy": 20,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 2.323970558723842,
+    "constant": 0.3798313517809526,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 1.33502947866769
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 1.33502947866769,
+    "queries_qpe": 2098,
+    "toffoli_proxy_sparse": 2098,
+    "logical_qubits_proxy": 14,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -1.055159794470623
+    ],
+    "e0": -1.055159794470623,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.016,
+    "error_vs_casci": 1.7763568394002505e-15
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -1.0429962745400936,
+    "energy": -1.055159794470622,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 3,
+    "final_grad_maxabs": 8.789842615049281e-09,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 5,
+    "n_gradient_evals": 5,
+    "t_seconds": 0.12,
+    "theta": [
+     0.0,
+     0.0,
+     0.14380925027116775
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 2.886579864025407e-15,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.77
+  },
+  {
+   "tag": "R=0.6",
+   "atom": "H 0 0 0; H 0 0 0.6",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -1.1011282422677016,
+   "e_casci": -1.1162860068695395,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 0.6",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.06,
+    "spin_square": [
+     5.224688562963108e-34,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=0.6.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.988027573172731,
+    "lambda_V": 1.132119357689489,
+    "lambda_total": 2.1201469308622203,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 2.1201469308622203,
+    "constant": 0.13236616802789583,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": 0.0
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 2.1201469308622203,
+    "queries_qpe": 3331,
+    "toffoli_proxy_sparse": 53296,
+    "logical_qubits_proxy": 20,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 2.1201469308622203,
+    "constant": 0.1323661680278958,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 1.1617582169183893
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 1.1617582169183893,
+    "queries_qpe": 1825,
+    "toffoli_proxy_sparse": 1825,
+    "logical_qubits_proxy": 13,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -1.1162860068695402
+    ],
+    "e0": -1.1162860068695402,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.013,
+    "error_vs_casci": -6.661338147750939e-16
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -1.1011282422677007,
+    "energy": -1.1162860068695386,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 3,
+    "final_grad_maxabs": 2.927996387014353e-14,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 5,
+    "n_gradient_evals": 5,
+    "t_seconds": 0.12,
+    "theta": [
+     0.0,
+     0.0,
+     0.17405653995962928
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 8.881784197001252e-16,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.21
+  },
+  {
+   "tag": "R=0.74",
+   "atom": "H 0 0 0; H 0 0 0.74",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -1.1167593073964255,
+   "e_casci": -1.1372838344885023,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 0.74",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.05,
+    "spin_square": [
+     1.0006771841001389e-32,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=0.74.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.7896887267118076,
+    "lambda_V": 1.09741849018464,
+    "lambda_total": 1.8871072168964478,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.8871072168964458,
+    "constant": -0.0970662681676315,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": -1.9984014443252818e-15
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 1.8871072168964458,
+    "queries_qpe": 2965,
+    "toffoli_proxy_sparse": 47440,
+    "logical_qubits_proxy": 20,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.8871072168964458,
+    "constant": -0.09706626816763131,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 0.9708991887270031
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 0.9708991887270031,
+    "queries_qpe": 1526,
+    "toffoli_proxy_sparse": 1526,
+    "logical_qubits_proxy": 13,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -1.1372838344885017
+    ],
+    "e0": -1.1372838344885017,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.014,
+    "error_vs_casci": 6.661338147750939e-16
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -1.1167593073964248,
+    "energy": -1.1372838344884926,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 3,
+    "final_grad_maxabs": 1.193129671151448e-07,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 5,
+    "n_gradient_evals": 5,
+    "t_seconds": 0.12,
+    "theta": [
+     0.0,
+     0.0,
+     0.22556552048223946
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 9.769962616701378e-15,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.2
+  },
+  {
+   "tag": "R=0.9",
+   "atom": "H 0 0 0; H 0 0 0.9",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -1.091914041020057,
+   "e_casci": -1.1205602812999886,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 0.9",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.06,
+    "spin_square": [
+     9.408682904140192e-34,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=0.9.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.6195745590559756,
+    "lambda_V": 1.0608759000393524,
+    "lambda_total": 1.680450459095328,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.6804504590953278,
+    "constant": -0.25905412221337265,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": -2.220446049250313e-16
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 1.6804504590953278,
+    "queries_qpe": 2640,
+    "toffoli_proxy_sparse": 42240,
+    "logical_qubits_proxy": 20,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.6804504590953282,
+    "constant": -0.25905412221337265,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 0.8101462528152401
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 0.8101462528152401,
+    "queries_qpe": 1273,
+    "toffoli_proxy_sparse": 1273,
+    "logical_qubits_proxy": 13,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -1.120560281299988
+    ],
+    "e0": -1.120560281299988,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.013,
+    "error_vs_casci": 6.661338147750939e-16
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -1.091914041020057,
+    "energy": -1.1205602812999866,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 4,
+    "final_grad_maxabs": 2.23138651653243e-12,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 6,
+    "n_gradient_evals": 6,
+    "t_seconds": 0.14,
+    "theta": [
+     0.0,
+     0.0,
+     0.29840068487093385
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 1.9984014443252818e-15,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.24
+  },
+  {
+   "tag": "R=1.1",
+   "atom": "H 0 0 0; H 0 0 1.1",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -1.0365388750291795,
+   "e_casci": -1.0791929449690747,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 1.1",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.06,
+    "spin_square": [
+     1.5364420720265496e-31,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=1.1.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.4627917542903826,
+    "lambda_V": 1.0206094299529274,
+    "lambda_total": 1.4834011842433101,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.4834011842433101,
+    "constant": -0.37968569525215556,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": 0.0
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 1.4834011842433101,
+    "queries_qpe": 2331,
+    "toffoli_proxy_sparse": 37296,
+    "logical_qubits_proxy": 20,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.4834011842433101,
+    "constant": -0.37968569525215545,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 0.6660139809110315
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 0.6660139809110315,
+    "queries_qpe": 1047,
+    "toffoli_proxy_sparse": 1047,
+    "logical_qubits_proxy": 13,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -1.079192944969075
+    ],
+    "e0": -1.079192944969075,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.014,
+    "error_vs_casci": -2.220446049250313e-16
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -1.0365388750291797,
+    "energy": -1.0791929449690751,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 4,
+    "final_grad_maxabs": 4.989054616481858e-10,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 6,
+    "n_gradient_evals": 6,
+    "t_seconds": 0.15,
+    "theta": [
+     0.0,
+     0.0,
+     0.4137713844785654
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": -4.440892098500626e-16,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.25
+  },
+  {
+   "tag": "R=1.4",
+   "atom": "H 0 0 0; H 0 0 1.4",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -0.9414806547077981,
+   "e_casci": -1.015468249288245,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 1.4",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.05,
+    "spin_square": [
+     1.5686072291976892e-31,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=1.4.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.2991358775376902,
+    "lambda_V": 0.9717997072431165,
+    "lambda_total": 1.2709355847808066,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.2709355847808064,
+    "constant": -0.473800315960936,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": -2.220446049250313e-16
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 1.2709355847808064,
+    "queries_qpe": 1997,
+    "toffoli_proxy_sparse": 31952,
+    "logical_qubits_proxy": 19,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.2709355847808061,
+    "constant": -0.4738003159609361,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 0.5221579666124041
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 0.5221579666124041,
+    "queries_qpe": 821,
+    "toffoli_proxy_sparse": 821,
+    "logical_qubits_proxy": 12,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -1.0154682492882448
+    ],
+    "e0": -1.0154682492882448,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.014,
+    "error_vs_casci": 2.220446049250313e-16
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -0.9414806547077976,
+    "energy": -1.0154682492881697,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 4,
+    "final_grad_maxabs": 2.3539686044155017e-07,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 6,
+    "n_gradient_evals": 6,
+    "t_seconds": 0.14,
+    "theta": [
+     0.0,
+     0.0,
+     0.6406505207523571
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 7.527312106958561e-14,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.24
+  },
+  {
+   "tag": "R=1.8",
+   "atom": "H 0 0 0; H 0 0 1.8",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -0.8288481479269775,
+   "e_casci": -0.9618169527925807,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 1.8",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.05,
+    "spin_square": [
+     1.5899416974711992e-29,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=1.8.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.16481958317796908,
+    "lambda_V": 0.9261485884197822,
+    "lambda_total": 1.0909681715977513,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.0909681715977508,
+    "constant": -0.5236765964271144,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": -4.440892098500626e-16
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 1.0909681715977508,
+    "queries_qpe": 1714,
+    "toffoli_proxy_sparse": 27424,
+    "logical_qubits_proxy": 19,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.0909681715977508,
+    "constant": -0.5236765964271144,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 0.4128365766575078
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 0.4128365766575078,
+    "queries_qpe": 649,
+    "toffoli_proxy_sparse": 649,
+    "logical_qubits_proxy": 12,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -0.9618169527925807
+    ],
+    "e0": -0.9618169527925807,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.014,
+    "error_vs_casci": 0.0
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -0.8288481479269769,
+    "energy": -0.9618169527925795,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 5,
+    "final_grad_maxabs": 1.9993822613154077e-09,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 7,
+    "n_gradient_evals": 7,
+    "t_seconds": 0.15,
+    "theta": [
+     0.0,
+     0.0,
+     0.9842608536932356
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 1.2212453270876722e-15,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.24
+  },
+  {
+   "tag": "R=2.5",
+   "atom": "H 0 0 0; H 0 0 2.5",
+   "n_active_electrons": 2,
+   "nelecas": [
+    1,
+    1
+   ],
+   "n_active_orbitals": 2,
+   "n_spin_orbitals": 4,
+   "n_qubits": 4,
+   "e_hf": -0.7029435997235269,
+   "e_casci": -0.9360549199556059,
+   "e_casscf": null,
+   "meta": {
+    "basis": "sto-3g",
+    "x2c": false,
+    "charge": 0,
+    "spin": 0,
+    "nao": 2,
+    "scf_converged": true,
+    "atom": "H 0 0 0; H 0 0 2.5",
+    "ncore": 0,
+    "casci_converged": true,
+    "t_seconds": 0.05,
+    "spin_square": [
+     2.9909480725258513e-29,
+     1.0
+    ]
+   },
+   "integrals_file": "results\\integrals\\h2_sto3g_R=2.5.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 0.15632492409189255,
+    "lambda_V": 0.8811550982714913,
+    "lambda_total": 1.037480022363384,
+    "n_spatial_orbitals": 2,
+    "n_qubits": 4,
+    "n_nonzero_eri": 8,
+    "n_nonzero_h1": 2,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.037480022363381,
+    "constant": -0.5435990920199949,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 4,
+     "2": 6,
+     "4": 4
+    },
+    "lambda_identity_check": -2.886579864025407e-15
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 1.037480022363381,
+    "queries_qpe": 1630,
+    "toffoli_proxy_sparse": 26080,
+    "logical_qubits_proxy": 19,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "bk": {
+    "n_qubits": 4,
+    "n_pauli_terms": 14,
+    "lambda_pauli": 1.0374800223633809,
+    "constant": -0.5435990920199947,
+    "max_pauli_weight": 4,
+    "weight_histogram": {
+     "1": 3,
+     "2": 3,
+     "3": 5,
+     "4": 3
+    }
+   },
+   "taper": {
+    "n_generators": 3,
+    "sector": [
+     1,
+     -1,
+     -1
+    ],
+    "n_qubits_tapered": 1,
+    "n_pauli_terms_tapered": 2,
+    "lambda_pauli_tapered": 0.3364794448271814
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 0.3364794448271814,
+    "queries_qpe": 529,
+    "toffoli_proxy_sparse": 529,
+    "logical_qubits_proxy": 12,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "ed": {
+    "energies": [
+     -0.9360549199556061
+    ],
+    "e0": -0.9360549199556061,
+    "sector": "N=2,Sz=0.0",
+    "dim": 4,
+    "t_seconds": 0.014,
+    "error_vs_casci": -2.220446049250313e-16
+   },
+   "vqe_uccsd": {
+    "ansatz": "UCCSD",
+    "n_qubits": 4,
+    "n_electrons": 2,
+    "n_params": 3,
+    "n_singles": 2,
+    "n_doubles": 1,
+    "e_hf_circuit": -0.7029435997235268,
+    "energy": -0.9360549199554298,
+    "success": true,
+    "message": "Optimization terminated successfully.",
+    "n_iter": 3,
+    "final_grad_maxabs": 3.1607962113454346e-07,
+    "polished_lbfgsb": false,
+    "n_energy_evals": 6,
+    "n_gradient_evals": 6,
+    "t_seconds": 0.13,
+    "theta": [
+     0.0,
+     0.0,
+     1.3808151659295689
+    ],
+    "optimizer": "BFGS",
+    "gtol": 1e-06,
+    "circuit_depth": 100,
+    "n_gates": 158,
+    "n_two_qubit_gates": 64,
+    "n_cnot": 64,
+    "gate_types": {
+     "PauliX": 2,
+     "Hadamard": 40,
+     "RX": 40,
+     "CNOT": 64,
+     "RZ": 12
+    },
+    "n_template_ops": 1,
+    "error_vs_casci": 1.7608137170554983e-13,
+    "chemical_accuracy_reached": true
+   },
+   "t_seconds": 0.23
+  }
+ ],
+ "finished": "2026-10-24 10:05:52"
+}

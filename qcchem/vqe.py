@@ -15,10 +15,34 @@ GATE_SET = {"CNOT", "RX", "RY", "RZ", "Hadamard", "PauliX", "PauliY", "PauliZ", 
             "PhaseShift", "Rot", "SX", "Adjoint(S)"}
 
 
-def uccsd_setup(n_electrons: int, n_qubits: int, delta_sz: int = 0):
-    singles, doubles = qml.qchem.excitations(n_electrons, n_qubits, delta_sz=delta_sz)
+def _nelec_tuple(n_electrons) -> tuple[int, int]:
+    if isinstance(n_electrons, (tuple, list)):
+        return int(n_electrons[0]), int(n_electrons[1])
+    n = int(n_electrons)
+    return (n + 1) // 2, n // 2
+
+
+def uccsd_setup(n_electrons, n_qubits: int, delta_sz: int = 0):
+    """Spin-conserving singles/doubles from an (n_alpha, n_beta) reference in interleaved ordering.
+
+    n_electrons may be an int (closed shell / standard PennyLane convention) or an (na, nb) tuple for
+    open-shell high-spin references (e.g. Ce3+ 4f1 = (1, 0), Pr3+ 4f2 = (2, 0)).
+    """
+    na, nb = _nelec_tuple(n_electrons)
+    occ = sorted([2 * p for p in range(na)] + [2 * p + 1 for p in range(nb)])
+    virt = [q for q in range(n_qubits) if q not in occ]
+    spin = lambda q: q % 2  # noqa: E731  (0 = alpha, 1 = beta)
+    singles = [[i, a] for i in occ for a in virt if spin(i) == spin(a)]
+    doubles = []
+    for ii, i in enumerate(occ):
+        for j in occ[ii + 1:]:
+            for aa, a in enumerate(virt):
+                for b in virt[aa + 1:]:
+                    if spin(i) + spin(j) == spin(a) + spin(b):
+                        doubles.append([i, j, a, b])
     s_wires, d_wires = qml.qchem.excitations_to_wires(singles, doubles)
-    hf = qml.qchem.hf_state(n_electrons, n_qubits)
+    hf = np.zeros(n_qubits, dtype=int)
+    hf[occ] = 1
     return singles, doubles, s_wires, d_wires, hf
 
 
@@ -35,7 +59,7 @@ def circuit_resources(qnode, *args) -> dict:
             "n_template_ops": int(len(tape.operations))}
 
 
-def run_uccsd_vqe(H, n_electrons: int, n_qubits: int, *, allow_14: bool = False,
+def run_uccsd_vqe(H, n_electrons, n_qubits: int, *, allow_14: bool = False,
                   method: str = "BFGS", gtol: float = 1e-6, maxiter: int = 500,
                   theta0: np.ndarray | None = None, verbose: bool = False,
                   with_resources: bool = True) -> dict:
@@ -85,7 +109,7 @@ def run_uccsd_vqe(H, n_electrons: int, n_qubits: int, *, allow_14: bool = False,
     t_opt = time.time() - t0
 
     out = {
-        "ansatz": "UCCSD", "n_qubits": n_qubits, "n_electrons": n_electrons,
+        "ansatz": "UCCSD", "n_qubits": n_qubits, "n_electrons": list(_nelec_tuple(n_electrons)),
         "n_params": int(n_params), "n_singles": len(singles), "n_doubles": len(doubles),
         "e_hf_circuit": e_hf, "energy": float(res.fun), "success": bool(res.success),
         "message": str(res.message), "n_iter": int(res.nit), "final_grad_maxabs": gnorm,

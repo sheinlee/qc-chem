@@ -1,0 +1,11 @@
+# Level 5: 4f + 5d + all Cl 3p, CAS(19,21), 42 qubits. No CI reference (dimension ~1e11); integrals and
+# exact-from-integrals lambda only. This is the fault-tolerant-target data point.
+name: cecl3_L5_full
+atom: "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0"
+basis: cc-pvdz-dk
+charge: 0
+spin: 1
+x2c: true
+cas: {avas_labels: ["Ce 4f", "Ce 5d", "Cl 3p"], avas_minao: ano, casscf: false, solve_ci: false, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}}
+composition_labels: ["Ce 4f", "Ce 5d", "Ce 6s", "Ce 5p", "Cl 3p", "Cl 4p", "Cl 3s"]
+methods: {jw: false, bk: false, taper: false, ed: false, vqe: false}

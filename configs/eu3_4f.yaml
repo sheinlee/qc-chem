@@ -1,0 +1,12 @@
+# Free Eu3+ ion, 4f-only CAS(6,7), scalar X2C (sfx2c1e), cc-pVDZ-DK. High-spin Sz sector.
+# CASSCF (trivial for high spin) is used so the active orbitals are the proper 4f set regardless of
+# which configuration ROHF converged to. 14 qubits.
+name: eu3_4f
+atom: "Eu 0 0 0"
+basis: cc-pvdz-dk
+charge: 3
+spin: 6
+x2c: true
+cas: {avas_labels: ["Eu 4f"], avas_minao: ano, nelecas: 6, casscf: true, fix_spin: 12.0}
+composition_labels: ["Eu 4f", "Eu 5d", "Eu 6s", "Eu 5p"]
+methods: {jw: true, bk: false, taper: true, ed: true, ed_k: 6, vqe: false, vqe_allow_14: false}
