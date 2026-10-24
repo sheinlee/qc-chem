@@ -35,3 +35,13 @@
   - 报告：report/technical_report.md、report/lanthanide_feasibility.md、report/skill_gap_analysis.md（后台 agent 写，引文年份未核）、README.md；图 results/figures/fig1–3。
 - **未做**（按用户指示延后）：S2 的 ADAPT-VQE 与噪声；双因子化/THC 资源估算；二电子 SOC 屏蔽。
 - **偏离 PLAN 的地方及原因**：(1) CeCl3 L3 的 CASCI（7.7e7 行列式）在本机跑了 10 分钟而不是 cluster，因为本机能跑且更符合"少用 cluster"；(2) 主图中自由离子用态平均版本替代原 ROHF 参考版本，后者保留为对照；(3) 噪声图（fig5）和 ADAPT 图（fig4）未做。
+
+## 2026-10-24 S4：独立评审与修订
+
+以审稿人 + 面试官身份的独立评审（后台 agent，只读）给出"major revision / 进入技术面"的结论。采纳并修复的项目：
+- **代码错误**：开壳层体系的 tapering 扇区用了闭壳层假设（改为按 (na,nb) 参考行列式计算生成元本征值；Ce3+ ROHF 轨道下由 14→12 变为 14→10）；`ao2mo.restore` 得到的积分只有 ~1e-7 的 8-fold 对称，Koridon 恒等式偏差由 3e-5 降到 1e-7（CeCl3 L2 仍 2e-7 相对，原因未明，对资源估算无影响）；Toffoli proxy 改为 queries × 项数（稀疏 LCU 的 SELECT 一元迭代 ~L）；>24 qubit 的项数 proxy 去掉 ×8；SA-CASSCF 的 e_casscf 改记最低态而非平均；结果 JSON 记录 git SHA。
+- **科学结论**：撤回"共价走 5d 而非 4f"的能量排序结论（各层 CASCI 参考态不一致，relax CASSCF(1,8) 已低于 L1 3.5 mHa、与 L4 持平）；Pr3+ 二分量第 21 个能级原误标为 3H6，补算 45 个态后指认为 3F2（5 重），3H6（13 重）在 46.3 mHa；"λ 比 qubit 数增长快"撤回；N2 "单调"措辞改为实际数据；"CASCI 到 1e-11"按体系区分。
+- **SOC 验证**：新增类氢 Ne9+/Ar17+ 测试，偶调和大基组下 2p1/2–2p3/2 分裂与 Dirac 解析值差 <1%，证明变换正确，Ce3+ 2.3× 高估是缺二电子屏蔽的物理。
+- **一致性**：所有结果从同一 commit（67e551f）重新生成；分子曲线改用 CASSCF 轨道（RHF 轨道在拉伸区变性，N2 CASCI 曲线此前在 2.4 Å 非单调）、分子不用重启；技能差距分析移出仓库（../qc-chem-notes）。
+- **新结果中需要说明的点**：N2 3.0 Å 的 CASSCF 收敛到对称破缺轨道（1778 项），VQE 500 步未收敛（0.22 mHa，梯度 5e-5），该点从"ansatz 误差"讨论中剔除。
+- **未采纳/留作后续**：DF/THC λ（openfermion.resource_estimates）、各层 CASSCF 与 4f+σ 对照、二电子 SOC 屏蔽、ADAPT-VQE、误差棒与噪声、CNOT 编译优化。

@@ -4,46 +4,53 @@
  "n_electrons": 1,
  "ncas": 7,
  "soc_diagnostics": {
-  "hermiticity_violation": 2.00794673852621e-14,
-  "soc_frobenius": 0.04442649193282742,
-  "soc_max_abs": 0.007267024894655637,
-  "spin_offdiag_max_abs": 0.0072670248946548124,
-  "scalar_part_vs_sfx2c_max_abs": 1.4019033358181332e-05
+  "hermiticity_violation": 1.7331745851721916e-14,
+  "soc_frobenius": 0.0444264919739808,
+  "soc_max_abs": 0.009352831153183225,
+  "spin_offdiag_max_abs": 0.009352831153182544,
+  "scalar_part_vs_sfx2c_max_abs": 1.4019033251599922e-05
  },
  "model": "scalar sfx2c1e active space + one-electron X2C spin-orbit block (no 2e SOC screening)",
  "soc_block": {
   "n_nonzero": 182,
-  "max_abs_ha": 0.007267024894655637,
-  "max_abs_cm": 1594.927599955335
+  "max_abs_ha": 0.009352831153183225,
+  "max_abs_cm": 2052.7091567973616
  },
  "scalar": {
   "n_qubits": 14,
-  "n_pauli_terms": 3285,
-  "lambda_pauli": 54.36504031945476,
-  "constant": -8843.193805341465,
+  "n_pauli_terms": 3297,
+  "lambda_pauli": 54.63829801410449,
+  "constant": -8843.193805341729,
   "max_pauli_weight": 14,
   "weight_histogram": {
    "1": 14,
-   "2": 113,
-   "4": 584,
-   "6": 838,
-   "8": 802,
-   "10": 586,
+   "2": 115,
+   "4": 588,
+   "6": 840,
+   "8": 804,
+   "10": 588,
    "12": 300,
    "14": 48
   }
  },
  "two_component": {
-  "n_pauli_terms": 3537,
-  "lambda_pauli": 54.643874014016376,
+  "n_pauli_terms": 3549,
+  "lambda_pauli": 54.8816181870268,
   "n_terms_complex_coeff": 0,
   "n_terms_sz_nonconserving": 168
  },
- "ratio_terms": 1.0767123287671232,
- "ratio_lambda": 1.0051289154376262,
+ "ratio_terms": 1.0764331210191083,
+ "ratio_lambda": 1.0044532897576623,
  "z2_generators_scalar": 2,
  "z2_generators_two_component": 1,
  "ed_scalar_levels_mha": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
   0.0,
   0.0,
   0.0,
@@ -59,6 +66,13 @@
   0.0,
   0.0,
   0.0,
+  23.993,
+  23.993,
+  23.993,
+  23.993,
+  23.993,
+  23.993,
+  23.993,
   23.993
  ],
  "ed_two_component_levels_cm": [
@@ -68,11 +82,18 @@
   0.0,
   0.0,
   0.0,
+  5265.9,
+  5265.9,
+  5265.9,
+  5265.9,
+  5265.9,
+  5265.9,
+  5265.9,
   5265.9
  ],
- "ed_scalar_e0": -8855.07059670128,
- "ed_two_component_e0": -8855.084292972166,
- "soc_ground_state_shift_mha": -13.696270885702688,
+ "ed_scalar_e0": -8855.070596687478,
+ "ed_two_component_e0": -8855.084292967535,
+ "soc_ground_state_shift_mha": -13.696280057047261,
  "ed_dim_N_sector": 14,
- "t_seconds": 41.0
+ "t_seconds": 40.8
 }

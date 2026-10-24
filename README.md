@@ -10,18 +10,23 @@ proposed projects). `progress.md` is the honest log of what failed and why.
 
 ## Main results in one paragraph
 
-The folded active-space Hamiltonian reproduces PySCF CASCI to 1e-11 Ha or better after Jordan-Wigner or
-Bravyi-Kitaev mapping; the Pauli 1-norm computed from integrals equals the explicit expansion to 1e-13 and
-is therefore exact for Hamiltonians too large to expand (32–42 qubits). First-order UCCSD-VQE converges
-(gradient < 1e-6) at every point of the N2 CAS(6,6) curve but its intrinsic error rises from 0.2 mHa at
-equilibrium to 16.5 mHa at 3.0 Å, crossing chemical accuracy at ~1.4 Å, with a 9024-CNOT circuit for 12
-qubits. Lanthanide 4f-only spaces (14 qubits) are classically trivial (7–21 determinants) but the reference
-problem is not: HF puts Ln electrons in the wrong shell and breaks spherical symmetry; state-averaged
-CASSCF fixes it and the qubit ED then reproduces exact multiplet degeneracies (Pr3+ 3H/3F/3P 11/7/3).
-Along a composition-selected CeCl3 ladder the chemically meaningful space is 4f + 5d + ligand σ (34 qubits,
-λ = 148 Ha, still solvable classically in 10 minutes); 4f + all Cl 3p (32 qubits) gains less energy than
-5d + σ. Spin-orbit coupling adds only ~7 % Pauli terms and < 1 % to λ and removes one Z2 symmetry, but its
-energetic effect (13–27 mHa) dwarfs the ligand field (≤ 6 mHa).
+The folded active-space Hamiltonian reproduces PySCF CASCI after Jordan-Wigner or Bravyi-Kitaev mapping
+(1e-11 Ha or better for molecules and non-degenerate ions; 8e-8 on a degenerate state-averaged Pr3+ root,
+where exact diagonalisation is the better reference); the Pauli 1-norm computed from integrals equals the
+explicit expansion to 1e-11 (molecules) and 1e-7 (lanthanides) and is therefore used for Hamiltonians too
+large to expand (32–42 qubits). First-order UCCSD-VQE reaches a stationary point (gradient < 1e-6) at every
+point of the N2 CAS(6,6) curve but its error rises from 0.08 mHa at 0.9 Å to 0.74 mHa at the minimum and
+13.4 mHa at 2.4 Å, crossing chemical accuracy near 1.4 Å, with a 9024-CNOT circuit for 12 qubits in a naive
+compilation. Lanthanide 4f-only spaces (14 qubits) are classically trivial (7–21 determinants) but the
+reference is not: HF puts Ln electrons in the wrong shell and breaks spherical symmetry; state-averaged
+CASSCF fixes it and the qubit ED then reproduces exact multiplet degeneracies (Pr3+ 3H/3F/3P = 11/7/3; with
+spin-orbit coupling 3H4/3H5/3F2/3H6/3F3 = 9/11/5/13/7). Along a composition-selected CeCl3 ladder the
+chemically motivated space is 4f + 5d + ligand σ (34 qubits, λ = 148 Ha, still solvable classically in ten
+minutes); the energies across ladder levels are not variationally consistent and are not used to rank
+ligand channels. One-electron spin-orbit coupling adds ~7 % Pauli terms and < 1 % to λ and removes one Z2
+symmetry, while its energetic effect (13–27 mHa) exceeds the ligand field (≤ 6 mHa); the one-electron
+operator overestimates the Ce3+ 2F splitting 2.3× (transformation validated against Dirac on hydrogenic
+ions), so a spin-orbit mean field is the next step.
 
 ## Layout
 
@@ -33,7 +38,7 @@ configs/       one YAML per system / active-space level
 scripts/       run_system.py (YAML -> JSON), run_soc.py, make_plots.py, qpy.sh (env wrapper), sync.sh (cluster)
 results/       JSON per system, integrals/*.npz (h1, eri, ecore, mo_act), summary_table.csv, figures/
 tests/         unit (deterministic) and integration (optimizer runs)
-report/        technical_report.md, lanthanide_feasibility.md, skill_gap_analysis.md
+report/        technical_report.md, lanthanide_feasibility.md
 slurm/         job template used for the one cluster run (CAS(19,16) CASCI)
 ```
 
@@ -42,7 +47,7 @@ slurm/         job template used for the one cluster run (CAS(19,16) CASCI)
 ```
 conda env create -f environment.yml          # pyscf 2.14.0, openfermion 1.8.1, pennylane 0.45.1 (+lightning)
 conda activate qchem                          # or use scripts/qpy.sh on Windows
-pytest tests                                  # 17 tests, ~30 s
+pytest tests                                  # 19 tests, ~40 s
 python scripts/run_system.py configs/n2_cas66.yaml
 python scripts/run_soc.py configs/ce3_4f_sa.yaml
 python scripts/make_plots.py
@@ -62,5 +67,7 @@ CASCI job.
 ## Known limitations
 
 cc-pVDZ-DK basis, scalar X2C, one-electron SOC without screening (overestimates Ce3+ 2F splitting 2.3×),
-AVAS thresholds as stated, no noise model, no ADAPT-VQE yet, 1-norm proxies instead of factorised resource
-estimates. See report §8 and `progress.md`.
+AVAS thresholds as stated, CASCI rather than CASSCF across the CeCl3 ladder (no variational consistency between
+levels), no noise model, no ADAPT-VQE yet, Fock-space 1-norm / sparse-LCU proxies instead of factorised
+resource estimates, naive CNOT compilation. Term counts, λ and tapering yields depend on the orbital basis for
+degenerate shells. See `report/lanthanide_feasibility.md` §8 and `progress.md` (developer log, in Chinese).

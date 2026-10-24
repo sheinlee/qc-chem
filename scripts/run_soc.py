@@ -1,6 +1,6 @@
 """Two-component (one-electron X2C spin-orbit) extension of a scalar active space.
 
-usage: scripts/qpy.sh scripts/run_soc.py configs/ce3_4f_sa.yaml
+usage: scripts/qpy.sh scripts/run_soc.py configs/ce3_4f_sa.yaml [n_levels]
 Reads results/integrals/<name>_single.npz (needs mo_act), rebuilds the molecule, adds the SOC block,
 compares scalar vs two-component qubit Hamiltonians, and (<= 16 qubits) does N-restricted sparse ED.
 Writes results/soc_<name>.json.
@@ -37,7 +37,7 @@ def ed_levels(q, nq, nelec, k):
     return [float(v) for v in vals], int(dim)
 
 
-def main(cfg_path: str):
+def main(cfg_path: str, k_override: int | None = None):
     cfg = yaml.safe_load(open(cfg_path, encoding="utf-8"))
     name = cfg["name"]
     npz = ROOT / "results" / "integrals" / f"{name}_single.npz"
@@ -75,7 +75,7 @@ def main(cfg_path: str):
         except Exception as e:
             out["z2_error"] = repr(e)
         if nq <= 16:
-            k = int(cfg.get("methods", {}).get("ed_k", 7))
+            k = int(k_override or cfg.get("methods", {}).get("ed_k", 7))
             e_sc, dim = ed_levels(q_sc, nq, nelec, k)
             e_so, _ = ed_levels(q_so, nq, nelec, k)
             out["ed_scalar_levels_mha"] = [round((e - e_sc[0]) * 1e3, 4) for e in e_sc]
@@ -92,4 +92,4 @@ def main(cfg_path: str):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else None)
