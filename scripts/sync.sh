@@ -5,7 +5,7 @@
 #   scripts/sync.sh check  -> print remote tree size and scratch usage
 set -euo pipefail
 HOST=cluster
-REMOTE=~/qc-chem
+REMOTE='$HOME/qc-chem'   # expanded on the remote side
 SCRATCH=/data/$USER/qc-chem
 cd "$(dirname "$0")/.."
 
@@ -19,7 +19,7 @@ case "${1:-}" in
     ;;
   pull)
     mkdir -p results
-    ssh -o BatchMode=yes "$HOST" "cd $REMOTE && [ -d results ] && tar czf - results || tar czf - -T /dev/null" \
+    ssh -o BatchMode=yes "$HOST" "tar czf - -C $REMOTE results" \
       | tar xzf - -C .
     echo "pull ok <- $HOST:$REMOTE/results"
     ;;
