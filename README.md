@@ -20,20 +20,22 @@ point of the N2 CAS(6,6) curve but its error rises from 0.08 mHa at 0.9 Å to 0.
 compilation. Lanthanide 4f-only spaces (14 qubits) are classically trivial (7–21 determinants) but the
 reference is not: HF puts Ln electrons in the wrong shell and breaks spherical symmetry; state-averaged
 CASSCF fixes it and the qubit ED then reproduces exact multiplet degeneracies (Pr3+ 3H/3F/3P = 11/7/3; with
-spin-orbit coupling 3H4/3H5/3F2/3H6/3F3 = 9/11/5/13/7). Along a composition-selected CeCl3 ladder the
-chemically motivated space is 4f + 5d + ligand σ (34 qubits, λ = 148 Ha, still solvable classically in ten
-minutes); the energies across ladder levels are not variationally consistent and are not used to rank
-ligand channels. One-electron spin-orbit coupling adds ~7 % Pauli terms and < 1 % to λ and removes one Z2
-symmetry, while its energetic effect (13–27 mHa) exceeds the ligand field (≤ 6 mHa); the one-electron
-operator overestimates the Ce3+ 2F splitting 2.3× (transformation validated against Dirac on hydrogenic
-ions), so a spin-orbit mean field is the next step.
+spin-orbit coupling 3H4/3H5/3F2/3H6/3F3 = 9/11/5/13/7). Along a CeCl3 active-space ladder built on one 4f1 ROHF reference, the ligand electrons do not correlate
+with the 4f shell at all unless Ce 5d is in the active space (natural occupations 2/1/0 without 5d; a 0.01 e
+5d donation channel worth 6.5 mHa with it), and a fully variational CASSCF does not preserve the chemically
+defined spaces (σ drifts into Ce 4d, or empty 4f into σ*). The chemically motivated space is 4f + 5d + σ
+(34 qubits, λ = 145 Ha, still solvable classically in ten minutes). One-electron spin-orbit coupling adds
+~7 % Pauli terms and < 1 % to λ and removes one Z2 symmetry but overestimates the Ce3+ 2F splitting 2.3×;
+adding the Breit-Pauli spin-orbit mean field (validated against Dirac on hydrogenic ions) screens it by 0.46
+and gives 2397 cm⁻¹ (experiment 2253) and Pr3+ 3H5/3H6 at 2259/4643 cm⁻¹ (experiment 2152/4389), without
+changing the Hamiltonian's size.
 
 ## Layout
 
 ```
 qcchem/        integrals (PySCF, AVAS, SA-CASSCF, reference relaxation), hamiltonian (JW/BK, stats, λ identity,
                tapering), benchmark (sparse ED in (N,Sz) sector), vqe (open-shell UCCSD, lightning+adjoint),
-               resources (QPE proxies), soc (one-electron X2C spin-orbit block)
+               resources (QPE proxies), soc (one-electron X2C spin-orbit block), somf (Breit-Pauli SOMF screening)
 configs/       one YAML per system / active-space level
 scripts/       run_system.py (YAML -> JSON), run_soc.py, make_plots.py, qpy.sh (env wrapper), sync.sh (cluster)
 results/       JSON per system, integrals/*.npz (h1, eri, ecore, mo_act), summary_table.csv, figures/
@@ -47,7 +49,7 @@ slurm/         job template used for the one cluster run (CAS(19,16) CASCI)
 ```
 conda env create -f environment.yml          # pyscf 2.14.0, openfermion 1.8.1, pennylane 0.45.1 (+lightning)
 conda activate qchem                          # or use scripts/qpy.sh on Windows
-pytest tests                                  # 19 tests, ~40 s
+pytest tests                                  # 21 tests, ~45 s
 python scripts/run_system.py configs/n2_cas66.yaml
 python scripts/run_soc.py configs/ce3_4f_sa.yaml
 python scripts/make_plots.py
@@ -66,8 +68,7 @@ CASCI job.
 
 ## Known limitations
 
-cc-pVDZ-DK basis, scalar X2C, one-electron SOC without screening (overestimates Ce3+ 2F splitting 2.3×),
-AVAS thresholds as stated, CASCI rather than CASSCF across the CeCl3 ladder (no variational consistency between
-levels), no noise model, no ADAPT-VQE yet, Fock-space 1-norm / sparse-LCU proxies instead of factorised
+cc-pVDZ-DK basis, scalar X2C, one-electron X2C SOC plus mean-field (SOMF) screening only, AVAS thresholds as
+stated, CASCI rather than CASSCF across the CeCl3 ladder (CASSCF does not preserve the chemically defined spaces), no noise model, no ADAPT-VQE yet, Fock-space 1-norm / sparse-LCU proxies instead of factorised
 resource estimates, naive CNOT compilation. Term counts, λ and tapering yields depend on the orbital basis for
 degenerate shells. See `report/lanthanide_feasibility.md` §8 and `progress.md` (developer log, in Chinese).

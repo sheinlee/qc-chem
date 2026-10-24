@@ -343,6 +343,7 @@ def make_active_space(
         # reference determinant used by UCCSD (first na alpha / nb beta active orbitals) is the leading one
         mo, _, occ_full = mc.cas_natorb(sort=True)
         meta["natural_occupations"] = [round(float(x), 4) for x in np.asarray(occ_full)[mc.ncore:mc.ncore + ncas]]
+        occ_state_sa = np.asarray(occ_full).copy() if (state_average and state_average > 1) else None
         mc = mcscf.CASCI(mf, ncas, (na, nb))
         if fix_spin is not None:
             mc.fix_spin_(ss=fix_spin)
@@ -361,6 +362,8 @@ def make_active_space(
         meta["ci_natural_occupations"] = [round(float(x), 4) for x in nocc]
         occ_state = np.zeros(mc.mo_coeff.shape[1]); occ_state[:mc.ncore] = 2.0
         occ_state[mc.ncore:mc.ncore + ncas] = np.diag(dm1)   # occupations of the (fixed) active orbitals
+        if locals().get("occ_state_sa") is not None:
+            occ_state = occ_state_sa      # state-averaged density (spherical for a complete multiplet)
         if composition_labels:
             nat = mc.mo_coeff[:, mc.ncore:mc.ncore + ncas] @ U
             meta["ci_natural_orbital_composition"] = orbital_composition(mol, nat, range(ncas), composition_labels)

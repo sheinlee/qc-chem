@@ -52,14 +52,15 @@ def good_points(d):
 
 # ------------------------------------------------------------------------------------------ table
 LADDER_ORDER = ["h2_sto3g", "lih_cas44", "h2o_cas86", "n2_cas66", "ce3_4f_sa", "pr3_4f_sa", "eu3_4f_sa", "gd3_4f",
-                "ce3_4f5d", "eu3_4f5d", "cecl3_L1_4f", "cecl3_L2_4f5d", "cecl3_L3_4f5d_sigma",
+                "ce3_4f5d", "eu3_4f5d", "cecl3_L1_4f", "cecl3_L2_4f5d", "cecl3_C3_4f_sigma", "cecl3_L3_4f5d_sigma",
                 "cecl3_L4_4f_cl3p", "cecl3_L5_full"]
 PRETTY = {"h2_sto3g": "H$_2$", "lih_cas44": "LiH (4,4)", "h2o_cas86": "H$_2$O (8,6)", "n2_cas66": "N$_2$ (6,6)",
           "ce3_4f_sa": "Ce$^{3+}$ 4f", "pr3_4f_sa": "Pr$^{3+}$ 4f", "eu3_4f_sa": "Eu$^{3+}$ 4f", "gd3_4f": "Gd$^{3+}$ 4f",
           "ce3_4f": "Ce$^{3+}$ 4f (ROHF ref)", "pr3_4f": "Pr$^{3+}$ 4f (ROHF ref)", "eu3_4f": "Eu$^{3+}$ 4f (ROHF ref)",
           "pr3_4f5d": "Pr$^{3+}$ 4f5d", "gd3_4f5d": "Gd$^{3+}$ 4f5d", "cecl3_L1_4f_sa": "CeCl$_3$ 4f (SA-CASSCF)",
           "ce3_4f5d": "Ce$^{3+}$ 4f5d", "eu3_4f5d": "Eu$^{3+}$ 4f5d", "cecl3_L1_4f": "CeCl$_3$ 4f",
-          "cecl3_L2_4f5d": "CeCl$_3$ 4f5d", "cecl3_L3_4f5d_sigma": "CeCl$_3$ 4f5d+σ",
+          "cecl3_L2_4f5d": "CeCl$_3$ 4f5d", "cecl3_C3_4f_sigma": "CeCl$_3$ 4f+σ (no 5d)",
+          "cecl3_L3_4f5d_sigma": "CeCl$_3$ 4f5d+σ",
           "cecl3_L4_4f_cl3p": "CeCl$_3$ 4f+Cl3p", "cecl3_L5_full": "CeCl$_3$ full"}
 
 

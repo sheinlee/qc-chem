@@ -4,22 +4,28 @@
  "n_electrons": 1,
  "ncas": 7,
  "soc_diagnostics": {
-  "hermiticity_violation": 1.7331745851721916e-14,
-  "soc_frobenius": 0.0444264919739808,
-  "soc_max_abs": 0.009352831153183225,
-  "spin_offdiag_max_abs": 0.009352831153182544,
-  "scalar_part_vs_sfx2c_max_abs": 1.4019033251599922e-05
+  "hermiticity_violation": 1.552357275247333e-14,
+  "soc_frobenius": 0.04442649172117579,
+  "soc_max_abs": 0.007558656403948816,
+  "spin_offdiag_max_abs": 0.007558656403948816,
+  "scalar_part_vs_sfx2c_max_abs": 1.4019809754017842e-05
  },
  "model": "scalar sfx2c1e active space + one-electron X2C spin-orbit block (no 2e SOC screening)",
+ "somf": {
+  "n_electrons_in_density": 55.00000000000003,
+  "bp1e_vs_x2c1e_frobenius_ratio": 1.0050138836385378,
+  "somf_2e_frobenius": 0.02420177169325224,
+  "screening_frobenius_ratio": 0.45524092267254235
+ },
  "soc_block": {
   "n_nonzero": 182,
-  "max_abs_ha": 0.009352831153183225,
-  "max_abs_cm": 2052.7091567973616
+  "max_abs_ha": 0.007558656403948816,
+  "max_abs_cm": 1658.933317553797
  },
  "scalar": {
   "n_qubits": 14,
   "n_pauli_terms": 3297,
-  "lambda_pauli": 54.63829801410449,
+  "lambda_pauli": 55.209384043104315,
   "constant": -8843.193805341729,
   "max_pauli_weight": 14,
   "weight_histogram": {
@@ -35,14 +41,53 @@
  },
  "two_component": {
   "n_pauli_terms": 3549,
-  "lambda_pauli": 54.8816181870268,
+  "lambda_pauli": 55.48547245085404,
   "n_terms_complex_coeff": 0,
   "n_terms_sz_nonconserving": 168
  },
  "ratio_terms": 1.0764331210191083,
- "ratio_lambda": 1.0044532897576623,
+ "ratio_lambda": 1.0050007514580162,
  "z2_generators_scalar": 2,
  "z2_generators_two_component": 1,
+ "ed_two_component_somf_levels_mha": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  10.9226,
+  10.9226,
+  10.9226,
+  10.9226,
+  10.9226,
+  10.9226,
+  10.9226,
+  10.9226
+ ],
+ "ed_two_component_somf_levels_cm": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  2397.2,
+  2397.2,
+  2397.2,
+  2397.2,
+  2397.2,
+  2397.2,
+  2397.2,
+  2397.2
+ ],
+ "ed_two_component_somf_e0": -8855.076824140744,
+ "two_component_somf": {
+  "n_pauli_terms": 3549,
+  "lambda_pauli": 55.33512390722327,
+  "n_terms_complex_coeff": 0,
+  "n_terms_sz_nonconserving": 168
+ },
  "ed_scalar_levels_mha": [
   0.0,
   0.0,
@@ -72,8 +117,8 @@
   23.993,
   23.993,
   23.993,
-  23.993,
-  23.993
+  23.9931,
+  23.9931
  ],
  "ed_two_component_levels_cm": [
   0.0,
@@ -91,9 +136,9 @@
   5265.9,
   5265.9
  ],
- "ed_scalar_e0": -8855.070596687478,
- "ed_two_component_e0": -8855.084292967535,
- "soc_ground_state_shift_mha": -13.696280057047261,
+ "ed_scalar_e0": -8855.070596700682,
+ "ed_two_component_e0": -8855.084292969652,
+ "soc_ground_state_shift_mha": -13.696268970306846,
  "ed_dim_N_sector": 14,
- "t_seconds": 40.8
+ "t_seconds": 155.1
 }

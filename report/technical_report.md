@@ -55,7 +55,11 @@ state 0.68 mHa above the ground state).
 
 **Spin-orbit block.** The one-electron X2C spin-orbit extension (`qcchem/soc.py`) is validated against the
 analytic Dirac 2p fine structure of hydrogenic Ne9+ and Ar17+ in a large even-tempered basis: splitting
-within 1 %, absolute 2p1/2 energy within 1e-4 relative (`tests/unit/test_soc_hydrogenic.py`).
+within 1 %, absolute 2p1/2 energy within 1e-4 relative (`tests/unit/test_soc_hydrogenic.py`). The
+two-electron spin-orbit mean field (SOMF, Breit-Pauli form, `qcchem/somf.py`) reuses the integral drivers of
+`pyscf.prop.gtensor`; its spin convention is fixed by the same hydrogenic test (`tests/unit/test_somf.py`,
+BP vs Dirac 0.997/0.989 for Ne9+/Ar17+), and the Breit-Pauli one-electron block agrees with the X2C block to
+0.5 % on Ce 4f.
 
 ## 3. Molecules: where first-order UCCSD stops being chemically accurate
 
@@ -100,14 +104,16 @@ the orbital rotation chosen within the degenerate 4f shell. Discussion and the t
 
 ## 5. CeCl3 active-space ladder
 
-Five levels selected by orbital composition (4f; 4f+5d; 4f+5d+σ donors; 4f+all Cl 3p; everything), 14 to 42
-qubits, CASCI references up to 9.2e7 determinants (the CAS(19,16) level ran as the single cluster job).
-Key numbers: L1 λ = 56 Ha (1549 terms); L3 (34 qubits) λ = 148 Ha, E = −10239.41414 Ha; L4 (32 qubits)
-λ = 92 Ha, E = −10239.41111 Ha; L5 (42 qubits) λ = 183 Ha, no classical reference. The level energies are
-not variationally consistent (CASCI in re-projected orbitals; the relaxation CASSCF(1,8) is already at
-−10239.41113 Ha), so they are not used to rank ligand channels. With state-averaged orbitals the 4f
-ligand-field splitting is 0.68–5.96 mHa in the D3h 1-2-2-1-1 pattern. Full table and discussion:
-`lanthanide_feasibility.md` §3.
+Six levels on one reference (the 4f1 ROHF, E = −10239.411130 Ha; AVAS orbitals; CASCI with CI natural
+occupations recorded): 4f; 4f+5d; 4f+σ donors without 5d (control); 4f+5d+σ; 4f+all Cl 3p without 5d;
+everything — 14 to 42 qubits, CASCI references up to 9.2e7 determinants. Without 5d the ligand electrons
+do not correlate with the 4f shell (natural occupations 2/1/0 to 1e-4; energy gains 0.09 and 0.02 mHa); with
+5d the nested 4f+5d+σ space gains 6.45 mHa and the 5d natural occupations sum to 0.010 e. A fully variational
+CASSCF does not preserve these spaces (σ → Ce 4d without a frozen core, 4f → σ* with one), which is why the
+ladder is CASCI. λ: 56 / 116 / 65 / 145 / 93 / 179 Ha. With state-averaged orbitals the 4f ligand-field
+splitting is 0.68–5.96 mHa in the D3h 1-2-2-1-1 pattern. Full table and discussion:
+`lanthanide_feasibility.md` §3; the spin-orbit results, including SOMF screening (Ce3+ 2F splitting 5266 →
+2397 cm⁻¹ vs 2253 experimental), in §4.
 
 ## 6. Resource proxies
 
@@ -120,7 +126,7 @@ intended for comparing Hamiltonians along the ladder (fig. 1), not for absolute 
 
 `scripts/run_system.py configs/<name>.yaml` regenerates any JSON (records package versions and the git
 SHA); `scripts/run_soc.py configs/<name>.yaml [n_levels]` the two-component comparison;
-`scripts/make_plots.py` the figures and `results/summary_table.csv`; `pytest tests` the 19-test validation
-suite (~40 s). `progress.md` documents every failed attempt, the external review and the changes it caused.
+`scripts/make_plots.py` the figures and `results/summary_table.csv`; `scripts/dhf_benchmark.py` the
+four-component screening benchmark; `pytest tests` the 21-test validation suite (~45 s). `progress.md` documents every failed attempt, the external review and the changes it caused.
 Hard-coded local paths exist only in the convenience wrappers (`scripts/qpy.sh`, `scripts/sync.sh`,
 `slurm/`); the package and scripts themselves are path-independent.
