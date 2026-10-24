@@ -1,0 +1,12 @@
+# Variant: state-averaged CASSCF(1,7) over the 7 4f states -> well-defined 4f orbitals and ligand-field splitting.
+# CeCl3 (planar D3h, Ce-Cl 2.57 A), scalar X2C, cc-pVDZ-DK. Level 1: 4f-only CAS(1,7), 14 qubits.
+# ROHF puts the SOMO in Ce 5d; relax_reference runs CASSCF in {4f + SOMO} first so the electron is 4f.
+name: cecl3_L1_4f_sa
+atom: "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0"
+basis: cc-pvdz-dk
+charge: 0
+spin: 1
+x2c: true
+cas: {avas_labels: ["Ce 4f"], avas_minao: ano, nelecas: 1, casscf: true, state_average: 7, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}}
+composition_labels: ["Ce 4f", "Ce 5f", "Ce 5d", "Ce 6d", "Ce 6s", "Ce 7s", "Ce 5p", "Ce 6p", "Cl 3p", "Cl 4p", "Cl 3s", "Cl 4s"]
+methods: {jw: true, bk: false, taper: true, ed: true, ed_k: 7, vqe: true, vqe_allow_14: true}

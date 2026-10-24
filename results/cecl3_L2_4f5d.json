@@ -52,14 +52,281 @@
   "machine": "Cloud",
   "os": "Windows-10-10.0.26200-SP0"
  },
- "started": "2026-10-24 10:15:24",
+ "started": "2026-10-24 10:19:43",
  "points": [
   {
    "tag": "single",
    "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
-   "error": "ValueError('could not broadcast input array from shape (138,) into shape (8,)')",
-   "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\shich\\project\\qc-chem\\scripts\\run_system.py\", line 132, in main\n    rec = run_point(cfg, tag, atom, methods, outdir)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shich\\project\\qc-chem\\scripts\\run_system.py\", line 40, in run_point\n    asp = make_active_space(\n          ^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shich\\project\\qc-chem\\qcchem\\integrals.py\", line 179, in make_active_space\n    mf, relax_info = relax_open_shell_reference(mol, mf, **relax_reference, minao=avas_minao)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shich\\project\\qc-chem\\qcchem\\integrals.py\", line 133, in relax_open_shell_reference\n    mo_occ[ncore:ncore + ncas_p] = occ_nat\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nValueError: could not broadcast input array from shape (138,) into shape (8,)\n"
+   "n_active_electrons": 1,
+   "nelecas": [
+    1,
+    0
+   ],
+   "n_active_orbitals": 12,
+   "n_spin_orbitals": 24,
+   "n_qubits": 24,
+   "e_hf": -10239.292788927552,
+   "e_casci": -10239.411129956738,
+   "e_casscf": -10239.41112995673,
+   "meta": {
+    "basis": "cc-pvdz-dk",
+    "x2c": true,
+    "frac_occ": false,
+    "charge": 0,
+    "spin": 1,
+    "nao": 138,
+    "scf_converged": true,
+    "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
+    "relax_reference": {
+     "labels": [
+      "Ce 4f"
+     ],
+     "ncas": 8,
+     "nelecas": 1,
+     "e_casscf": -10239.411129952194,
+     "converged": true,
+     "natural_occupations": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.0,
+      -0.0,
+      -0.0,
+      -0.0
+     ],
+     "n_singly_occupied_after": 1,
+     "e_scf_before": -10239.292788927552,
+     "t_seconds": 37.4
+    },
+    "avas": {
+     "labels": [
+      "Ce 4f",
+      "Ce 5d"
+     ],
+     "threshold": 0.5,
+     "minao": "ano",
+     "ncas": 12,
+     "nelecas": 1
+    },
+    "natural_occupations": [
+     1.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0
+    ],
+    "ncore": 54,
+    "casci_converged": true,
+    "t_seconds": 63.51,
+    "spin_square": [
+     0.7500000000000002,
+     2.0
+    ],
+    "active_orbital_composition": {
+     "54": {
+      "Ce 4f": 0.9946281965758118,
+      "Ce 5d": 9.415202098948078e-12,
+      "Ce 6s": 4.3270414088635553e-13,
+      "Ce 5p": -1.3729501510465698e-06,
+      "Cl 3p": 0.0011529439369011567,
+      "Cl 4p": 0.0005464036982296596,
+      "Cl 3s": 2.7853353047203794e-14,
+      "other": 0.00367382872933264
+     },
+     "55": {
+      "Ce 4f": 0.0011299561277262051,
+      "Ce 5d": 0.27207696083461647,
+      "Ce 6s": 0.18776596203181933,
+      "Ce 5p": 6.141524748602065e-15,
+      "Cl 3p": 0.0002226547832238727,
+      "Cl 4p": 0.005813054705330388,
+      "Cl 3s": 0.0044553740529036275,
+      "other": 0.5285360374643739
+     },
+     "56": {
+      "Ce 4f": -9.137006623083562e-05,
+      "Ce 5d": 2.2042854164474162e-11,
+      "Ce 6s": -6.486800414096799e-13,
+      "Ce 5p": -0.003647536960305265,
+      "Cl 3p": 0.021424423244008207,
+      "Cl 4p": -0.01330645155315184,
+      "Cl 3s": 1.453097611899487e-14,
+      "other": 0.995620935314271
+     },
+     "57": {
+      "Ce 4f": 0.0023663404590673976,
+      "Ce 5d": 0.7323242346979489,
+      "Ce 6s": -1.6334269183945343e-16,
+      "Ce 5p": 8.346888471170916e-15,
+      "Cl 3p": 0.04268582005642336,
+      "Cl 4p": 0.004411157274639836,
+      "Cl 3s": 2.3756576492079593e-15,
+      "other": 0.21821244751190993
+     },
+     "58": {
+      "Ce 4f": 0.002366335388072442,
+      "Ce 5d": 0.732323404158604,
+      "Ce 6s": -9.633483651432516e-14,
+      "Ce 5p": -1.3082968918706342e-13,
+      "Cl 3p": 0.04268577276949559,
+      "Cl 4p": 0.0044111008535780375,
+      "Cl 3s": 4.4283127412543305e-15,
+      "other": 0.21821338683047276
+     },
+     "59": {
+      "Ce 4f": 0.0042491744307933425,
+      "Ce 5d": 0.24717988170803873,
+      "Ce 6s": -0.4001458618665936,
+      "Ce 5p": -1.715704132055841e-14,
+      "Cl 3p": 0.0007078255882277141,
+      "Cl 4p": -0.007339265102023406,
+      "Cl 3s": 0.006378093423160452,
+      "other": 1.1489701518184139
+     },
+     "60": {
+      "Ce 4f": 0.001979012804935521,
+      "Ce 5d": 0.07662501225866826,
+      "Ce 6s": 1.3362727867718885e-15,
+      "Ce 5p": -0.004568772363122688,
+      "Cl 3p": 0.029543379402583322,
+      "Cl 4p": -0.00932618480204238,
+      "Cl 3s": 0.0051112111216274235,
+      "other": 0.9006363415773492
+     },
+     "61": {
+      "Ce 4f": 0.0019789944298495635,
+      "Ce 5d": 0.07662418832030282,
+      "Ce 6s": -3.643083423430276e-13,
+      "Ce 5p": -0.004568739042647779,
+      "Cl 3p": 0.0295432217704853,
+      "Cl 4p": -0.009326424361061174,
+      "Cl 3s": 0.005111245301579679,
+      "other": 0.900637513581856
+     },
+     "62": {
+      "Ce 4f": 0.0029663689471592022,
+      "Ce 5d": 0.5760851789640665,
+      "Ce 6s": 8.659209253869204e-13,
+      "Ce 5p": -0.00230587301532451,
+      "Cl 3p": 0.04216793011581501,
+      "Cl 4p": 0.01253571590842395,
+      "Cl 3s": 0.005779769651411134,
+      "other": 0.3627709094275827
+     },
+     "63": {
+      "Ce 4f": 0.002966442399658649,
+      "Ce 5d": 0.5760816942892133,
+      "Ce 6s": 1.8478971227651534e-14,
+      "Ce 5p": -0.0023058360858386018,
+      "Cl 3p": 0.042167498010504026,
+      "Cl 4p": 0.01253566274498403,
+      "Cl 3s": 0.005779798653011777,
+      "other": 0.36277473998844834
+     },
+     "64": {
+      "Ce 4f": 0.17030382135163305,
+      "Ce 5d": 0.07706391155736114,
+      "Ce 6s": 0.700985223503037,
+      "Ce 5p": 6.643978259767363e-13,
+      "Cl 3p": 0.02567970235421301,
+      "Cl 4p": -0.05026008473618425,
+      "Cl 3s": 0.0068850045441427934,
+      "other": 0.06934242142513292
+     },
+     "65": {
+      "Ce 4f": -0.00019688050889938455,
+      "Ce 5d": 2.8719020234658773e-13,
+      "Ce 6s": 2.2746645399520315e-14,
+      "Ce 5p": 0.01645002762777622,
+      "Cl 3p": 0.005792869377352988,
+      "Cl 4p": -0.0004986703315804869,
+      "Cl 3s": 1.1865666461727282e-15,
+      "other": 0.9784526538350395
+     }
+    },
+    "active_orbital_energies": null
+   },
+   "integrals_file": "results\\integrals\\cecl3_L2_4f5d_single.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 26.8682584230407,
+    "lambda_V": 21.57834048202568,
+    "lambda_total": 48.44659890506638,
+    "n_spatial_orbitals": 12,
+    "n_qubits": 24,
+    "n_nonzero_eri": 20728,
+    "n_nonzero_h1": 144,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 24,
+    "n_pauli_terms": 11308,
+    "lambda_pauli": 48.44656196139292,
+    "constant": -10228.37631563871,
+    "max_pauli_weight": 24,
+    "weight_histogram": {
+     "1": 24,
+     "2": 296,
+     "3": 20,
+     "4": 980,
+     "5": 24,
+     "6": 1466,
+     "7": 32,
+     "8": 1612,
+     "9": 16,
+     "10": 1516,
+     "11": 12,
+     "12": 1436,
+     "13": 20,
+     "14": 1404,
+     "15": 12,
+     "16": 1228,
+     "17": 8,
+     "18": 612,
+     "19": 8,
+     "20": 326,
+     "21": 8,
+     "22": 196,
+     "23": 4,
+     "24": 48
+    },
+    "lambda_identity_check": -3.694367345730143e-05
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 48.44656196139292,
+    "queries_qpe": 76100,
+    "toffoli_proxy_sparse": 25569600,
+    "logical_qubits_proxy": 55,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "taper": {
+    "n_generators": 2,
+    "sector": [
+     -1,
+     1
+    ],
+    "n_qubits_tapered": 22,
+    "n_pauli_terms_tapered": 11308,
+    "lambda_pauli_tapered": 48.44656196139289
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 48.44656196139289,
+    "queries_qpe": 76100,
+    "toffoli_proxy_sparse": 23438800,
+    "logical_qubits_proxy": 53,
+    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+   },
+   "t_seconds": 76.01
   }
  ],
- "finished": "2026-10-24 10:16:07"
+ "finished": "2026-10-24 10:20:59"
 }

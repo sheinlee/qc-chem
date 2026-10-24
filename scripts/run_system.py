@@ -44,6 +44,7 @@ def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> di
         avas_openshell_option=cas.get("avas_openshell_option", 2), relax_reference=cas.get("relax_reference"),
         casscf=cas.get("casscf", False), solve_ci=cas.get("solve_ci", True),
         ci_max_memory_mb=cas.get("ci_max_memory_mb", 16000), frac_occ=cfg.get("frac_occ", False),
+        state_average=cas.get("state_average", 0),
         fix_spin=cas.get("fix_spin"), composition_labels=cfg.get("composition_labels"))
     nq = asp.n_spin_orbitals
     rec = {"tag": tag, "atom": atom, "n_active_electrons": asp.n_electrons, "nelecas": list(asp.nelecas),

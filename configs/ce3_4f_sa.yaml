@@ -1,0 +1,13 @@
+# State-averaged CASSCF over the complete high-spin multiplet manifold -> spherically symmetric orbitals.
+# Free Ce3+ ion, 4f-only CAS(1,7), scalar X2C (sfx2c1e), cc-pVDZ-DK. High-spin Sz sector.
+# CASSCF (trivial for high spin) is used so the active orbitals are the proper 4f set regardless of
+# which configuration ROHF converged to. 14 qubits.
+name: ce3_4f_sa
+atom: "Ce 0 0 0"
+basis: cc-pvdz-dk
+charge: 3
+spin: 1
+x2c: true
+cas: {avas_labels: ["Ce 4f"], avas_minao: ano, nelecas: 1, casscf: true, state_average: 7, fix_spin: 0.75}
+composition_labels: ["Ce 4f", "Ce 5d", "Ce 6s", "Ce 5p"]
+methods: {jw: true, bk: false, taper: true, ed: true, ed_k: 7, vqe: true, vqe_allow_14: true}

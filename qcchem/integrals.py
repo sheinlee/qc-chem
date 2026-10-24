@@ -163,6 +163,7 @@ def make_active_space(
     solve_ci: bool = True,
     ci_max_memory_mb: int = 16000,
     frac_occ: bool = False,
+    state_average: int = 0,
     mf=None,
 ) -> ActiveSpace:
     """Build an active space and fold integrals.
@@ -205,6 +206,11 @@ def make_active_space(
     mc.max_memory = ci_max_memory_mb
     if fix_spin is not None:
         mc.fix_spin_(ss=fix_spin)
+    if casscf and state_average and state_average > 1:
+        # equal-weight state averaging over the lowest `state_average` CI roots: for a free ion averaged
+        # over a complete multiplet this yields spherically symmetric orbitals by construction
+        mc = mc.state_average_([1.0 / state_average] * state_average)
+        meta["state_average"] = int(state_average)
     if not solve_ci:
         # integrals only (CI space too large): e_casci is NaN, orbitals are the AVAS/canonical ones
         mc.mo_coeff = mo
@@ -218,10 +224,15 @@ def make_active_space(
                            ecore=float(ecore), ncas=int(ncas), nelecas=(na, nb),
                            e_hf=float(mf.e_tot), e_casci=float("nan"), e_casscf=None, meta=meta)
     mc.kernel(mo)
-    e_casscf = float(mc.e_tot) if casscf else None
+    e_casscf = float(np.min(np.atleast_1d(mc.e_tot))) if casscf else None
+    if casscf and state_average and state_average > 1:
+        meta["sa_casscf_state_energies"] = [float(e) for e in np.atleast_1d(mc.e_states)]
+        meta["sa_casscf_converged"] = bool(mc.converged)
     if casscf:
-        # final CASCI in the optimised orbitals (same energy; gives a clean reference and the mo)
-        mo = mc.mo_coeff
+        # final CASCI in the optimised *natural* orbitals sorted by occupation (same energy), so that the
+        # reference determinant used by UCCSD (first na alpha / nb beta active orbitals) is the leading one
+        mo, _, occ_full = mc.cas_natorb(sort=True)
+        meta["natural_occupations"] = [round(float(x), 4) for x in np.asarray(occ_full)[mc.ncore:mc.ncore + ncas]]
         mc = mcscf.CASCI(mf, ncas, (na, nb))
         if fix_spin is not None:
             mc.fix_spin_(ss=fix_spin)
