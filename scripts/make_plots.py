@@ -51,11 +51,13 @@ def good_points(d):
 
 
 # ------------------------------------------------------------------------------------------ table
-LADDER_ORDER = ["h2_sto3g", "lih_cas44", "h2o_cas86", "n2_cas66", "ce3_4f", "pr3_4f", "eu3_4f", "gd3_4f",
+LADDER_ORDER = ["h2_sto3g", "lih_cas44", "h2o_cas86", "n2_cas66", "ce3_4f_sa", "pr3_4f_sa", "eu3_4f_sa", "gd3_4f",
                 "ce3_4f5d", "eu3_4f5d", "cecl3_L1_4f", "cecl3_L2_4f5d", "cecl3_L3_4f5d_sigma",
                 "cecl3_L4_4f_cl3p", "cecl3_L5_full"]
 PRETTY = {"h2_sto3g": "H$_2$", "lih_cas44": "LiH (4,4)", "h2o_cas86": "H$_2$O (8,6)", "n2_cas66": "N$_2$ (6,6)",
-          "ce3_4f": "Ce$^{3+}$ 4f", "pr3_4f": "Pr$^{3+}$ 4f", "eu3_4f": "Eu$^{3+}$ 4f", "gd3_4f": "Gd$^{3+}$ 4f",
+          "ce3_4f_sa": "Ce$^{3+}$ 4f", "pr3_4f_sa": "Pr$^{3+}$ 4f", "eu3_4f_sa": "Eu$^{3+}$ 4f", "gd3_4f": "Gd$^{3+}$ 4f",
+          "ce3_4f": "Ce$^{3+}$ 4f (ROHF ref)", "pr3_4f": "Pr$^{3+}$ 4f (ROHF ref)", "eu3_4f": "Eu$^{3+}$ 4f (ROHF ref)",
+          "pr3_4f5d": "Pr$^{3+}$ 4f5d", "gd3_4f5d": "Gd$^{3+}$ 4f5d", "cecl3_L1_4f_sa": "CeCl$_3$ 4f (SA-CASSCF)",
           "ce3_4f5d": "Ce$^{3+}$ 4f5d", "eu3_4f5d": "Eu$^{3+}$ 4f5d", "cecl3_L1_4f": "CeCl$_3$ 4f",
           "cecl3_L2_4f5d": "CeCl$_3$ 4f5d", "cecl3_L3_4f5d_sigma": "CeCl$_3$ 4f5d+σ",
           "cecl3_L4_4f_cl3p": "CeCl$_3$ 4f+Cl3p", "cecl3_L5_full": "CeCl$_3$ full"}
@@ -97,7 +99,9 @@ def write_table(data):
             continue
         p = representative(data[name])
         if p:
-            rows.append(row_from_point(name, p))
+            r = row_from_point(name, p)
+            r["in_ladder_figure"] = name in LADDER_ORDER
+            rows.append(r)
     with open(RES / "summary_table.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader()
@@ -173,7 +177,7 @@ def fig_scaling(data):
         ax.plot(xx, np.exp(b) * xx ** k, color=C["blue"], lw=1, ls="--", label=f"fit ∝ N$^{{{k:.2f}}}$ (extrapolated to 60 qubits)")
         for n in (16, 21, 30):
             ax.scatter([n], [np.exp(b) * n ** k], marker="x", color=INK2, s=25)
-    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 21, 30])
     ax.set_xlabel("active spatial orbitals N (qubits = 2N)"); ax.set_ylabel("JW Pauli terms")
     ax.legend(fontsize=7.5, loc="upper left")
     ax = axes[1]
@@ -183,7 +187,7 @@ def fig_scaling(data):
                    label="λ from integrals (exact identity, > 24 qubits)")
         for a, b, nm in lam_only:
             ax.annotate(PRETTY.get(nm, nm), (a, b), fontsize=6.5, color=INK2, xytext=(4, 2), textcoords="offset points")
-    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 17, 21])
     ax.set_xlabel("active spatial orbitals N"); ax.set_ylabel("Pauli 1-norm λ / Ha")
     ax.legend(fontsize=7.5, loc="upper left")
     fig.tight_layout()
@@ -193,7 +197,7 @@ def fig_scaling(data):
 
 # ------------------------------------------------------------------------------------------ fig 1
 def fig_ladder(rows):
-    rows = [r for r in rows if r["n_qubits"]]
+    rows = [r for r in rows if r["n_qubits"] and r.get("in_ladder_figure")]
     if not rows:
         return
     names = [PRETTY.get(r["system"], r["system"]) for r in rows]

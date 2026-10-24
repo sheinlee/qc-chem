@@ -30,6 +30,7 @@ class ActiveSpace:
     e_casci: float
     e_casscf: Optional[float] = None
     meta: dict = field(default_factory=dict)
+    mo_act: Optional[np.ndarray] = None   # (nao, ncas) active orbital coefficients
 
     @property
     def n_spin_orbitals(self) -> int:
@@ -45,6 +46,7 @@ class ActiveSpace:
             nelecas=np.array(self.nelecas), e_hf=self.e_hf, e_casci=self.e_casci,
             e_casscf=np.nan if self.e_casscf is None else self.e_casscf,
             name=self.name, meta=json.dumps(self.meta, default=_json_default),
+            mo_act=np.zeros((0, 0)) if self.mo_act is None else self.mo_act,
         )
 
     @staticmethod
@@ -57,6 +59,7 @@ class ActiveSpace:
             e_hf=float(d["e_hf"]), e_casci=float(d["e_casci"]),
             e_casscf=None if np.isnan(e_casscf) else e_casscf,
             meta=json.loads(str(d["meta"])),
+            mo_act=None if "mo_act" not in d or d["mo_act"].size == 0 else d["mo_act"],
         )
 
 
@@ -222,7 +225,8 @@ def make_active_space(
             meta["active_orbital_composition"] = orbital_composition(mol, mo, act, composition_labels)
         return ActiveSpace(name=name, h1=np.ascontiguousarray(h1), eri=np.ascontiguousarray(eri),
                            ecore=float(ecore), ncas=int(ncas), nelecas=(na, nb),
-                           e_hf=float(mf.e_tot), e_casci=float("nan"), e_casscf=None, meta=meta)
+                           e_hf=float(mf.e_tot), e_casci=float("nan"), e_casscf=None, meta=meta,
+                           mo_act=np.ascontiguousarray(mo[:, mc.ncore:mc.ncore + ncas]))
     mc.kernel(mo)
     e_casscf = float(np.min(np.atleast_1d(mc.e_tot))) if casscf else None
     if casscf and state_average and state_average > 1:
@@ -255,4 +259,5 @@ def make_active_space(
 
     return ActiveSpace(name=name, h1=np.ascontiguousarray(h1), eri=np.ascontiguousarray(eri),
                        ecore=float(ecore), ncas=int(ncas), nelecas=(na, nb),
-                       e_hf=float(mf.e_tot), e_casci=float(mc.e_tot), e_casscf=e_casscf, meta=meta)
+                       e_hf=float(mf.e_tot), e_casci=float(mc.e_tot), e_casscf=e_casscf, meta=meta,
+                       mo_act=np.ascontiguousarray(mc.mo_coeff[:, mc.ncore:mc.ncore + ncas]))

@@ -1,6 +1,6 @@
 # cluster variant: solve the CAS(19,16) CASCI (dim ~9e7) via sbatch; local copy uses solve_ci: false.
 # Level 4: 4f + all nine Cl 3p, CAS(19,16), 32 qubits. CASCI dimension ~9e7 (Sz=1/2): solve_ci only on
-# cluster (sbatch, 8 cores, <= 60 min); locally run with solve_ci: true, ci_max_memory_mb: 80000 for integrals + lambda.
+# cluster (sbatch, 8 cores, <= 60 min); the local config cecl3_L4_4f_cl3p uses solve_ci: false (integrals + lambda only).
 name: cecl3_L4_4f_cl3p_ci
 atom: "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0"
 basis: cc-pvdz-dk
