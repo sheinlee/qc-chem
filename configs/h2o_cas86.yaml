@@ -2,7 +2,7 @@
 name: h2o_cas86
 atom: "O 0 0 0; H 0 {HY} {HZ}; H 0 -{HY} {HZ}"
 basis: sto-3g
-cas: {ncas: 6, nelecas: 8}
+cas: {ncas: 6, nelecas: 8, casscf: true}
 scan: {param: R, values: [0.8, 0.9, 0.96, 1.1, 1.3, 1.5, 1.8, 2.2, 2.6]}
 geometry: symmetric_stretch   # atom template filled by run_system via HY=R*sin(52.25deg), HZ=R*cos(52.25deg)
-methods: {jw: true, bk: true, taper: true, ed: true, ed_k: 3, vqe: true}
+methods: {jw: true, bk: true, taper: true, ed: true, ed_k: 3, vqe: true, vqe_restarts: 0}

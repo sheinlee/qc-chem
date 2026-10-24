@@ -30,7 +30,16 @@ def versions() -> dict:
     import openfermion, pennylane, pyscf, scipy
     return {"pyscf": pyscf.__version__, "openfermion": openfermion.__version__,
             "pennylane": pennylane.__version__, "scipy": scipy.__version__, "numpy": np.__version__,
-            "python": platform.python_version(), "machine": platform.node(), "os": platform.platform()}
+            "python": platform.python_version(), "machine": platform.node(), "os": platform.platform(),
+            "git_sha": _git_sha()}
+
+
+def _git_sha() -> str:
+    import subprocess
+    try:
+        return subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True).strip()
+    except Exception:
+        return "unknown"
 
 
 def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> dict:
@@ -111,9 +120,10 @@ def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> di
             rec["vqe_uccsd"] = v
     else:
         rec["qpe_proxy_from_integrals"] = qpe_proxy(
-            nq, rec["lambda_from_integrals"]["n_nonzero_eri"] * 8 + rec["lambda_from_integrals"]["n_nonzero_h1"] * 2,
+            nq, rec["lambda_from_integrals"]["n_nonzero_eri"] + rec["lambda_from_integrals"]["n_nonzero_h1"],
             rec["lambda_from_integrals"]["lambda_total"])
-        rec["qpe_proxy_from_integrals"]["note"] += "; term count is an upper-bound proxy (no Pauli expansion)"
+        rec["qpe_proxy_from_integrals"]["note"] += ("; term count proxy = nonzero elements of the full (pq|rs) "
+                                                     "tensor + nonzero h_pq (no Pauli expansion; order of magnitude)")
     rec["t_seconds"] = round(time.time() - t0, 2)
     return rec
 

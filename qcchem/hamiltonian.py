@@ -102,13 +102,39 @@ def to_pennylane(q: QubitOperator):
     return qml.from_openfermion(q)
 
 
-def taper_hamiltonian(q: QubitOperator, n_electrons: int, n_qubits: int):
-    """Z2-symmetry tapering with PennyLane. Returns (H_tapered, info)."""
+def reference_occupation(n_electrons, n_qubits: int) -> np.ndarray:
+    """Occupation bitstring of the reference determinant (interleaved order) for an int (first-N
+    convention) or an (na, nb) tuple."""
+    occ = np.zeros(n_qubits, dtype=int)
+    if isinstance(n_electrons, (tuple, list)):
+        na, nb = int(n_electrons[0]), int(n_electrons[1])
+        occ[[2 * p for p in range(na)]] = 1
+        occ[[2 * p + 1 for p in range(nb)]] = 1
+    else:
+        occ[: int(n_electrons)] = 1
+    return occ
+
+
+def sector_from_reference(generators, occ: np.ndarray) -> list[int]:
+    """Eigenvalue (+1/-1) of each Z-type symmetry generator on the reference determinant |occ>."""
+    sector = []
+    for g in generators:
+        pw = g.pauli_rep
+        assert pw is not None and len(pw) == 1
+        (word, _), = pw.items()
+        n_occ_z = sum(int(occ[int(w)]) for w, p in word.items() if p == "Z")
+        sector.append(1 if n_occ_z % 2 == 0 else -1)
+    return sector
+
+
+def taper_hamiltonian(q: QubitOperator, n_electrons, n_qubits: int):
+    """Z2-symmetry tapering with PennyLane. `n_electrons` may be an int or an (na, nb) tuple; the symmetry
+    sector is that of the corresponding reference determinant (closed- or open-shell)."""
     import pennylane as qml
     H = to_pennylane(q)
     gens = qml.qchem.symmetry_generators(H)
     paulixops = qml.qchem.paulix_ops(gens, n_qubits)
-    sector = qml.qchem.optimal_sector(H, gens, n_electrons)
+    sector = sector_from_reference(gens, reference_occupation(n_electrons, n_qubits))
     Ht = qml.qchem.taper(H, gens, paulixops, sector)
     Ht = Ht.simplify()
     wires = sorted(set(int(w) for w in Ht.wires))

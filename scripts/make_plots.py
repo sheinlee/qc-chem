@@ -160,7 +160,7 @@ def fig_scaling(data):
             li = p.get("lambda_from_integrals", {})
             if "jw" in p:
                 xs.append(n); terms.append(p["jw"]["n_pauli_terms"]); lams.append(p["jw"]["lambda_pauli"]); labels.append(name)
-            elif li:
+            elif li and not name.endswith("_ci"):
                 lam_only.append((n, li["lambda_total"], name))
     if len(xs) < 3:
         return
@@ -177,17 +177,18 @@ def fig_scaling(data):
         ax.plot(xx, np.exp(b) * xx ** k, color=C["blue"], lw=1, ls="--", label=f"fit ∝ N$^{{{k:.2f}}}$ (extrapolated to 60 qubits)")
         for n in (16, 21, 30):
             ax.scatter([n], [np.exp(b) * n ** k], marker="x", color=INK2, s=25)
-    ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 21, 30])
+    ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 21, 30]); ax.set_ylim(5, 2e6)
     ax.set_xlabel("active spatial orbitals N (qubits = 2N)"); ax.set_ylabel("JW Pauli terms")
     ax.legend(fontsize=7.5, loc="upper left")
     ax = axes[1]
     ax.scatter(xs, lams, s=14, color=C["orange"], alpha=0.7, label="λ, explicit JW")
     if lam_only:
         ax.scatter([a for a, _, _ in lam_only], [b for _, b, _ in lam_only], s=22, marker="D", color=C["violet"],
-                   label="λ from integrals (exact identity, > 24 qubits)")
+                   label="λ from integrals (Koridon identity, > 24 qubits)")
         for a, b, nm in lam_only:
-            ax.annotate(PRETTY.get(nm, nm), (a, b), fontsize=6.5, color=INK2, xytext=(4, 2), textcoords="offset points")
-    ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 17, 21])
+            ax.annotate(PRETTY.get(nm, nm), (a, b), fontsize=6.5, color=INK2,
+                        xytext=(5, -9 if "cl3p" in nm else 3), textcoords="offset points")
+    ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 21]); ax.set_xlim(1, 24)
     ax.set_xlabel("active spatial orbitals N"); ax.set_ylabel("Pauli 1-norm λ / Ha")
     ax.legend(fontsize=7.5, loc="upper left")
     fig.tight_layout()

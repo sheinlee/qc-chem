@@ -149,6 +149,16 @@ def relax_open_shell_reference(mol, mf, labels: list[str], nelecas: int, ncas: O
     return mf2, info
 
 
+def symmetrize_eri(eri: np.ndarray) -> np.ndarray:
+    """Average over the 8 permutational symmetries of real (pq|rs) so the tensor is exactly 8-fold
+    symmetric (ao2mo.restore from a 4-fold packed array is symmetric only to ~1e-7 in some permutations)."""
+    g = eri
+    g = 0.5 * (g + g.transpose(1, 0, 2, 3))
+    g = 0.5 * (g + g.transpose(0, 1, 3, 2))
+    g = 0.5 * (g + g.transpose(2, 3, 0, 1))
+    return np.ascontiguousarray(g)
+
+
 def make_active_space(
     name: str,
     mol: gto.Mole,
@@ -218,7 +228,7 @@ def make_active_space(
         # integrals only (CI space too large): e_casci is NaN, orbitals are the AVAS/canonical ones
         mc.mo_coeff = mo
         h1, ecore = mc.get_h1eff(mo)
-        eri = ao2mo.restore(1, mc.get_h2eff(mo), ncas)
+        eri = symmetrize_eri(ao2mo.restore(1, mc.get_h2eff(mo), ncas))
         meta.update(ncore=int(mc.ncore), ci_solved=False, t_seconds=round(time.time() - t0, 2))
         if composition_labels:
             act = range(mc.ncore, mc.ncore + ncas)
@@ -228,9 +238,11 @@ def make_active_space(
                            e_hf=float(mf.e_tot), e_casci=float("nan"), e_casscf=None, meta=meta,
                            mo_act=np.ascontiguousarray(mo[:, mc.ncore:mc.ncore + ncas]))
     mc.kernel(mo)
-    e_casscf = float(np.min(np.atleast_1d(mc.e_tot))) if casscf else None
+    e_casscf = float(mc.e_tot) if casscf else None
     if casscf and state_average and state_average > 1:
         meta["sa_casscf_state_energies"] = [float(e) for e in np.atleast_1d(mc.e_states)]
+        meta["sa_casscf_averaged_energy"] = float(mc.e_tot)
+        e_casscf = float(np.min(np.atleast_1d(mc.e_states)))   # lowest state, not the average
         meta["sa_casscf_converged"] = bool(mc.converged)
     if casscf:
         # final CASCI in the optimised *natural* orbitals sorted by occupation (same energy), so that the
@@ -243,7 +255,7 @@ def make_active_space(
         mc.kernel(mo)
 
     h1, ecore = mc.get_h1eff()
-    eri = ao2mo.restore(1, mc.get_h2eff(), ncas)
+    eri = symmetrize_eri(ao2mo.restore(1, mc.get_h2eff(), ncas))
     meta["ncore"] = int(mc.ncore)
     meta["casci_converged"] = bool(getattr(mc, "converged", True))
     meta["t_seconds"] = round(time.time() - t0, 2)
