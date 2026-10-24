@@ -54,11 +54,16 @@ def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> di
         casscf=cas.get("casscf", False), solve_ci=cas.get("solve_ci", True),
         ci_max_memory_mb=cas.get("ci_max_memory_mb", 16000), frac_occ=cfg.get("frac_occ", False),
         state_average=cas.get("state_average", 0),
+        drop_active=cas.get("drop_active"), casscf_max_cycle=cas.get("casscf_max_cycle", 50),
+        casscf_conv_tol=cas.get("casscf_conv_tol", 1e-7),
+        chkfile=(str(ROOT / "results" / "chk" / f"{cfg['name']}.chk") if cas.get("chkfile") else None),
+        restart_from_chk=cas.get("restart_from_chk", False), freeze_core=cas.get("freeze_core", False),
         fix_spin=cas.get("fix_spin"), composition_labels=cfg.get("composition_labels"))
     nq = asp.n_spin_orbitals
     rec = {"tag": tag, "atom": atom, "n_active_electrons": asp.n_electrons, "nelecas": list(asp.nelecas),
            "n_active_orbitals": asp.ncas, "n_spin_orbitals": nq, "n_qubits": nq,
            "e_hf": asp.e_hf, "e_casci": asp.e_casci, "e_casscf": asp.e_casscf, "meta": asp.meta}
+    (outdir / "chk").mkdir(parents=True, exist_ok=True)
     npz = outdir / "integrals" / f"{cfg['name']}_{tag}.npz"
     npz.parent.mkdir(parents=True, exist_ok=True)
     asp.save(str(npz))

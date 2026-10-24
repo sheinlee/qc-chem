@@ -9,3 +9,4 @@ results/**/*.h5
 slurm-*.out
 # large integral dumps (> 5 MB) are kept out of git; small ones are committed
 results/**/large_*.npz
+results/chk/

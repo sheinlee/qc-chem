@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT))
 from qcchem.integrals import ActiveSpace, build_mol  # noqa: E402
 from qcchem.hamiltonian import pauli_stats, to_qubit_operator  # noqa: E402
 from qcchem.soc import pauli_stats_complex, soc_active_space, soc_qubit_operator  # noqa: E402
+from qcchem.somf import bp_soc_1e_ao, bp_soc_2e_ao, soc_block_spinorb  # noqa: E402
 
 HA_TO_CM = 219474.63
 
@@ -46,6 +47,18 @@ def main(cfg_path: str, k_override: int | None = None):
     mol = build_mol(cfg["atom"], cfg["basis"], charge=cfg.get("charge", 0), spin=cfg.get("spin", 0))
     t0 = time.time()
     soc = soc_active_space(asp, mol, asp.mo_act)
+    # SOMF two-electron screening (Breit-Pauli mean field of the state density) added to the X2C 1e block
+    somf_info = None
+    if asp.mo_full is not None and asp.occ_full is not None:
+        dm_state = (asp.mo_full * asp.occ_full) @ asp.mo_full.T
+        h2e = bp_soc_2e_ao(mol, dm_state, amfi=False)
+        delta_2e = soc_block_spinorb(h2e, asp.mo_act)
+        bp1 = soc_block_spinorb(bp_soc_1e_ao(mol), asp.mo_act)
+        somf_info = {"n_electrons_in_density": float(np.trace(dm_state @ mol.intor_symmetric("int1e_ovlp"))),
+                     "bp1e_vs_x2c1e_frobenius_ratio": float(np.linalg.norm(bp1) / np.linalg.norm(soc["delta_soc"])),
+                     "somf_2e_frobenius": float(np.linalg.norm(delta_2e)),
+                     "screening_frobenius_ratio": float(np.linalg.norm(soc["delta_soc"] + delta_2e) / np.linalg.norm(soc["delta_soc"]))}
+        h1eff_somf = soc["h1eff_so"] + delta_2e
     nq = asp.n_spin_orbitals
     nelec = asp.n_electrons
     out = {"name": name, "n_qubits": nq, "n_electrons": nelec, "ncas": asp.ncas,
@@ -53,6 +66,7 @@ def main(cfg_path: str, k_override: int | None = None):
            "model": "scalar sfx2c1e active space + one-electron X2C spin-orbit block (no 2e SOC screening)"}
     # SOC one-body block statistics
     d = soc["delta_soc"]
+    out["somf"] = somf_info
     out["soc_block"] = {"n_nonzero": int(np.count_nonzero(np.abs(d) > 1e-8)),
                         "max_abs_ha": float(np.max(np.abs(d))), "max_abs_cm": float(np.max(np.abs(d)) * HA_TO_CM)}
     if nq <= 24:
@@ -78,6 +92,14 @@ def main(cfg_path: str, k_override: int | None = None):
             k = int(k_override or cfg.get("methods", {}).get("ed_k", 7))
             e_sc, dim = ed_levels(q_sc, nq, nelec, k)
             e_so, _ = ed_levels(q_so, nq, nelec, k)
+            if somf_info is not None:
+                q_somf = soc_qubit_operator(asp, h1eff_somf)
+                e_somf, _ = ed_levels(q_somf, nq, nelec, k)
+                out["ed_two_component_somf_levels_mha"] = [round((e - e_somf[0]) * 1e3, 4) for e in e_somf]
+                out["ed_two_component_somf_levels_cm"] = [round((e - e_somf[0]) * HA_TO_CM, 1) for e in e_somf]
+                out["ed_two_component_somf_e0"] = e_somf[0]
+                st_somf = pauli_stats_complex(q_somf)
+                out["two_component_somf"] = st_somf
             out["ed_scalar_levels_mha"] = [round((e - e_sc[0]) * 1e3, 4) for e in e_sc]
             out["ed_two_component_levels_mha"] = [round((e - e_so[0]) * 1e3, 4) for e in e_so]
             out["ed_two_component_levels_cm"] = [round((e - e_so[0]) * HA_TO_CM, 1) for e in e_so]

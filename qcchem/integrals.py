@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import os
 import time
 from dataclasses import dataclass, field
 from typing import Optional
@@ -31,6 +32,8 @@ class ActiveSpace:
     e_casscf: Optional[float] = None
     meta: dict = field(default_factory=dict)
     mo_act: Optional[np.ndarray] = None   # (nao, ncas) active orbital coefficients
+    mo_full: Optional[np.ndarray] = None  # (nao, nmo) all orbitals (core, active, virtual)
+    occ_full: Optional[np.ndarray] = None # state occupations: 2 (core), natural occupations (active), 0
 
     @property
     def n_spin_orbitals(self) -> int:
@@ -47,6 +50,8 @@ class ActiveSpace:
             e_casscf=np.nan if self.e_casscf is None else self.e_casscf,
             name=self.name, meta=json.dumps(self.meta, default=_json_default),
             mo_act=np.zeros((0, 0)) if self.mo_act is None else self.mo_act,
+            mo_full=np.zeros((0, 0)) if self.mo_full is None else self.mo_full,
+            occ_full=np.zeros(0) if self.occ_full is None else self.occ_full,
         )
 
     @staticmethod
@@ -60,6 +65,8 @@ class ActiveSpace:
             e_casscf=None if np.isnan(e_casscf) else e_casscf,
             meta=json.loads(str(d["meta"])),
             mo_act=None if "mo_act" not in d or d["mo_act"].size == 0 else d["mo_act"],
+            mo_full=None if "mo_full" not in d or d["mo_full"].size == 0 else d["mo_full"],
+            occ_full=None if "occ_full" not in d or d["occ_full"].size == 0 else d["occ_full"],
         )
 
 
@@ -146,6 +153,26 @@ def relax_open_shell_reference(mol, mf, labels: list[str], nelecas: int, ncas: O
             "converged": bool(mc.converged), "natural_occupations": [round(float(x), 4) for x in occ_nat],
             "n_singly_occupied_after": int(np.sum(mf2.mo_occ == 1.0)),
             "e_scf_before": float(mf.e_tot), "t_seconds": round(time.time() - t0, 1)}
+    # try to land a genuine ROHF solution of the relaxed configuration (e.g. 4f1 instead of the 5d1 local
+    # solution SCF found first); accept it if it converges and its SOMOs carry >= 0.9 weight on `labels`
+    try:
+        mf3 = mf.copy()
+        mf3.mo_coeff, mf3.mo_occ, mf3.e_tot = None, None, None
+        mf3.conv_tol = 1e-9
+        mf3.max_cycle = 300
+        mf3.kernel(dm0=mf2.make_rdm1(mf2.mo_coeff, mf2.mo_occ))
+        s_ao = mol.intor_symmetric("int1e_ovlp")
+        masks = np.array([any(lab in al for lab in labels) for al in mol.ao_labels()])
+        somo = np.where(mf3.mo_occ == 1)[0]
+        w = [float((mf3.mo_coeff[:, i] * (s_ao @ mf3.mo_coeff[:, i]))[masks].sum()) for i in somo]
+        info["rohf_reconverged"] = {"e_tot": float(mf3.e_tot), "converged": bool(mf3.converged),
+                                    "somo_target_weight": [round(x, 3) for x in w]}
+        if mf3.converged and all(x >= 0.9 for x in w):
+            info["reference"] = "ROHF re-converged in the relaxed configuration"
+            return mf3, info
+    except Exception as e:  # keep the CASSCF-orbital reference
+        info["rohf_reconverged"] = {"error": repr(e)}
+    info["reference"] = "CASSCF natural orbitals with rounded occupations"
     return mf2, info
 
 
@@ -177,6 +204,12 @@ def make_active_space(
     ci_max_memory_mb: int = 16000,
     frac_occ: bool = False,
     state_average: int = 0,
+    drop_active: Optional[dict] = None,
+    casscf_max_cycle: int = 50,
+    casscf_conv_tol: float = 1e-7,
+    chkfile: Optional[str] = None,
+    restart_from_chk: bool = False,
+    freeze_core: bool = False,
     mf=None,
 ) -> ActiveSpace:
     """Build an active space and fold integrals.
@@ -209,6 +242,31 @@ def make_active_space(
                         "ncas": int(ncas_avas), "nelecas": int(nelecas_avas)}
     assert ncas is not None and nelecas is not None, "need ncas/nelecas or avas_labels"
 
+    if drop_active:
+        # remove *unoccupied* active orbitals dominated by the given AO labels (e.g. drop the 5d virtuals from a
+        # 4f+5d+sigma AVAS space to build the 4f+sigma control); dropped orbitals go to the virtual block
+        ncore0 = (mol.nelectron - int(np.sum(nelecas)) if not isinstance(nelecas, (int, np.integer))
+                  else mol.nelectron - int(nelecas)) // 2
+        act_idx = list(range(ncore0, ncore0 + ncas))
+        comp = orbital_composition(mol, mo, act_idx, drop_active["labels"])
+        s_ao = mol.intor_symmetric("int1e_ovlp")
+        dm = mf.make_rdm1()
+        dm = dm[0] + dm[1] if np.ndim(dm) == 3 else dm
+        keep, dropped = [], []
+        for i in act_idx:
+            w = sum(comp[i][lab] for lab in drop_active["labels"])
+            c = mo[:, i]
+            occ_w = float(c @ s_ao @ dm @ s_ao @ c) / 2.0
+            if w >= drop_active.get("min_weight", 0.5) and occ_w < drop_active.get("max_occupation", 0.1):
+                dropped.append({"index": int(i), "weight": round(w, 3), "occupation": round(occ_w, 3)})
+            else:
+                keep.append(i)
+        rest = [i for i in range(mol.nao) if i not in act_idx]
+        order = rest[:ncore0] + keep + [d["index"] for d in dropped] + rest[ncore0:]
+        mo = mo[:, order]
+        ncas = len(keep)
+        meta["drop_active"] = {"labels": drop_active["labels"], "dropped": dropped, "ncas_after": ncas}
+
     if isinstance(nelecas, (int, np.integer)):
         na = (int(nelecas) + mol.spin) // 2
         nb = int(nelecas) - na
@@ -219,6 +277,38 @@ def make_active_space(
     mc.max_memory = ci_max_memory_mb
     if fix_spin is not None:
         mc.fix_spin_(ss=fix_spin)
+    macro_log: list = []
+    if casscf:
+        mc.max_cycle_macro = casscf_max_cycle
+        mc.conv_tol = casscf_conv_tol
+        if freeze_core:
+            # forbid core-active and core-virtual rotations: prevents the active space from drifting into
+            # semicore shells (e.g. Cl sigma -> Ce 4d) during the optimisation
+            mc.frozen = int(mc.ncore)
+            meta["frozen_core_orbitals"] = int(mc.ncore)
+        if chkfile:
+            mc.chkfile = chkfile
+            if restart_from_chk and os.path.exists(chkfile):
+                from pyscf import lib as pyscf_lib
+                mo = pyscf_lib.chkfile.load(chkfile, "mcscf/mo_coeff")
+                meta["restarted_from_chk"] = chkfile
+        # per-macro-iteration diagnostics: wall time, energy, active-space weight on the target AO labels
+        t_macro = {"t": time.time()}
+        s_ao = mol.intor_symmetric("int1e_ovlp")
+        lab_masks = {lab: np.array([lab in al for al in mol.ao_labels()]) for lab in (composition_labels or [])}
+
+        def _callback(envs):
+            now = time.time()
+            mo_now = envs.get("mo")
+            entry = {"macro": int(envs.get("imacro", len(macro_log))), "e_tot": float(envs.get("e_tot", np.nan)),
+                     "wall_s": round(now - t_macro["t"], 1), "norm_gorb": float(envs.get("norm_gorb", np.nan))}
+            if mo_now is not None and lab_masks:
+                act = mo_now[:, mc.ncore:mc.ncore + ncas]
+                pop = act * (s_ao @ act)
+                entry["active_weight"] = {lab: round(float(pop[m].sum()), 3) for lab, m in lab_masks.items()}
+            macro_log.append(entry)
+            t_macro["t"] = now
+        mc.callback = _callback
     if casscf and state_average and state_average > 1:
         # equal-weight state averaging over the lowest `state_average` CI roots: for a free ion averaged
         # over a complete multiplet this yields spherically symmetric orbitals by construction
@@ -239,6 +329,10 @@ def make_active_space(
                            mo_act=np.ascontiguousarray(mo[:, mc.ncore:mc.ncore + ncas]))
     mc.kernel(mo)
     e_casscf = float(mc.e_tot) if casscf else None
+    if casscf:
+        meta["casscf_converged"] = bool(mc.converged)
+        meta["casscf_macro_log"] = macro_log
+        meta["casscf_n_macro"] = len(macro_log)
     if casscf and state_average and state_average > 1:
         meta["sa_casscf_state_energies"] = [float(e) for e in np.atleast_1d(mc.e_states)]
         meta["sa_casscf_averaged_energy"] = float(mc.e_tot)
@@ -257,6 +351,21 @@ def make_active_space(
     h1, ecore = mc.get_h1eff()
     eri = symmetrize_eri(ao2mo.restore(1, mc.get_h2eff(), ncas))
     meta["ncore"] = int(mc.ncore)
+    # natural occupations of the CI state in the (unchanged) active orbitals + composition of the natural
+    # orbitals: the evidence used to judge whether an orbital is a correlation degree of freedom
+    try:
+        dm1 = mc.fcisolver.make_rdm1(mc.ci, ncas, (na, nb))
+        nocc, U = np.linalg.eigh(dm1)
+        order = np.argsort(-nocc)
+        nocc, U = nocc[order], U[:, order]
+        meta["ci_natural_occupations"] = [round(float(x), 4) for x in nocc]
+        occ_state = np.zeros(mc.mo_coeff.shape[1]); occ_state[:mc.ncore] = 2.0
+        occ_state[mc.ncore:mc.ncore + ncas] = np.diag(dm1)   # occupations of the (fixed) active orbitals
+        if composition_labels:
+            nat = mc.mo_coeff[:, mc.ncore:mc.ncore + ncas] @ U
+            meta["ci_natural_orbital_composition"] = orbital_composition(mol, nat, range(ncas), composition_labels)
+    except Exception as e:
+        meta["ci_natural_occupations_error"] = repr(e)
     meta["casci_converged"] = bool(getattr(mc, "converged", True))
     meta["t_seconds"] = round(time.time() - t0, 2)
     try:
@@ -272,4 +381,6 @@ def make_active_space(
     return ActiveSpace(name=name, h1=np.ascontiguousarray(h1), eri=np.ascontiguousarray(eri),
                        ecore=float(ecore), ncas=int(ncas), nelecas=(na, nb),
                        e_hf=float(mf.e_tot), e_casci=float(mc.e_tot), e_casscf=e_casscf, meta=meta,
-                       mo_act=np.ascontiguousarray(mc.mo_coeff[:, mc.ncore:mc.ncore + ncas]))
+                       mo_act=np.ascontiguousarray(mc.mo_coeff[:, mc.ncore:mc.ncore + ncas]),
+                       mo_full=np.ascontiguousarray(mc.mo_coeff),
+                       occ_full=locals().get("occ_state"))

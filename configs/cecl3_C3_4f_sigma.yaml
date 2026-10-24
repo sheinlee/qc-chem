@@ -1,0 +1,13 @@
+# Control: 4f + Cl sigma donors WITHOUT 5d, CAS(11,12), CASCI in AVAS orbitals of the 4f1 ROHF (same protocol as
+# L1-L5). Built from the 4f+5d+sigma AVAS space (threshold 0.1) by dropping the unoccupied 5d-dominated orbitals.
+# A fully variational CASSCF in this space swaps the empty 4f orbitals for ligand sigma* (see progress.md), so
+# CASCI with fixed, inspected orbitals is the comparison that keeps the chemical definition of the space.
+name: cecl3_C3_4f_sigma
+atom: "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0"
+basis: cc-pvdz-dk
+charge: 0
+spin: 1
+x2c: true
+cas: {avas_labels: ["Ce 4f", "Ce 5d"], avas_threshold: 0.1, avas_minao: ano, casscf: false, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}, drop_active: {labels: ["Ce 5d", "Ce 6d"], min_weight: 0.5, max_occupation: 0.1}}
+composition_labels: ["Ce 4f", "Ce 5f", "Ce 5d", "Ce 6d", "Ce 4d", "Ce 6s", "Ce 5p", "Ce 6p", "Cl 3p", "Cl 4p", "Cl 3s"]
+methods: {jw: true, bk: false, taper: true, ed: false, vqe: false}

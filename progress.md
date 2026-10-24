@@ -45,3 +45,14 @@
 - **一致性**：所有结果从同一 commit（67e551f）重新生成；分子曲线改用 CASSCF 轨道（RHF 轨道在拉伸区变性，N2 CASCI 曲线此前在 2.4 Å 非单调）、分子不用重启；技能差距分析移出仓库（../qc-chem-notes）。
 - **新结果中需要说明的点**：N2 3.0 Å 的 CASSCF 收敛到对称破缺轨道（1778 项），VQE 500 步未收敛（0.22 mHa，梯度 5e-5），该点从"ansatz 误差"讨论中剔除。
 - **未采纳/留作后续**：DF/THC λ（openfermion.resource_estimates）、各层 CASSCF 与 4f+σ 对照、二电子 SOC 屏蔽、ADAPT-VQE、误差棒与噪声、CNOT 编译优化。
+
+## 2026-10-24 晚：参考态一致的 CeCl3 梯子（优先级 1）——CASSCF 路线的结果
+
+- 诊断 1：CeCl3 的 4f1 ROHF 解存在，E = −10239.411130 Ha，与 relax CASSCF(1,8) 完全一致；此前记录的 E_HF（−10239.2928）是 SCF 先落入的 5d1 局部解，比 4f1 解高 118 mHa。现在 relax 步之后把 ROHF 重新收敛到 4f1 组态并以它为参考（JSON 里 relax_reference.reference 字段）。
+- 诊断 2（活性空间漂移，两种）：
+  - 不冻芯的 CASSCF(11,12)（4f+σ）把 5 个 Cl σ 占据轨道旋转成 Ce 4d 半芯轨道（成分 4d 0.99），能量比 ROHF 低 228 mHa，全是 4d–4f 芯价关联，不是配体效应。
+  - 冻芯的 CASSCF(11,12) 守住了 σ，但把 6 个空 4f 轨道换成配体 σ*（活性空间 Ce 4f 权重 7→1.04），降低 22.8 mHa，是 σ→σ* 配体对关联，与 4f 无关；自然占据 σ 1.994–1.998、虚轨道 0.003–0.0045。
+  - 一个活性电子的 CASSCF(1,n)（C1、C2）对未占据活性轨道无梯度，它们漂成 5d/6s 杂轨道；能量恒等于 ROHF。
+  - 冻芯的 SA-CASSCF(1,7)：芯取自 4f1 ROHF，对其他 6 个 4f 是极化的，4f 分裂假性放大到 6–19 mHa；不冻芯的 SA-CASSCF（L1_sa，0.7–6 mHa）才是配体场分裂的正确做法。
+- 结论：对 CeCl3，完全变分的 CASSCF 守不住按化学定义的活性空间（不冻芯漂向 4d，冻芯漂向 σ*），"orbital-consistent CASSCF ladder" 不可行，强行加约束只是换一种任意性。可辩护的比较是：**同一个 4f1 ROHF 参考 + AVAS 轨道 + CASCI**，每层报告 CI 自然占据数和自然轨道成分；对照 4f+σ（去掉 5d 虚轨道）同样做 CASCI。已据此重做（L1、L1_sa、L2、L3、L5 本机，L4 CASCI cluster），CASSCF 版本的结果移到 results/superseded/。
+- cluster 上的 C4 CASSCF(11,17) 作业（112914）只用来取宏迭代计时，其轨道结果不采用。

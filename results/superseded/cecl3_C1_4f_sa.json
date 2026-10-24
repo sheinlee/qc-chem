@@ -1,0 +1,455 @@
+{
+ "name": "cecl3_C1_4f_sa",
+ "config": {
+  "name": "cecl3_C1_4f_sa",
+  "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
+  "basis": "cc-pvdz-dk",
+  "charge": 0,
+  "spin": 1,
+  "x2c": true,
+  "cas": {
+   "avas_labels": [
+    "Ce 4f"
+   ],
+   "nelecas": 1,
+   "casscf": true,
+   "state_average": 7,
+   "freeze_core": true,
+   "avas_minao": "ano",
+   "fix_spin": 0.75,
+   "relax_reference": {
+    "labels": [
+     "Ce 4f"
+    ],
+    "nelecas": 1,
+    "fix_spin": 0.75
+   }
+  },
+  "composition_labels": [
+   "Ce 4f",
+   "Ce 5f",
+   "Ce 5d",
+   "Ce 6d",
+   "Ce 4d",
+   "Ce 6s",
+   "Ce 5p",
+   "Ce 6p",
+   "Cl 3p",
+   "Cl 4p",
+   "Cl 3s"
+  ],
+  "methods": {
+   "jw": true,
+   "bk": false,
+   "taper": true,
+   "ed": true,
+   "ed_k": 7,
+   "vqe": false
+  }
+ },
+ "versions": {
+  "pyscf": "2.14.0",
+  "openfermion": "1.8.1",
+  "pennylane": "0.45.1",
+  "scipy": "1.17.1",
+  "numpy": "2.4.6",
+  "python": "3.11.17",
+  "machine": "Cloud",
+  "os": "Windows-10-10.0.26200-SP0",
+  "git_sha": "0eedf49"
+ },
+ "started": "2026-10-24 13:20:31",
+ "points": [
+  {
+   "tag": "single",
+   "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
+   "n_active_electrons": 1,
+   "nelecas": [
+    1,
+    0
+   ],
+   "n_active_orbitals": 7,
+   "n_spin_orbitals": 14,
+   "n_qubits": 14,
+   "e_hf": -10239.411129948143,
+   "e_casci": -10239.407597339747,
+   "e_casscf": -10239.407597339756,
+   "meta": {
+    "basis": "cc-pvdz-dk",
+    "x2c": true,
+    "frac_occ": false,
+    "charge": 0,
+    "spin": 1,
+    "nao": 138,
+    "scf_converged": true,
+    "atom": "Ce 0 0 0; Cl 2.57 0 0; Cl -1.285 2.22568 0; Cl -1.285 -2.22568 0",
+    "relax_reference": {
+     "labels": [
+      "Ce 4f"
+     ],
+     "ncas": 8,
+     "nelecas": 1,
+     "e_casscf": -10239.411129943888,
+     "converged": true,
+     "natural_occupations": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.0,
+      -0.0,
+      -0.0
+     ],
+     "n_singly_occupied_after": 1,
+     "e_scf_before": -10239.292788919329,
+     "t_seconds": 51.0,
+     "rohf_reconverged": {
+      "e_tot": -10239.411129948143,
+      "converged": true,
+      "somo_target_weight": [
+       0.995
+      ]
+     },
+     "reference": "ROHF re-converged in the relaxed configuration"
+    },
+    "avas": {
+     "labels": [
+      "Ce 4f"
+     ],
+     "threshold": 0.2,
+     "minao": "ano",
+     "ncas": 7,
+     "nelecas": 1
+    },
+    "frozen_core_orbitals": 54,
+    "state_average": 7,
+    "casscf_converged": true,
+    "casscf_macro_log": [
+     {
+      "macro": 1,
+      "e_tot": -10239.3964927938,
+      "wall_s": 6.4,
+      "norm_gorb": 0.015822081439365136,
+      "active_weight": {
+       "Ce 4f": 6.963,
+       "Ce 5f": 0.015,
+       "Ce 5d": 0.002,
+       "Ce 6d": -0.0,
+       "Ce 4d": -0.0,
+       "Ce 6s": 0.001,
+       "Ce 5p": 0.0,
+       "Ce 6p": -0.001,
+       "Cl 3p": 0.017,
+       "Cl 4p": 0.008,
+       "Cl 3s": 0.001
+      }
+     },
+     {
+      "macro": 1,
+      "e_tot": -10239.3964927938,
+      "wall_s": 0.8,
+      "norm_gorb": 0.003942861480713665,
+      "active_weight": {
+       "Ce 4f": 6.963,
+       "Ce 5f": 0.015,
+       "Ce 5d": 0.002,
+       "Ce 6d": -0.0,
+       "Ce 4d": -0.0,
+       "Ce 6s": 0.001,
+       "Ce 5p": 0.0,
+       "Ce 6p": -0.001,
+       "Cl 3p": 0.017,
+       "Cl 4p": 0.008,
+       "Cl 3s": 0.001
+      }
+     },
+     {
+      "macro": 1,
+      "e_tot": -10239.3964927938,
+      "wall_s": 1.6,
+      "norm_gorb": 7.390350090143958e-05,
+      "active_weight": {
+       "Ce 4f": 6.963,
+       "Ce 5f": 0.015,
+       "Ce 5d": 0.002,
+       "Ce 6d": -0.0,
+       "Ce 4d": -0.0,
+       "Ce 6s": 0.001,
+       "Ce 5p": 0.0,
+       "Ce 6p": -0.001,
+       "Cl 3p": 0.017,
+       "Cl 4p": 0.008,
+       "Cl 3s": 0.001
+      }
+     },
+     {
+      "macro": 1,
+      "e_tot": -10239.397837287757,
+      "wall_s": 4.6,
+      "norm_gorb": 7.390350090143958e-05,
+      "active_weight": {
+       "Ce 4f": 6.943,
+       "Ce 5f": 0.034,
+       "Ce 5d": 0.01,
+       "Ce 6d": -0.0,
+       "Ce 4d": -0.0,
+       "Ce 6s": 0.003,
+       "Ce 5p": 0.0,
+       "Ce 6p": 0.0,
+       "Cl 3p": 0.009,
+       "Cl 4p": 0.009,
+       "Cl 3s": 0.0
+      }
+     },
+     {
+      "macro": 2,
+      "e_tot": -10239.397837287757,
+      "wall_s": 0.9,
+      "norm_gorb": 2.253184699742001e-05,
+      "active_weight": {
+       "Ce 4f": 6.943,
+       "Ce 5f": 0.034,
+       "Ce 5d": 0.01,
+       "Ce 6d": -0.0,
+       "Ce 4d": -0.0,
+       "Ce 6s": 0.003,
+       "Ce 5p": 0.0,
+       "Ce 6p": 0.0,
+       "Cl 3p": 0.009,
+       "Cl 4p": 0.009,
+       "Cl 3s": 0.0
+      }
+     },
+     {
+      "macro": 2,
+      "e_tot": -10239.397837287757,
+      "wall_s": 2.6,
+      "norm_gorb": 2.253184699742001e-05,
+      "active_weight": {
+       "Ce 4f": 6.943,
+       "Ce 5f": 0.034,
+       "Ce 5d": 0.01,
+       "Ce 6d": -0.0,
+       "Ce 4d": -0.0,
+       "Ce 6s": 0.003,
+       "Ce 5p": 0.0,
+       "Ce 6p": 0.0,
+       "Cl 3p": 0.009,
+       "Cl 4p": 0.009,
+       "Cl 3s": 0.0
+      }
+     }
+    ],
+    "casscf_n_macro": 6,
+    "sa_casscf_state_energies": [
+     -10239.407597339756,
+     -10239.401564872094,
+     -10239.401564533073,
+     -10239.398265945583,
+     -10239.398265939184,
+     -10239.388895185135,
+     -10239.38870719948
+    ],
+    "sa_casscf_averaged_energy": -10239.397837287757,
+    "sa_casscf_converged": true,
+    "natural_occupations": [
+     0.1429,
+     0.1429,
+     0.1429,
+     0.1429,
+     0.1429,
+     0.1429,
+     0.1429
+    ],
+    "ncore": 54,
+    "casci_converged": true,
+    "t_seconds": 81.72,
+    "spin_square": [
+     0.75,
+     2.0
+    ],
+    "active_orbital_composition": {
+     "54": {
+      "Ce 4f": 0.991685651322641,
+      "Ce 5f": 0.004818748378179581,
+      "Ce 5d": 0.0018679587560645947,
+      "Ce 6d": -4.640999071754775e-05,
+      "Ce 4d": -1.1802574599100561e-07,
+      "Ce 6s": 0.000674436612293403,
+      "Ce 5p": 8.76336141487065e-07,
+      "Ce 6p": 5.348644204398797e-07,
+      "Cl 3p": 0.001100343385326367,
+      "Cl 4p": 0.0011569649642673837,
+      "Cl 3s": 5.129417521528083e-06,
+      "other": -0.0012641160203921142
+     },
+     "55": {
+      "Ce 4f": 0.9862333222615783,
+      "Ce 5f": 0.005191448112040432,
+      "Ce 5d": 0.003552055904223469,
+      "Ce 6d": -4.108212142821703e-05,
+      "Ce 4d": -2.652017158692967e-07,
+      "Ce 6s": 0.002258473668002874,
+      "Ce 5p": 2.9750168781810905e-06,
+      "Ce 6p": 1.828359288350285e-06,
+      "Cl 3p": 0.0014444907182834435,
+      "Cl 4p": 0.0027142644970168674,
+      "Cl 3s": 1.7216149911602865e-05,
+      "other": -0.0013747273640796198
+     },
+     "56": {
+      "Ce 4f": 0.9927623639860006,
+      "Ce 5f": 0.0047106306870779826,
+      "Ce 5d": 0.0015805551758275873,
+      "Ce 6d": -4.3326479537032064e-05,
+      "Ce 4d": -9.61259385534839e-08,
+      "Ce 6s": 0.000356494604854308,
+      "Ce 5p": 2.172663115905769e-06,
+      "Ce 6p": 1.3288796925595486e-06,
+      "Cl 3p": 0.0009874114531990825,
+      "Cl 4p": 0.0008933396985028482,
+      "Cl 3s": 4.191354849118573e-06,
+      "other": -0.0012550658976444584
+     },
+     "57": {
+      "Ce 4f": 0.9974522681848345,
+      "Ce 5f": 0.0038663743783150977,
+      "Ce 5d": 1.1974004701240526e-13,
+      "Ce 6d": 1.5128490620432988e-14,
+      "Ce 4d": 2.7007209603030597e-18,
+      "Ce 6s": -3.295836824640952e-15,
+      "Ce 5p": -5.007667282106038e-08,
+      "Ce 6p": -3.7385329695608547e-06,
+      "Cl 3p": 0.00029446002491171817,
+      "Cl 4p": 7.223262847985107e-05,
+      "Cl 3s": 1.4923787377098397e-14,
+      "other": -0.0016815466070450036
+     },
+     "58": {
+      "Ce 4f": 0.9930685464058321,
+      "Ce 5f": 0.00457256069804133,
+      "Ce 5d": 0.001481176976445279,
+      "Ce 6d": -1.1662726554298368e-05,
+      "Ce 4d": -1.1352902661666529e-07,
+      "Ce 6s": 6.367603787791123e-05,
+      "Ce 5p": 1.3146752695908683e-05,
+      "Ce 6p": 8.050760078296437e-06,
+      "Cl 3p": 0.00094548032638674,
+      "Cl 4p": 0.0010586589026358522,
+      "Cl 3s": 1.1796623062293874e-05,
+      "other": -0.0012113172274748063
+     },
+     "59": {
+      "Ce 4f": 0.992954650900289,
+      "Ce 5f": 0.004509877429916445,
+      "Ce 5d": 0.001535426575665978,
+      "Ce 6d": 5.186493088501299e-06,
+      "Ce 4d": -1.3185422972428127e-07,
+      "Ce 6s": 2.0211202074596982e-10,
+      "Ce 5p": 1.912342565429461e-05,
+      "Ce 6p": 1.1725626377329666e-05,
+      "Cl 3p": 0.0009210331703204544,
+      "Cl 4p": 0.0012288353133728792,
+      "Cl 3s": 1.6564508589506395e-05,
+      "other": -0.0012022917911564956
+     },
+     "60": {
+      "Ce 4f": 0.9885646256524878,
+      "Ce 5f": 0.006045976143055774,
+      "Ce 5d": 6.161802653211862e-05,
+      "Ce 6d": -1.109141586806084e-06,
+      "Ce 4d": -4.253274671422936e-09,
+      "Ce 6s": 2.843421094850618e-05,
+      "Ce 5p": 7.084721114427769e-08,
+      "Ce 6p": 4.313177457571388e-08,
+      "Cl 3p": 0.0038058766726107446,
+      "Cl 4p": 0.0017064472704762393,
+      "Cl 3s": 2.455491913845261e-07,
+      "other": -0.00021222410942711711
+     }
+    },
+    "active_orbital_energies": null
+   },
+   "integrals_file": "results\\integrals\\cecl3_C1_4f_sa_single.npz",
+   "lambda_from_integrals": {
+    "lambda_T": 35.599884920293995,
+    "lambda_V": 23.68963559732084,
+    "lambda_total": 59.28952051761483,
+    "n_spatial_orbitals": 7,
+    "n_qubits": 14,
+    "n_nonzero_eri": 2401,
+    "n_nonzero_h1": 49,
+    "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
+   },
+   "jw": {
+    "n_qubits": 14,
+    "n_pauli_terms": 3353,
+    "lambda_pauli": 59.28952044547504,
+    "constant": -10223.041212605316,
+    "max_pauli_weight": 14,
+    "weight_histogram": {
+     "1": 14,
+     "2": 115,
+     "3": 16,
+     "4": 586,
+     "5": 16,
+     "6": 836,
+     "7": 8,
+     "8": 802,
+     "9": 12,
+     "10": 588,
+     "11": 8,
+     "12": 300,
+     "13": 4,
+     "14": 48
+    },
+    "lambda_identity_check": -7.21397910297128e-08
+   },
+   "qpe_proxy_jw": {
+    "eps_ha": 0.001,
+    "lambda": 59.28952044547504,
+    "queries_qpe": 93132,
+    "toffoli_proxy_sparse": 312271596,
+    "logical_qubits_proxy": 43,
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
+   },
+   "taper": {
+    "n_generators": 2,
+    "sector": [
+     -1,
+     1
+    ],
+    "n_qubits_tapered": 12,
+    "n_pauli_terms_tapered": 3353,
+    "lambda_pauli_tapered": 59.289520445475006
+   },
+   "qpe_proxy_tapered": {
+    "eps_ha": 0.001,
+    "lambda": 59.289520445475006,
+    "queries_qpe": 93132,
+    "toffoli_proxy_sparse": 312271596,
+    "logical_qubits_proxy": 41,
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
+   },
+   "ed": {
+    "energies": [
+     -10239.407597339756,
+     -10239.4015648721,
+     -10239.401564533066,
+     -10239.398265945585,
+     -10239.398265939186,
+     -10239.388895185137,
+     -10239.388707199476
+    ],
+    "e0": -10239.407597339756,
+    "sector": "N=1,Sz=0.5",
+    "dim": 7,
+    "t_seconds": 23.077,
+    "error_vs_casci": -9.094947017729282e-12
+   },
+   "t_seconds": 107.96
+  }
+ ],
+ "finished": "2026-10-24 13:22:19"
+}
