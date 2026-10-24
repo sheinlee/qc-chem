@@ -1,0 +1,23 @@
+name: qchem
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pyscf=2.14.0
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - matplotlib=3.11.0
+  - pandas=3.0.6
+  - pyyaml
+  - pytest
+  - h5py
+  # BLAS: OpenBLAS (the MKL build crashed with 0xC06D007F on this machine)
+  - libblas=*=*openblas
+  - liblapack=*=*openblas
+  - pip
+  - pip:
+      - openfermion==1.8.1
+      - pennylane==0.45.1
+      - pennylane-lightning==0.45.*
+# Always run via `conda run -n qchem python ...` or an activated shell;
+# calling python.exe directly leaves Library\bin off PATH and every BLAS call fails.

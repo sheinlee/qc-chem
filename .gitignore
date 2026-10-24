@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+scratch/
+results/**/*.chk
+results/**/*.h5
+*.log
+slurm-*.out
+# large integral dumps (> 5 MB) are kept out of git; small ones are committed
+results/**/large_*.npz
