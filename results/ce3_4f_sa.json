@@ -41,9 +41,10 @@
   "numpy": "2.4.6",
   "python": "3.11.17",
   "machine": "Cloud",
-  "os": "Windows-10-10.0.26200-SP0"
+  "os": "Windows-10-10.0.26200-SP0",
+  "git_sha": "67e551f"
  },
- "started": "2026-10-24 10:38:21",
+ "started": "2026-10-24 11:07:39",
  "points": [
   {
    "tag": "single",
@@ -56,9 +57,9 @@
    "n_active_orbitals": 7,
    "n_spin_orbitals": 14,
    "n_qubits": 14,
-   "e_hf": -8855.07405548715,
-   "e_casci": -8855.070596687487,
-   "e_casscf": -8855.070596680023,
+   "e_hf": -8855.074055485115,
+   "e_casci": -8855.070596685533,
+   "e_casscf": -8855.070596685546,
    "meta": {
     "basis": "cc-pvdz-dk",
     "x2c": true,
@@ -79,14 +80,15 @@
     },
     "state_average": 7,
     "sa_casscf_state_energies": [
-     -8855.070596687492,
-     -8855.070596686437,
-     -8855.070596679941,
-     -8855.070596679823,
-     -8855.070596676047,
-     -8855.070596675767,
-     -8855.070596674646
+     -8855.070596685546,
+     -8855.070596684041,
+     -8855.070596677759,
+     -8855.070596677684,
+     -8855.070596673757,
+     -8855.070596673622,
+     -8855.070596672302
     ],
+    "sa_casscf_averaged_energy": -8855.070596677815,
     "sa_casscf_converged": true,
     "natural_occupations": [
      0.1429,
@@ -99,100 +101,100 @@
     ],
     "ncore": 27,
     "casci_converged": true,
-    "t_seconds": 6.82,
+    "t_seconds": 10.46,
     "spin_square": [
      0.75,
      2.0
     ],
     "active_orbital_composition": {
      "27": {
-      "Ce 4f": 0.9953004952213333,
-      "Ce 5d": 2.1154637235839588e-18,
-      "Ce 6s": 7.3486096461779395e-25,
-      "Ce 5p": 4.345165110345798e-19,
-      "other": 0.004699504778666652
+      "Ce 4f": 0.9953004952002382,
+      "Ce 5d": 1.844781218055439e-18,
+      "Ce 6s": -4.8622935399101385e-24,
+      "Ce 5p": 5.751816027846266e-19,
+      "other": 0.004699504799761778
      },
      "28": {
-      "Ce 4f": 0.9953004929620597,
-      "Ce 5d": 3.5588690847274074e-19,
-      "Ce 6s": 1.0606241510238874e-24,
-      "Ce 5p": 1.6277901679284283e-17,
-      "other": 0.004699507037940309
+      "Ce 4f": 0.9953004932525821,
+      "Ce 5d": 2.3223287856339346e-18,
+      "Ce 6s": 1.0224541140026714e-22,
+      "Ce 5p": -5.552601795192538e-19,
+      "other": 0.004699506747417925
      },
      "29": {
-      "Ce 4f": 0.9953004889609913,
-      "Ce 5d": 2.7568888699113115e-18,
-      "Ce 6s": 1.3300745351629515e-24,
-      "Ce 5p": -2.2252963241730174e-20,
-      "other": 0.004699511039008675
+      "Ce 4f": 0.9953004891052433,
+      "Ce 5d": 6.6416061404010806e-18,
+      "Ce 6s": 4.0938869506416534e-24,
+      "Ce 5p": 1.1293644471711776e-19,
+      "other": 0.004699510894756731
      },
      "30": {
-      "Ce 4f": 0.9953004925476165,
-      "Ce 5d": 5.426549008145345e-19,
-      "Ce 6s": 1.295074433103371e-25,
-      "Ce 5p": 5.720897965335404e-17,
-      "other": 0.004699507452383345
+      "Ce 4f": 0.9953004940185441,
+      "Ce 5d": 2.615758813136368e-18,
+      "Ce 6s": 2.2722788394194368e-23,
+      "Ce 5p": -1.029788245747398e-17,
+      "other": 0.004699505981455854
      },
      "31": {
-      "Ce 4f": 0.995300492749346,
-      "Ce 5d": 6.540976518974102e-19,
-      "Ce 6s": 8.688587057774773e-27,
-      "Ce 5p": 4.322096175008177e-17,
-      "other": 0.004699507250654045
+      "Ce 4f": 0.9953004925590964,
+      "Ce 5d": 3.920302600376871e-19,
+      "Ce 6s": 4.227906305385974e-24,
+      "Ce 5p": 6.406971826252576e-17,
+      "other": 0.004699507440903528
      },
      "32": {
-      "Ce 4f": 0.9953004944297669,
-      "Ce 5d": 2.1282265127333017e-18,
-      "Ce 6s": 1.0112690503279694e-24,
-      "Ce 5p": -2.1654101107939438e-17,
-      "other": 0.004699505570233131
+      "Ce 4f": 0.9953004928662939,
+      "Ce 5d": 7.425424602732687e-18,
+      "Ce 6s": 1.016750228154174e-24,
+      "Ce 5p": 4.715111086838038e-17,
+      "other": 0.004699507133706149
      },
      "33": {
-      "Ce 4f": 0.9953004951788885,
-      "Ce 5d": 3.4396220388487097e-18,
-      "Ce 6s": -2.0676011631704504e-24,
-      "Ce 5p": -1.9454286845507193e-18,
-      "other": 0.004699504821111478
+      "Ce 4f": 0.995300495260352,
+      "Ce 5d": 1.5368698905917974e-18,
+      "Ce 6s": 9.01543266600193e-24,
+      "Ce 5p": -1.8334216930937852e-20,
+      "other": 0.004699504739647975
      }
     },
     "active_orbital_energies": null
    },
    "integrals_file": "results\\integrals\\ce3_4f_sa_single.npz",
    "lambda_from_integrals": {
-    "lambda_T": 30.684314381841496,
-    "lambda_V": 23.68072610585547,
-    "lambda_total": 54.36504048769697,
+    "lambda_T": 30.684314343561127,
+    "lambda_V": 23.95398375032636,
+    "lambda_total": 54.638298093887485,
     "n_spatial_orbitals": 7,
     "n_qubits": 14,
     "n_nonzero_eri": 2401,
-    "n_nonzero_h1": 49,
+    "n_nonzero_h1": 47,
     "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
    },
    "jw": {
     "n_qubits": 14,
-    "n_pauli_terms": 3285,
-    "lambda_pauli": 54.36504031945476,
-    "constant": -8843.193805341465,
+    "n_pauli_terms": 3297,
+    "lambda_pauli": 54.63829801410449,
+    "constant": -8843.193805341729,
     "max_pauli_weight": 14,
     "weight_histogram": {
      "1": 14,
-     "2": 113,
-     "4": 584,
-     "6": 838,
-     "8": 802,
-     "10": 586,
+     "2": 115,
+     "4": 588,
+     "6": 840,
+     "8": 804,
+     "10": 588,
      "12": 300,
      "14": 48
     },
-    "lambda_identity_check": -1.6824221660272087e-07
+    "lambda_identity_check": -7.978299265687383e-08
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 54.36504031945476,
-    "queries_qpe": 85397,
-    "toffoli_proxy_sparse": 14346696,
+    "lambda": 54.63829801410449,
+    "queries_qpe": 85826,
+    "toffoli_proxy_sparse": 282968322,
     "logical_qubits_proxy": 43,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "taper": {
     "n_generators": 2,
@@ -201,32 +203,32 @@
      1
     ],
     "n_qubits_tapered": 12,
-    "n_pauli_terms_tapered": 3285,
-    "lambda_pauli_tapered": 54.365040319454685
+    "n_pauli_terms_tapered": 3297,
+    "lambda_pauli_tapered": 54.63829801410446
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 54.365040319454685,
-    "queries_qpe": 85397,
-    "toffoli_proxy_sparse": 12297168,
+    "lambda": 54.63829801410446,
+    "queries_qpe": 85826,
+    "toffoli_proxy_sparse": 282968322,
     "logical_qubits_proxy": 41,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -8855.070596701278,
-     -8855.070596695641,
-     -8855.07059668283,
-     -8855.070596681639,
-     -8855.07059667147,
-     -8855.070596666208,
-     -8855.070596661106
+     -8855.070596687474,
+     -8855.070596685628,
+     -8855.070596682863,
+     -8855.070596679898,
+     -8855.070596677608,
+     -8855.070596667658,
+     -8855.070596663625
     ],
-    "e0": -8855.070596701278,
+    "e0": -8855.070596687474,
     "sector": "N=1,Sz=0.5",
     "dim": 7,
-    "t_seconds": 19.0,
-    "error_vs_casci": -1.3791577657684684e-08
+    "t_seconds": 21.071,
+    "error_vs_casci": -1.940861693583429e-09
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
@@ -238,16 +240,16 @@
     "n_params": 6,
     "n_singles": 6,
     "n_doubles": 0,
-    "e_hf_circuit": -8855.07059667989,
-    "energy": -8855.07059667989,
+    "e_hf_circuit": -8855.070596677711,
+    "energy": -8855.070596677711,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 0,
-    "final_grad_maxabs": 4.869207774938107e-09,
+    "final_grad_maxabs": 6.611465160229462e-09,
     "polished_lbfgsb": false,
     "n_energy_evals": 2,
     "n_gradient_evals": 2,
-    "t_seconds": 3.83,
+    "t_seconds": 6.4,
     "theta": [
      0.0,
      0.0,
@@ -270,13 +272,13 @@
      "RZ": 12
     },
     "n_template_ops": 1,
-    "error_vs_casci": 7.596099749207497e-09,
+    "error_vs_casci": 7.821654435247183e-09,
     "restart_energies": [],
     "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 33.4
+   "t_seconds": 42.41
   }
  ],
- "finished": "2026-10-24 10:38:54"
+ "finished": "2026-10-24 11:08:21"
 }

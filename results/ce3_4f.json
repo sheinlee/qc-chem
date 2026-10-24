@@ -40,9 +40,10 @@
   "numpy": "2.4.6",
   "python": "3.11.17",
   "machine": "Cloud",
-  "os": "Windows-10-10.0.26200-SP0"
+  "os": "Windows-10-10.0.26200-SP0",
+  "git_sha": "67e551f"
  },
- "started": "2026-10-24 10:12:53",
+ "started": "2026-10-24 11:07:02",
  "points": [
   {
    "tag": "single",
@@ -55,12 +56,13 @@
    "n_active_orbitals": 7,
    "n_spin_orbitals": 14,
    "n_qubits": 14,
-   "e_hf": -8855.074055485107,
-   "e_casci": -8855.074055485145,
-   "e_casscf": -8855.07405548515,
+   "e_hf": -8855.074055485105,
+   "e_casci": -8855.074055485142,
+   "e_casscf": -8855.07405548514,
    "meta": {
     "basis": "cc-pvdz-dk",
     "x2c": true,
+    "frac_occ": false,
     "charge": 3,
     "spin": 1,
     "nao": 84,
@@ -75,139 +77,150 @@
      "ncas": 7,
      "nelecas": 1
     },
+    "natural_occupations": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     -0.0
+    ],
     "ncore": 27,
     "casci_converged": true,
-    "t_seconds": 6.0,
+    "t_seconds": 8.8,
     "spin_square": [
-     0.7500000000000001,
-     2.0
+     0.7499999999999999,
+     1.9999999999999998
     ],
     "active_orbital_composition": {
      "27": {
-      "Ce 4f": 0.9952525871047379,
-      "Ce 5d": 6.4077418399969924e-18,
-      "Ce 6s": 3.619940550569908e-22,
-      "Ce 5p": -2.5259022131432633e-14,
-      "other": 0.004747412895287462
+      "Ce 4f": 0.9952525871251914,
+      "Ce 5d": 6.407724596321257e-18,
+      "Ce 6s": 3.5878728058668256e-22,
+      "Ce 5p": 1.832331878016913e-13,
+      "other": 0.004747412874625434
      },
      "28": {
-      "Ce 4f": 0.999302502950528,
-      "Ce 5d": 6.806615514743715e-25,
-      "Ce 6s": -2.6198021439986063e-25,
-      "Ce 5p": 8.512638100363227e-05,
-      "other": 0.0006123706684683095
+      "Ce 4f": 1.823552060920679e-17,
+      "Ce 5d": 1.0815218740703365,
+      "Ce 6s": 4.530046405030623e-05,
+      "Ce 5p": 2.862938969845508e-20,
+      "other": -0.08156717453438689
      },
      "29": {
-      "Ce 4f": 0.9993518162826525,
-      "Ce 5d": 1.4306018775658983e-24,
-      "Ce 6s": 3.2608013690172897e-25,
-      "Ce 5p": 4.696344135680839e-05,
-      "other": 0.0006012202759907437
+      "Ce 4f": 1.1164602986780232e-17,
+      "Ce 5d": 1.0806743243195698,
+      "Ce 6s": 4.712804554539344e-18,
+      "Ce 5p": -6.2332596589073265e-21,
+      "other": -0.08067432431956978
      },
      "30": {
-      "Ce 4f": 0.9993518129809911,
-      "Ce 5d": 9.095007070225728e-25,
-      "Ce 6s": 1.3037260576474029e-24,
-      "Ce 5p": 4.6965230790353423e-05,
-      "other": 0.0006012217882185311
+      "Ce 4f": 2.115073636814793e-18,
+      "Ce 5d": 1.0806742667616556,
+      "Ce 6s": 6.325654972398235e-18,
+      "Ce 5p": 1.234618911339269e-20,
+      "other": -0.08067426676165557
      },
      "31": {
-      "Ce 4f": 0.9994161213348489,
-      "Ce 5d": 2.3878978824638454e-26,
-      "Ce 6s": 2.672870331966099e-26,
-      "Ce 5p": 2.767451377866752e-12,
-      "other": 0.0005838786623836301
+      "Ce 4f": 4.459311020605139e-18,
+      "Ce 5d": 1.0766695559940085,
+      "Ce 6s": 2.9923224383029364e-12,
+      "Ce 5p": 1.273850828413168e-21,
+      "other": -0.07666955599700076
      },
      "32": {
-      "Ce 4f": 0.9994161213315295,
-      "Ce 5d": 4.584031505661908e-26,
-      "Ce 6s": 1.0115376852129374e-24,
-      "Ce 5p": 5.288413009267297e-12,
-      "other": 0.0005838786631821025
+      "Ce 4f": 1.7941487411966055e-17,
+      "Ce 5d": 1.076669530780859,
+      "Ce 6s": 5.903545018193978e-12,
+      "Ce 5p": 3.1755965357912516e-20,
+      "other": -0.07666953078676242
      },
      "33": {
-      "Ce 4f": 0.9994161213360288,
-      "Ce 5d": 5.345205574838528e-27,
-      "Ce 6s": 3.6897364337073875e-25,
-      "Ce 5p": 1.8498848179787817e-12,
-      "other": 0.0005838786621213954
+      "Ce 4f": 7.610596590087582e-21,
+      "Ce 5d": 8.897623513496365e-05,
+      "Ce 6s": 1.335800521187901,
+      "Ce 5p": 9.73547265658581e-21,
+      "other": -0.335889497423036
      }
     },
     "active_orbital_energies": null
    },
    "integrals_file": "results\\integrals\\ce3_4f_single.npz",
    "lambda_from_integrals": {
-    "lambda_T": 29.10470035695564,
-    "lambda_V": 21.571670578787234,
-    "lambda_total": 50.67637093574287,
+    "lambda_T": 7.80134182192011,
+    "lambda_V": 8.565031998291994,
+    "lambda_total": 16.366373820212104,
     "n_spatial_orbitals": 7,
     "n_qubits": 14,
-    "n_nonzero_eri": 2401,
-    "n_nonzero_h1": 49,
+    "n_nonzero_eri": 2349,
+    "n_nonzero_h1": 43,
     "kind": "exact JW Pauli 1-norm (Koridon identity, real orbitals)"
    },
    "jw": {
     "n_qubits": 14,
-    "n_pauli_terms": 1585,
-    "lambda_pauli": 50.67636675140039,
-    "constant": -8843.96985710116,
+    "n_pauli_terms": 845,
+    "lambda_pauli": 16.366373020051764,
+    "constant": -8853.676640329382,
     "max_pauli_weight": 14,
     "weight_histogram": {
      "1": 14,
-     "2": 99,
-     "3": 8,
-     "4": 212,
-     "5": 12,
-     "6": 356,
-     "7": 12,
-     "8": 516,
-     "9": 8,
-     "10": 240,
-     "12": 100,
-     "14": 8
+     "2": 95,
+     "3": 4,
+     "4": 224,
+     "5": 4,
+     "6": 204,
+     "8": 152,
+     "9": 4,
+     "10": 100,
+     "11": 4,
+     "12": 36,
+     "14": 4
     },
-    "lambda_identity_check": -4.184342479618408e-06
+    "lambda_identity_check": -8.001603397644885e-07
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 50.67636675140039,
-    "queries_qpe": 79603,
-    "toffoli_proxy_sparse": 12258862,
-    "logical_qubits_proxy": 42,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "lambda": 16.366373020051764,
+    "queries_qpe": 25709,
+    "toffoli_proxy_sparse": 21724105,
+    "logical_qubits_proxy": 39,
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "taper": {
-    "n_generators": 2,
+    "n_generators": 4,
     "sector": [
      -1,
-     1
+     1,
+     -1,
+     -1
     ],
-    "n_qubits_tapered": 12,
-    "n_pauli_terms_tapered": 1585,
-    "lambda_pauli_tapered": 50.676366751400366
+    "n_qubits_tapered": 10,
+    "n_pauli_terms_tapered": 805,
+    "lambda_pauli_tapered": 12.141041806872394
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 50.676366751400366,
-    "queries_qpe": 79603,
-    "toffoli_proxy_sparse": 10507596,
-    "logical_qubits_proxy": 40,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "lambda": 12.141041806872394,
+    "queries_qpe": 19072,
+    "toffoli_proxy_sparse": 15352960,
+    "logical_qubits_proxy": 35,
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -8855.074055485155,
-     -8855.069034148395,
-     -8855.063461467043,
-     -8855.063461403879,
-     -8855.06002685996,
-     -8855.0600260498
+     -8855.074055485142,
+     -8854.779601507418,
+     -8854.779601447772,
+     -8854.778908730725,
+     -8854.778908462155,
+     -8854.7787206549
     ],
-    "e0": -8855.074055485155,
+    "e0": -8855.074055485142,
     "sector": "N=1,Sz=0.5",
     "dim": 7,
-    "t_seconds": 8.674,
-    "error_vs_casci": -9.094947017729282e-12
+    "t_seconds": 7.126,
+    "error_vs_casci": 0.0
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
@@ -219,16 +232,16 @@
     "n_params": 6,
     "n_singles": 6,
     "n_doubles": 0,
-    "e_hf_circuit": -8855.07405548507,
-    "energy": -8855.07405548507,
+    "e_hf_circuit": -8855.07405548514,
+    "energy": -8855.07405548514,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 0,
-    "final_grad_maxabs": 8.347076905374911e-07,
+    "final_grad_maxabs": 0.0,
     "polished_lbfgsb": false,
     "n_energy_evals": 2,
     "n_gradient_evals": 2,
-    "t_seconds": 1.61,
+    "t_seconds": 1.66,
     "theta": [
      0.0,
      0.0,
@@ -251,11 +264,13 @@
      "RZ": 12
     },
     "n_template_ops": 1,
-    "error_vs_casci": 7.457856554538012e-11,
+    "error_vs_casci": 1.8189894035458565e-12,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 18.41
+   "t_seconds": 23.18
   }
  ],
- "finished": "2026-10-24 10:13:12"
+ "finished": "2026-10-24 11:07:26"
 }

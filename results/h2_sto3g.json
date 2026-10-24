@@ -26,7 +26,8 @@
    "bk": true,
    "taper": true,
    "ed": true,
-   "vqe": true
+   "vqe": true,
+   "vqe_restarts": 0
   }
  },
  "versions": {
@@ -37,9 +38,10 @@
   "numpy": "2.4.6",
   "python": "3.11.17",
   "machine": "Cloud",
-  "os": "Windows-10-10.0.26200-SP0"
+  "os": "Windows-10-10.0.26200-SP0",
+  "git_sha": "67e551f"
  },
- "started": "2026-10-24 10:05:49",
+ "started": "2026-10-24 11:07:02",
  "points": [
   {
    "tag": "R=0.5",
@@ -58,6 +60,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -65,7 +68,7 @@
     "atom": "H 0 0 0; H 0 0 0.5",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.42,
+    "t_seconds": 0.65,
     "spin_square": [
      8.05699201436581e-34,
      1.0
@@ -73,9 +76,9 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=0.5.npz",
    "lambda_from_integrals": {
-    "lambda_T": 1.1661592509779566,
+    "lambda_T": 1.1661592509779568,
     "lambda_V": 1.1578113077458871,
-    "lambda_total": 2.3239705587238433,
+    "lambda_total": 2.323970558723844,
     "n_spatial_orbitals": 2,
     "n_qubits": 4,
     "n_nonzero_eri": 8,
@@ -93,15 +96,15 @@
      "2": 6,
      "4": 4
     },
-    "lambda_identity_check": -1.3322676295501878e-15
+    "lambda_identity_check": -2.220446049250313e-15
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
     "lambda": 2.323970558723842,
     "queries_qpe": 3651,
-    "toffoli_proxy_sparse": 58416,
+    "toffoli_proxy_sparse": 51114,
     "logical_qubits_proxy": 20,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
@@ -131,9 +134,9 @@
     "eps_ha": 0.001,
     "lambda": 1.33502947866769,
     "queries_qpe": 2098,
-    "toffoli_proxy_sparse": 2098,
+    "toffoli_proxy_sparse": 4196,
     "logical_qubits_proxy": 14,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -142,13 +145,16 @@
     "e0": -1.055159794470623,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.016,
+    "t_seconds": 0.165,
     "error_vs_casci": 1.7763568394002505e-15
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -161,7 +167,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 5,
     "n_gradient_evals": 5,
-    "t_seconds": 0.12,
+    "t_seconds": 0.2,
     "theta": [
      0.0,
      0.0,
@@ -182,9 +188,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 2.886579864025407e-15,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.77
+   "t_seconds": 1.17
   },
   {
    "tag": "R=0.6",
@@ -203,6 +211,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -210,7 +219,7 @@
     "atom": "H 0 0 0; H 0 0 0.6",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.06,
+    "t_seconds": 0.1,
     "spin_square": [
      5.224688562963108e-34,
      1.0
@@ -218,9 +227,9 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=0.6.npz",
    "lambda_from_integrals": {
-    "lambda_T": 0.988027573172731,
-    "lambda_V": 1.132119357689489,
-    "lambda_total": 2.1201469308622203,
+    "lambda_T": 0.9880275731727315,
+    "lambda_V": 1.1321193576894892,
+    "lambda_total": 2.1201469308622207,
     "n_spatial_orbitals": 2,
     "n_qubits": 4,
     "n_nonzero_eri": 8,
@@ -238,15 +247,15 @@
      "2": 6,
      "4": 4
     },
-    "lambda_identity_check": 0.0
+    "lambda_identity_check": -4.440892098500626e-16
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
     "lambda": 2.1201469308622203,
     "queries_qpe": 3331,
-    "toffoli_proxy_sparse": 53296,
+    "toffoli_proxy_sparse": 46634,
     "logical_qubits_proxy": 20,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
@@ -276,9 +285,9 @@
     "eps_ha": 0.001,
     "lambda": 1.1617582169183893,
     "queries_qpe": 1825,
-    "toffoli_proxy_sparse": 1825,
+    "toffoli_proxy_sparse": 3650,
     "logical_qubits_proxy": 13,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -287,13 +296,16 @@
     "e0": -1.1162860068695402,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.013,
+    "t_seconds": 0.03,
     "error_vs_casci": -6.661338147750939e-16
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -306,7 +318,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 5,
     "n_gradient_evals": 5,
-    "t_seconds": 0.12,
+    "t_seconds": 0.25,
     "theta": [
      0.0,
      0.0,
@@ -327,9 +339,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 8.881784197001252e-16,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.21
+   "t_seconds": 0.43
   },
   {
    "tag": "R=0.74",
@@ -348,6 +362,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -355,7 +370,7 @@
     "atom": "H 0 0 0; H 0 0 0.74",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.05,
+    "t_seconds": 0.09,
     "spin_square": [
      1.0006771841001389e-32,
      1.0
@@ -363,9 +378,9 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=0.74.npz",
    "lambda_from_integrals": {
-    "lambda_T": 0.7896887267118076,
+    "lambda_T": 0.7896887267118071,
     "lambda_V": 1.09741849018464,
-    "lambda_total": 1.8871072168964478,
+    "lambda_total": 1.8871072168964473,
     "n_spatial_orbitals": 2,
     "n_qubits": 4,
     "n_nonzero_eri": 8,
@@ -383,15 +398,15 @@
      "2": 6,
      "4": 4
     },
-    "lambda_identity_check": -1.9984014443252818e-15
+    "lambda_identity_check": -1.5543122344752192e-15
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
     "lambda": 1.8871072168964458,
     "queries_qpe": 2965,
-    "toffoli_proxy_sparse": 47440,
+    "toffoli_proxy_sparse": 41510,
     "logical_qubits_proxy": 20,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
@@ -421,9 +436,9 @@
     "eps_ha": 0.001,
     "lambda": 0.9708991887270031,
     "queries_qpe": 1526,
-    "toffoli_proxy_sparse": 1526,
+    "toffoli_proxy_sparse": 3052,
     "logical_qubits_proxy": 13,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -432,13 +447,16 @@
     "e0": -1.1372838344885017,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.014,
+    "t_seconds": 0.029,
     "error_vs_casci": 6.661338147750939e-16
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -451,7 +469,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 5,
     "n_gradient_evals": 5,
-    "t_seconds": 0.12,
+    "t_seconds": 0.26,
     "theta": [
      0.0,
      0.0,
@@ -472,9 +490,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 9.769962616701378e-15,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.2
+   "t_seconds": 0.43
   },
   {
    "tag": "R=0.9",
@@ -493,6 +513,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -500,7 +521,7 @@
     "atom": "H 0 0 0; H 0 0 0.9",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.06,
+    "t_seconds": 0.09,
     "spin_square": [
      9.408682904140192e-34,
      1.0
@@ -508,9 +529,9 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=0.9.npz",
    "lambda_from_integrals": {
-    "lambda_T": 0.6195745590559756,
-    "lambda_V": 1.0608759000393524,
-    "lambda_total": 1.680450459095328,
+    "lambda_T": 0.6195745590559758,
+    "lambda_V": 1.0608759000393526,
+    "lambda_total": 1.6804504590953284,
     "n_spatial_orbitals": 2,
     "n_qubits": 4,
     "n_nonzero_eri": 8,
@@ -528,15 +549,15 @@
      "2": 6,
      "4": 4
     },
-    "lambda_identity_check": -2.220446049250313e-16
+    "lambda_identity_check": -6.661338147750939e-16
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
     "lambda": 1.6804504590953278,
     "queries_qpe": 2640,
-    "toffoli_proxy_sparse": 42240,
+    "toffoli_proxy_sparse": 36960,
     "logical_qubits_proxy": 20,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
@@ -566,9 +587,9 @@
     "eps_ha": 0.001,
     "lambda": 0.8101462528152401,
     "queries_qpe": 1273,
-    "toffoli_proxy_sparse": 1273,
+    "toffoli_proxy_sparse": 2546,
     "logical_qubits_proxy": 13,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -577,13 +598,16 @@
     "e0": -1.120560281299988,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.013,
+    "t_seconds": 0.02,
     "error_vs_casci": 6.661338147750939e-16
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -596,7 +620,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 6,
     "n_gradient_evals": 6,
-    "t_seconds": 0.14,
+    "t_seconds": 0.29,
     "theta": [
      0.0,
      0.0,
@@ -617,9 +641,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 1.9984014443252818e-15,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.24
+   "t_seconds": 0.44
   },
   {
    "tag": "R=1.1",
@@ -638,6 +664,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -645,7 +672,7 @@
     "atom": "H 0 0 0; H 0 0 1.1",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.06,
+    "t_seconds": 0.09,
     "spin_square": [
      1.5364420720265496e-31,
      1.0
@@ -653,7 +680,7 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=1.1.npz",
    "lambda_from_integrals": {
-    "lambda_T": 0.4627917542903826,
+    "lambda_T": 0.4627917542903828,
     "lambda_V": 1.0206094299529274,
     "lambda_total": 1.4834011842433101,
     "n_spatial_orbitals": 2,
@@ -679,9 +706,9 @@
     "eps_ha": 0.001,
     "lambda": 1.4834011842433101,
     "queries_qpe": 2331,
-    "toffoli_proxy_sparse": 37296,
+    "toffoli_proxy_sparse": 32634,
     "logical_qubits_proxy": 20,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
@@ -705,15 +732,15 @@
     ],
     "n_qubits_tapered": 1,
     "n_pauli_terms_tapered": 2,
-    "lambda_pauli_tapered": 0.6660139809110315
+    "lambda_pauli_tapered": 0.6660139809110317
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 0.6660139809110315,
+    "lambda": 0.6660139809110317,
     "queries_qpe": 1047,
-    "toffoli_proxy_sparse": 1047,
+    "toffoli_proxy_sparse": 2094,
     "logical_qubits_proxy": 13,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -722,13 +749,16 @@
     "e0": -1.079192944969075,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.014,
+    "t_seconds": 0.035,
     "error_vs_casci": -2.220446049250313e-16
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -737,15 +767,15 @@
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 4,
-    "final_grad_maxabs": 4.989054616481858e-10,
+    "final_grad_maxabs": 4.989052530476878e-10,
     "polished_lbfgsb": false,
     "n_energy_evals": 6,
     "n_gradient_evals": 6,
-    "t_seconds": 0.15,
+    "t_seconds": 0.24,
     "theta": [
      0.0,
      0.0,
-     0.4137713844785654
+     0.41377138447856504
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -762,9 +792,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": -4.440892098500626e-16,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.25
+   "t_seconds": 0.42
   },
   {
    "tag": "R=1.4",
@@ -783,6 +815,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -790,7 +823,7 @@
     "atom": "H 0 0 0; H 0 0 1.4",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.05,
+    "t_seconds": 0.11,
     "spin_square": [
      1.5686072291976892e-31,
      1.0
@@ -798,7 +831,7 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=1.4.npz",
    "lambda_from_integrals": {
-    "lambda_T": 0.2991358775376902,
+    "lambda_T": 0.29913587753769,
     "lambda_V": 0.9717997072431165,
     "lambda_total": 1.2709355847808066,
     "n_spatial_orbitals": 2,
@@ -810,7 +843,7 @@
    "jw": {
     "n_qubits": 4,
     "n_pauli_terms": 14,
-    "lambda_pauli": 1.2709355847808064,
+    "lambda_pauli": 1.2709355847808061,
     "constant": -0.473800315960936,
     "max_pauli_weight": 4,
     "weight_histogram": {
@@ -818,20 +851,20 @@
      "2": 6,
      "4": 4
     },
-    "lambda_identity_check": -2.220446049250313e-16
+    "lambda_identity_check": -4.440892098500626e-16
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 1.2709355847808064,
+    "lambda": 1.2709355847808061,
     "queries_qpe": 1997,
-    "toffoli_proxy_sparse": 31952,
+    "toffoli_proxy_sparse": 27958,
     "logical_qubits_proxy": 19,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
     "n_pauli_terms": 14,
-    "lambda_pauli": 1.2709355847808061,
+    "lambda_pauli": 1.270935584780806,
     "constant": -0.4738003159609361,
     "max_pauli_weight": 4,
     "weight_histogram": {
@@ -856,9 +889,9 @@
     "eps_ha": 0.001,
     "lambda": 0.5221579666124041,
     "queries_qpe": 821,
-    "toffoli_proxy_sparse": 821,
+    "toffoli_proxy_sparse": 1642,
     "logical_qubits_proxy": 12,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -867,13 +900,16 @@
     "e0": -1.0154682492882448,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.014,
+    "t_seconds": 0.029,
     "error_vs_casci": 2.220446049250313e-16
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -886,7 +922,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 6,
     "n_gradient_evals": 6,
-    "t_seconds": 0.14,
+    "t_seconds": 0.24,
     "theta": [
      0.0,
      0.0,
@@ -907,9 +943,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 7.527312106958561e-14,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.24
+   "t_seconds": 0.43
   },
   {
    "tag": "R=1.8",
@@ -928,6 +966,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -935,7 +974,7 @@
     "atom": "H 0 0 0; H 0 0 1.8",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.05,
+    "t_seconds": 0.08,
     "spin_square": [
      1.5899416974711992e-29,
      1.0
@@ -969,9 +1008,9 @@
     "eps_ha": 0.001,
     "lambda": 1.0909681715977508,
     "queries_qpe": 1714,
-    "toffoli_proxy_sparse": 27424,
+    "toffoli_proxy_sparse": 23996,
     "logical_qubits_proxy": 19,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
@@ -1001,9 +1040,9 @@
     "eps_ha": 0.001,
     "lambda": 0.4128365766575078,
     "queries_qpe": 649,
-    "toffoli_proxy_sparse": 649,
+    "toffoli_proxy_sparse": 1298,
     "logical_qubits_proxy": 12,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -1012,13 +1051,16 @@
     "e0": -0.9618169527925807,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.014,
+    "t_seconds": 0.017,
     "error_vs_casci": 0.0
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
@@ -1031,7 +1073,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 7,
     "n_gradient_evals": 7,
-    "t_seconds": 0.15,
+    "t_seconds": 0.24,
     "theta": [
      0.0,
      0.0,
@@ -1052,9 +1094,11 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 1.2212453270876722e-15,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.24
+   "t_seconds": 0.38
   },
   {
    "tag": "R=2.5",
@@ -1073,6 +1117,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 2,
@@ -1080,7 +1125,7 @@
     "atom": "H 0 0 0; H 0 0 2.5",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.05,
+    "t_seconds": 0.08,
     "spin_square": [
      2.9909480725258513e-29,
      1.0
@@ -1088,7 +1133,7 @@
    },
    "integrals_file": "results\\integrals\\h2_sto3g_R=2.5.npz",
    "lambda_from_integrals": {
-    "lambda_T": 0.15632492409189255,
+    "lambda_T": 0.15632492409189253,
     "lambda_V": 0.8811550982714913,
     "lambda_total": 1.037480022363384,
     "n_spatial_orbitals": 2,
@@ -1114,15 +1159,15 @@
     "eps_ha": 0.001,
     "lambda": 1.037480022363381,
     "queries_qpe": 1630,
-    "toffoli_proxy_sparse": 26080,
+    "toffoli_proxy_sparse": 22820,
     "logical_qubits_proxy": 19,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 4,
     "n_pauli_terms": 14,
     "lambda_pauli": 1.0374800223633809,
-    "constant": -0.5435990920199947,
+    "constant": -0.5435990920199949,
     "max_pauli_weight": 4,
     "weight_histogram": {
      "1": 3,
@@ -1146,9 +1191,9 @@
     "eps_ha": 0.001,
     "lambda": 0.3364794448271814,
     "queries_qpe": 529,
-    "toffoli_proxy_sparse": 529,
+    "toffoli_proxy_sparse": 1058,
     "logical_qubits_proxy": 12,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
@@ -1157,17 +1202,20 @@
     "e0": -0.9360549199556061,
     "sector": "N=2,Sz=0.0",
     "dim": 4,
-    "t_seconds": 0.014,
+    "t_seconds": 0.026,
     "error_vs_casci": -2.220446049250313e-16
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 4,
-    "n_electrons": 2,
+    "n_electrons": [
+     1,
+     1
+    ],
     "n_params": 3,
     "n_singles": 2,
     "n_doubles": 1,
-    "e_hf_circuit": -0.7029435997235268,
+    "e_hf_circuit": -0.7029435997235267,
     "energy": -0.9360549199554298,
     "success": true,
     "message": "Optimization terminated successfully.",
@@ -1176,7 +1224,7 @@
     "polished_lbfgsb": false,
     "n_energy_evals": 6,
     "n_gradient_evals": 6,
-    "t_seconds": 0.13,
+    "t_seconds": 0.29,
     "theta": [
      0.0,
      0.0,
@@ -1197,10 +1245,12 @@
     },
     "n_template_ops": 1,
     "error_vs_casci": 1.7608137170554983e-13,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 0.23
+   "t_seconds": 0.44
   }
  ],
- "finished": "2026-10-24 10:05:52"
+ "finished": "2026-10-24 11:07:06"
 }

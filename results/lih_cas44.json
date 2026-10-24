@@ -24,7 +24,8 @@
    "bk": true,
    "taper": true,
    "ed": true,
-   "vqe": true
+   "vqe": true,
+   "vqe_restarts": 0
   }
  },
  "versions": {
@@ -35,9 +36,10 @@
   "numpy": "2.4.6",
   "python": "3.11.17",
   "machine": "Cloud",
-  "os": "Windows-10-10.0.26200-SP0"
+  "os": "Windows-10-10.0.26200-SP0",
+  "git_sha": "67e551f"
  },
- "started": "2026-10-24 10:05:58",
+ "started": "2026-10-24 11:07:19",
  "points": [
   {
    "tag": "R=1.2",
@@ -50,12 +52,13 @@
    "n_active_orbitals": 4,
    "n_spin_orbitals": 8,
    "n_qubits": 8,
-   "e_hf": -7.835615825556917,
-   "e_casci": -7.836869709371492,
+   "e_hf": -7.835615825556913,
+   "e_casci": -7.836869709371494,
    "e_casscf": null,
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 6,
@@ -63,17 +66,17 @@
     "atom": "Li 0 0 0; H 0 0 1.2",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.47,
+    "t_seconds": 0.92,
     "spin_square": [
-     5.253936888288379e-31,
+     6.259272319258517e-33,
      1.0
     ]
    },
    "integrals_file": "results\\integrals\\lih_cas44_R=1.2.npz",
    "lambda_from_integrals": {
-    "lambda_T": 3.7538422508103704,
-    "lambda_V": 3.3816812039812536,
-    "lambda_total": 7.135523454791624,
+    "lambda_T": 3.753842250810325,
+    "lambda_V": 3.381681203981228,
+    "lambda_total": 7.135523454791553,
     "n_spatial_orbitals": 4,
     "n_qubits": 8,
     "n_nonzero_eri": 136,
@@ -83,8 +86,8 @@
    "jw": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 7.135523454791614,
-    "constant": -4.835463950174122,
+    "lambda_pauli": 7.135523454791546,
+    "constant": -4.835463950174123,
     "max_pauli_weight": 8,
     "weight_histogram": {
      "1": 8,
@@ -95,21 +98,21 @@
      "6": 36,
      "8": 4
     },
-    "lambda_identity_check": -9.769962616701378e-15
+    "lambda_identity_check": -7.105427357601002e-15
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 7.135523454791614,
+    "lambda": 7.135523454791546,
     "queries_qpe": 11209,
-    "toffoli_proxy_sparse": 717376,
+    "toffoli_proxy_sparse": 2152128,
     "logical_qubits_proxy": 30,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 7.1355234547916115,
-    "constant": -4.835463950174122,
+    "lambda_pauli": 7.135523454791545,
+    "constant": -4.835463950174124,
     "max_pauli_weight": 7,
     "weight_histogram": {
      "1": 7,
@@ -130,70 +133,73 @@
     ],
     "n_qubits_tapered": 5,
     "n_pauli_terms_tapered": 154,
-    "lambda_pauli_tapered": 6.9765664069469056
+    "lambda_pauli_tapered": 6.97656640694684
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 6.9765664069469056,
+    "lambda": 6.97656640694684,
     "queries_qpe": 10959,
-    "toffoli_proxy_sparse": 438360,
+    "toffoli_proxy_sparse": 1687686,
     "logical_qubits_proxy": 27,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -7.83686970937149
+     -7.836869709371488
     ],
-    "e0": -7.83686970937149,
+    "e0": -7.836869709371488,
     "sector": "N=4,Sz=0.0",
     "dim": 36,
-    "t_seconds": 0.311,
-    "error_vs_casci": 2.6645352591003757e-15
+    "t_seconds": 0.584,
+    "error_vs_casci": 6.217248937900877e-15
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 8,
-    "n_electrons": 4,
+    "n_electrons": [
+     2,
+     2
+    ],
     "n_params": 26,
     "n_singles": 8,
     "n_doubles": 18,
     "e_hf_circuit": -7.835615825556912,
-    "energy": -7.836869579273607,
+    "energy": -7.836869579273611,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 13,
-    "final_grad_maxabs": 7.654816608613798e-07,
+    "final_grad_maxabs": 7.654816608029142e-07,
     "polished_lbfgsb": false,
     "n_energy_evals": 15,
     "n_gradient_evals": 15,
-    "t_seconds": 7.15,
+    "t_seconds": 14.85,
     "theta": [
-     0.000504493754023374,
-     -1.0060146773007236e-56,
-     0.0005044937549583746,
-     1.299739817346327e-57,
-     0.014386536978654139,
-     -3.0096635026622353e-55,
-     0.01438653701123736,
-     -1.20559315723715e-55,
-     0.007628574520581783,
-     -1.9108708346497318e-58,
-     3.964740079809277e-51,
-     0.0035207241642231865,
-     -6.604960262512947e-54,
-     0.0003417890995711828,
-     -5.187763336758913e-56,
-     1.9560272147404616e-67,
-     0.005866648874202179,
-     -0.00034178615787687917,
-     4.432244992803426e-69,
-     -8.525059621990045e-51,
-     -0.005866674090684163,
-     7.401222559660435e-67,
-     0.025847180832738053,
-     -3.5020823492897564e-74,
-     6.075511806119817e-54,
-     0.07584879586592361
+     0.0005044937540205093,
+     1.1747090540282059e-57,
+     0.0005044937549554924,
+     -1.864442538273059e-58,
+     0.014386536978759221,
+     3.8811897326376225e-56,
+     0.014386537011342435,
+     1.5492030198739122e-56,
+     0.0076285745205818736,
+     1.2220001220533252e-58,
+     -5.139195154487392e-52,
+     0.0035207241642231887,
+     3.526302705755571e-54,
+     0.00034178909957112717,
+     1.533652215320266e-56,
+     2.2777343901618186e-65,
+     0.0058666488742022205,
+     -0.00034178615787682805,
+     -8.049462048958672e-67,
+     9.820738740960512e-52,
+     -0.005866674090684195,
+     6.971912755704938e-64,
+     0.025847180832736204,
+     -5.262926110668805e-75,
+     -6.0959239507442416e-55,
+     0.07584879586592196
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -209,10 +215,12 @@
      "RZ": 160
     },
     "n_template_ops": 1,
-    "error_vs_casci": 1.3009788535356392e-07,
+    "error_vs_casci": 1.3009788268902867e-07,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 8.53
+   "t_seconds": 17.48
   },
   {
    "tag": "R=1.4",
@@ -231,6 +239,7 @@
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 6,
@@ -238,17 +247,17 @@
     "atom": "Li 0 0 0; H 0 0 1.4",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.14,
+    "t_seconds": 0.19,
     "spin_square": [
-     2.4960052079258577e-31,
+     6.725347365800228e-31,
      1.0
     ]
    },
    "integrals_file": "results\\integrals\\lih_cas44_R=1.4.npz",
    "lambda_from_integrals": {
-    "lambda_T": 3.660025884171756,
-    "lambda_V": 3.2977281741495235,
-    "lambda_total": 6.95775405832128,
+    "lambda_T": 3.6600258841717634,
+    "lambda_V": 3.297728174149528,
+    "lambda_total": 6.957754058321291,
     "n_spatial_orbitals": 4,
     "n_qubits": 8,
     "n_nonzero_eri": 136,
@@ -258,8 +267,8 @@
    "jw": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.9577540583212825,
-    "constant": -4.889772529825507,
+    "lambda_pauli": 6.957754058321294,
+    "constant": -4.889772529825506,
     "max_pauli_weight": 8,
     "weight_histogram": {
      "1": 8,
@@ -274,17 +283,17 @@
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 6.9577540583212825,
+    "lambda": 6.957754058321294,
     "queries_qpe": 10930,
-    "toffoli_proxy_sparse": 699520,
+    "toffoli_proxy_sparse": 2098560,
     "logical_qubits_proxy": 30,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.957754058321283,
-    "constant": -4.889772529825508,
+    "lambda_pauli": 6.957754058321295,
+    "constant": -4.889772529825506,
     "max_pauli_weight": 7,
     "weight_histogram": {
      "1": 7,
@@ -305,70 +314,73 @@
     ],
     "n_qubits_tapered": 5,
     "n_pauli_terms_tapered": 154,
-    "lambda_pauli_tapered": 6.812897711328483
+    "lambda_pauli_tapered": 6.812897711328497
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 6.812897711328483,
+    "lambda": 6.812897711328497,
     "queries_qpe": 10702,
-    "toffoli_proxy_sparse": 428080,
+    "toffoli_proxy_sparse": 1648108,
     "logical_qubits_proxy": 27,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -7.861736569532528
+     -7.861736569532521
     ],
-    "e0": -7.861736569532528,
+    "e0": -7.861736569532521,
     "sector": "N=4,Sz=0.0",
     "dim": 36,
-    "t_seconds": 0.29,
-    "error_vs_casci": 3.552713678800501e-15
+    "t_seconds": 0.634,
+    "error_vs_casci": 1.0658141036401503e-14
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 8,
-    "n_electrons": 4,
+    "n_electrons": [
+     2,
+     2
+    ],
     "n_params": 26,
     "n_singles": 8,
     "n_doubles": 18,
-    "e_hf_circuit": -7.8605386610211845,
-    "energy": -7.861736551640794,
+    "e_hf_circuit": -7.860538661021183,
+    "energy": -7.861736551640797,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 14,
-    "final_grad_maxabs": 2.4005240839885954e-08,
+    "final_grad_maxabs": 2.4005240841402957e-08,
     "polished_lbfgsb": false,
     "n_energy_evals": 16,
     "n_gradient_evals": 16,
-    "t_seconds": 7.38,
+    "t_seconds": 14.5,
     "theta": [
-     0.0005441957621530523,
-     -1.9384333955323142e-58,
-     0.0005441957618052767,
-     1.4627402350147804e-58,
-     0.016078807327892353,
-     -1.9164605808839973e-56,
-     0.0160788073666876,
-     -6.538554658345414e-57,
-     0.007877067460545714,
-     -1.2256283706661102e-49,
-     -2.535383785259811e-50,
-     0.0035746258169940216,
-     3.235202024852878e-45,
-     0.00021272586090478621,
-     4.9038832398731236e-57,
-     -1.1922779507843342e-40,
-     0.005903585084063506,
-     -0.00021272400915497877,
-     1.1010225204559126e-67,
-     -1.6513863775649922e-51,
-     -0.005903610803655407,
-     -4.693204098803979e-64,
-     0.030207640715310433,
-     2.614368850969495e-73,
-     1.653823586952023e-55,
-     0.07157164641931844
+     0.0005441957621518671,
+     -5.080355365670129e-59,
+     0.0005441957618041485,
+     1.178666198313085e-58,
+     0.016078807327876907,
+     -1.3634039255482464e-56,
+     0.01607880736667232,
+     -4.931877636078863e-57,
+     0.00787706746054571,
+     8.990691483360073e-59,
+     8.697143396803298e-52,
+     0.003574625816994049,
+     -2.058024708721376e-53,
+     0.00021272586090479524,
+     5.289746943090507e-57,
+     -5.064420012693958e-73,
+     0.005903585084063407,
+     -0.00021272400915498346,
+     2.0797161404272748e-71,
+     -8.646105914879679e-51,
+     -0.005903610803655491,
+     -8.80768610654282e-78,
+     0.030207640715310406,
+     -4.2836543296484093e-75,
+     1.64040020645552e-55,
+     0.07157164641931826
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -384,10 +396,12 @@
      "RZ": 160
     },
     "n_template_ops": 1,
-    "error_vs_casci": 1.789173786903575e-08,
+    "error_vs_casci": 1.7891735204500492e-08,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 8.22
+   "t_seconds": 15.98
   },
   {
    "tag": "R=1.6",
@@ -400,12 +414,13 @@
    "n_active_orbitals": 4,
    "n_spin_orbitals": 8,
    "n_qubits": 8,
-   "e_hf": -7.861864769808652,
-   "e_casci": -7.863061095507066,
+   "e_hf": -7.861864769808656,
+   "e_casci": -7.863061095507068,
    "e_casscf": null,
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 6,
@@ -413,17 +428,17 @@
     "atom": "Li 0 0 0; H 0 0 1.6",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.13,
+    "t_seconds": 0.15,
     "spin_square": [
-     5.260196160607638e-33,
+     1.8134556356350213e-30,
      1.0
     ]
    },
    "integrals_file": "results\\integrals\\lih_cas44_R=1.6.npz",
    "lambda_from_integrals": {
-    "lambda_T": 3.5850242997846378,
-    "lambda_V": 3.2348114228357434,
-    "lambda_total": 6.819835722620381,
+    "lambda_T": 3.5850242997847124,
+    "lambda_V": 3.234811422835814,
+    "lambda_total": 6.819835722620526,
     "n_spatial_orbitals": 4,
     "n_qubits": 8,
     "n_nonzero_eri": 136,
@@ -433,8 +448,8 @@
    "jw": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.819835722620383,
-    "constant": -4.916863811804861,
+    "lambda_pauli": 6.819835722620508,
+    "constant": -4.916863811804863,
     "max_pauli_weight": 8,
     "weight_histogram": {
      "1": 8,
@@ -445,21 +460,21 @@
      "6": 36,
      "8": 4
     },
-    "lambda_identity_check": 2.6645352591003757e-15
+    "lambda_identity_check": -1.865174681370263e-14
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 6.819835722620383,
+    "lambda": 6.819835722620508,
     "queries_qpe": 10713,
-    "toffoli_proxy_sparse": 685632,
+    "toffoli_proxy_sparse": 2056896,
     "logical_qubits_proxy": 30,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.819835722620383,
-    "constant": -4.91686381180486,
+    "lambda_pauli": 6.819835722620511,
+    "constant": -4.9168638118048635,
     "max_pauli_weight": 7,
     "weight_histogram": {
      "1": 7,
@@ -480,70 +495,73 @@
     ],
     "n_qubits_tapered": 5,
     "n_pauli_terms_tapered": 154,
-    "lambda_pauli_tapered": 6.682604276061257
+    "lambda_pauli_tapered": 6.682604276061371
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 6.682604276061257,
+    "lambda": 6.682604276061371,
     "queries_qpe": 10498,
-    "toffoli_proxy_sparse": 419920,
+    "toffoli_proxy_sparse": 1616692,
     "logical_qubits_proxy": 27,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -7.863061095507068
+     -7.863061095507064
     ],
-    "e0": -7.863061095507068,
+    "e0": -7.863061095507064,
     "sector": "N=4,Sz=0.0",
     "dim": 36,
-    "t_seconds": 0.29,
-    "error_vs_casci": -1.7763568394002505e-15
+    "t_seconds": 0.33,
+    "error_vs_casci": 4.440892098500626e-15
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 8,
-    "n_electrons": 4,
+    "n_electrons": [
+     2,
+     2
+    ],
     "n_params": 26,
     "n_singles": 8,
     "n_doubles": 18,
-    "e_hf_circuit": -7.861864769808653,
-    "energy": -7.863061087290232,
+    "e_hf_circuit": -7.86186476980865,
+    "energy": -7.863061087290233,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 14,
-    "final_grad_maxabs": 3.1886147322281864e-08,
+    "final_grad_maxabs": 3.1886146725093553e-08,
     "polished_lbfgsb": false,
     "n_energy_evals": 16,
     "n_gradient_evals": 16,
-    "t_seconds": 7.35,
+    "t_seconds": 9.11,
     "theta": [
-     0.0005598546119852416,
-     3.2359560401588004e-57,
-     0.0005598546115846573,
-     -7.756018178703224e-58,
-     0.019814813600945936,
-     1.263938152267866e-55,
-     0.01981481365576498,
-     4.368051401753335e-56,
-     0.007983325161345652,
-     5.957094810122563e-59,
-     -3.5269292774200054e-51,
-     0.0035959113053374557,
-     3.8674752965407254e-53,
-     8.23558227604407e-05,
-     -1.3500486618846377e-55,
-     1.708578086027989e-73,
-     0.00593464195138221,
-     -8.235509793322335e-05,
-     -9.15046120243646e-72,
-     5.900363698608885e-51,
-     -0.005934668078599159,
-     9.087033340832465e-78,
-     0.03731966843407111,
-     6.773818334948801e-74,
-     -2.645056449997227e-54,
-     0.06870604084736474
+     0.0005598546119859308,
+     -2.1248043559309575e-56,
+     0.0005598546115854258,
+     1.5132549774592446e-57,
+     0.019814813600754492,
+     -3.638337779960302e-55,
+     0.01981481365557349,
+     -1.1269803857885398e-55,
+     0.007983325161345537,
+     8.631911720827123e-58,
+     -9.182707282745791e-51,
+     0.003595911305337444,
+     7.089954349036332e-53,
+     8.235582276047025e-05,
+     -1.7721670766058778e-55,
+     2.3082938521981742e-73,
+     0.00593464195138209,
+     -8.235509793325838e-05,
+     -1.172939270452761e-70,
+     2.0309007606181965e-50,
+     -0.005934668078599028,
+     1.4801311876905374e-76,
+     0.03731966843407539,
+     3.1331286382981305e-74,
+     6.211660233052679e-54,
+     0.06870604084736284
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -559,10 +577,12 @@
      "RZ": 160
     },
     "n_template_ops": 1,
-    "error_vs_casci": 8.216834324059619e-09,
+    "error_vs_casci": 8.216835212238038e-09,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 8.19
+   "t_seconds": 9.98
   },
   {
    "tag": "R=1.8",
@@ -575,12 +595,13 @@
    "n_active_orbitals": 4,
    "n_spin_orbitals": 8,
    "n_qubits": 8,
-   "e_hf": -7.850018697166806,
-   "e_casci": -7.851286471263809,
+   "e_hf": -7.850018697166807,
+   "e_casci": -7.851286471263804,
    "e_casscf": null,
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 6,
@@ -588,17 +609,17 @@
     "atom": "Li 0 0 0; H 0 0 1.8",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.12,
+    "t_seconds": 0.16,
     "spin_square": [
-     1.781485198558193e-33,
+     3.538896272811546e-33,
      1.0
     ]
    },
    "integrals_file": "results\\integrals\\lih_cas44_R=1.8.npz",
    "lambda_from_integrals": {
-    "lambda_T": 3.5250485393038815,
-    "lambda_V": 3.1921710116703226,
-    "lambda_total": 6.717219550974204,
+    "lambda_T": 3.525048539303473,
+    "lambda_V": 3.1921710116698616,
+    "lambda_total": 6.717219550973335,
     "n_spatial_orbitals": 4,
     "n_qubits": 8,
     "n_nonzero_eri": 136,
@@ -608,8 +629,8 @@
    "jw": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.717219550974213,
-    "constant": -4.928713522585674,
+    "lambda_pauli": 6.717219550973321,
+    "constant": -4.928713522585662,
     "max_pauli_weight": 8,
     "weight_histogram": {
      "1": 8,
@@ -620,21 +641,21 @@
      "6": 36,
      "8": 4
     },
-    "lambda_identity_check": 8.881784197001252e-15
+    "lambda_identity_check": -1.3322676295501878e-14
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 6.717219550974213,
+    "lambda": 6.717219550973321,
     "queries_qpe": 10552,
-    "toffoli_proxy_sparse": 675328,
+    "toffoli_proxy_sparse": 2025984,
     "logical_qubits_proxy": 30,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.717219550974205,
-    "constant": -4.928713522585678,
+    "lambda_pauli": 6.7172195509733195,
+    "constant": -4.92871352258566,
     "max_pauli_weight": 7,
     "weight_histogram": {
      "1": 7,
@@ -655,70 +676,73 @@
     ],
     "n_qubits_tapered": 5,
     "n_pauli_terms_tapered": 154,
-    "lambda_pauli_tapered": 6.580619294528923
+    "lambda_pauli_tapered": 6.58061929452805
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 6.580619294528923,
+    "lambda": 6.58061929452805,
     "queries_qpe": 10337,
-    "toffoli_proxy_sparse": 413480,
+    "toffoli_proxy_sparse": 1591898,
     "logical_qubits_proxy": 27,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -7.851286471263807
+     -7.851286471263814
     ],
-    "e0": -7.851286471263807,
+    "e0": -7.851286471263814,
     "sector": "N=4,Sz=0.0",
     "dim": 36,
-    "t_seconds": 0.287,
-    "error_vs_casci": 2.6645352591003757e-15
+    "t_seconds": 0.346,
+    "error_vs_casci": -9.769962616701378e-15
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 8,
-    "n_electrons": 4,
+    "n_electrons": [
+     2,
+     2
+    ],
     "n_params": 26,
     "n_singles": 8,
     "n_doubles": 18,
-    "e_hf_circuit": -7.850018697166799,
+    "e_hf_circuit": -7.850018697166808,
     "energy": -7.851286407238308,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 14,
-    "final_grad_maxabs": 4.111592909723969e-08,
+    "final_grad_maxabs": 4.111592924214265e-08,
     "polished_lbfgsb": false,
     "n_energy_evals": 16,
     "n_gradient_evals": 16,
-    "t_seconds": 7.35,
+    "t_seconds": 10.08,
     "theta": [
-     0.0005609236649800049,
-     1.4049758790857905e-56,
-     0.0005609236644551896,
-     -6.892666175646139e-57,
-     0.026441472386685073,
-     9.092772624683521e-55,
-     0.02644147247774886,
-     2.756641403494764e-55,
-     0.00800506363523558,
-     -6.404016986154458e-59,
-     5.449071875739529e-52,
-     0.003603081965660155,
-     4.833876071024609e-53,
-     -6.967072368731567e-05,
-     -2.8642395140864723e-55,
-     -9.042622632122093e-65,
-     0.005978603581171886,
-     6.96701013780082e-05,
-     2.0740847154679374e-66,
-     1.39392478887791e-50,
-     -0.005978630292531662,
-     -1.7240079330641407e-63,
-     0.04827920154232771,
-     -1.969967161481233e-73,
-     -1.3097134630953508e-53,
-     0.06675586206254913
+     0.0005609236649697605,
+     -1.1241476202189191e-56,
+     0.0005609236644449294,
+     7.336341982425531e-57,
+     0.02644147238781808,
+     -9.201308330317957e-55,
+     0.02644147247888157,
+     -2.700529917908681e-55,
+     0.008005063635235973,
+     -9.263562646817072e-58,
+     3.3492162006665947e-51,
+     0.003603081965660199,
+     -3.0456493913247767e-53,
+     -6.967072368723129e-05,
+     1.84500682965196e-55,
+     -3.562143024750727e-73,
+     0.0059786035811718735,
+     6.96701013779218e-05,
+     5.401903164735694e-72,
+     -7.232210670852367e-51,
+     -0.005978630292531602,
+     -3.236517974675038e-76,
+     0.04827920154225641,
+     -5.4782146915678477e-73,
+     1.408455798663661e-53,
+     0.06675586206256028
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -734,10 +758,12 @@
      "RZ": 160
     },
     "n_template_ops": 1,
-    "error_vs_casci": 6.402550134509966e-08,
+    "error_vs_casci": 6.402549601602914e-08,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 8.08
+   "t_seconds": 10.99
   },
   {
    "tag": "R=2.2",
@@ -750,12 +776,13 @@
    "n_active_orbitals": 4,
    "n_spin_orbitals": 8,
    "n_qubits": 8,
-   "e_hf": -7.807994369272977,
-   "e_casci": -7.809866976388996,
+   "e_hf": -7.807994369272983,
+   "e_casci": -7.809866976389005,
    "e_casscf": null,
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 6,
@@ -763,17 +790,17 @@
     "atom": "Li 0 0 0; H 0 0 2.2",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.14,
+    "t_seconds": 0.25,
     "spin_square": [
-     2.98904327368899e-31,
+     3.3649847988333785e-30,
      1.0
     ]
    },
    "integrals_file": "results\\integrals\\lih_cas44_R=2.2.npz",
    "lambda_from_integrals": {
-    "lambda_T": 3.4393258601197116,
-    "lambda_V": 3.145334478383716,
-    "lambda_total": 6.5846603385034275,
+    "lambda_T": 3.439325860119763,
+    "lambda_V": 3.1453344783837807,
+    "lambda_total": 6.584660338503544,
     "n_spatial_orbitals": 4,
     "n_qubits": 8,
     "n_nonzero_eri": 136,
@@ -783,8 +810,8 @@
    "jw": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.584660338503421,
-    "constant": -4.930391831513109,
+    "lambda_pauli": 6.584660338503549,
+    "constant": -4.930391831513113,
     "max_pauli_weight": 8,
     "weight_histogram": {
      "1": 8,
@@ -795,21 +822,21 @@
      "6": 36,
      "8": 4
     },
-    "lambda_identity_check": -6.217248937900877e-15
+    "lambda_identity_check": 5.329070518200751e-15
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 6.584660338503421,
+    "lambda": 6.584660338503549,
     "queries_qpe": 10344,
-    "toffoli_proxy_sparse": 662016,
+    "toffoli_proxy_sparse": 1986048,
     "logical_qubits_proxy": 30,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.5846603385034195,
-    "constant": -4.930391831513107,
+    "lambda_pauli": 6.584660338503544,
+    "constant": -4.930391831513114,
     "max_pauli_weight": 7,
     "weight_histogram": {
      "1": 7,
@@ -830,70 +857,73 @@
     ],
     "n_qubits_tapered": 5,
     "n_pauli_terms_tapered": 154,
-    "lambda_pauli_tapered": 6.44333116067943
+    "lambda_pauli_tapered": 6.443331160679559
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 6.44333116067943,
+    "lambda": 6.443331160679559,
     "queries_qpe": 10122,
-    "toffoli_proxy_sparse": 404880,
+    "toffoli_proxy_sparse": 1558788,
     "logical_qubits_proxy": 27,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -7.809866976388996
+     -7.809866976389002
     ],
-    "e0": -7.809866976388996,
+    "e0": -7.809866976389002,
     "sector": "N=4,Sz=0.0",
     "dim": 36,
-    "t_seconds": 0.28,
-    "error_vs_casci": 0.0
+    "t_seconds": 0.619,
+    "error_vs_casci": 2.6645352591003757e-15
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 8,
-    "n_electrons": 4,
+    "n_electrons": [
+     2,
+     2
+    ],
     "n_params": 26,
     "n_singles": 8,
     "n_doubles": 18,
-    "e_hf_circuit": -7.807994369272978,
-    "energy": -7.809866553515808,
+    "e_hf_circuit": -7.807994369272975,
+    "energy": -7.809866553515796,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 13,
-    "final_grad_maxabs": 4.7914403207043705e-08,
+    "final_grad_maxabs": 4.791440338655782e-08,
     "polished_lbfgsb": false,
     "n_energy_evals": 15,
     "n_gradient_evals": 15,
-    "t_seconds": 6.99,
+    "t_seconds": 14.2,
     "theta": [
-     0.0005281644241029664,
-     1.559903554019609e-51,
-     0.0005281644227888531,
-     2.4574764388233967e-51,
-     0.05659744600049594,
-     -4.087639957407498e-49,
-     0.056597446451787416,
-     1.2206907389466454e-49,
-     0.007816440788639271,
-     -5.035618088313636e-47,
-     5.793781504387997e-48,
-     0.0036078517471673103,
-     -2.0245096818151476e-43,
-     -0.00047635651223783406,
-     -2.6625457451491507e-55,
-     -9.328110948840903e-39,
-     0.006194583248517536,
-     0.0004763519614083333,
-     4.665287124602757e-65,
-     4.828780943797374e-51,
-     -0.0061946129503553295,
-     1.5360508327709087e-61,
-     0.09160074010964786,
-     -5.056218288807271e-72,
-     3.8651113254863843e-53,
-     0.06544674775272796
+     0.0005281644241040476,
+     -6.400765905991129e-56,
+     0.0005281644227899631,
+     8.578728671939957e-56,
+     0.05659744600037584,
+     -8.878217118593411e-54,
+     0.05659744645166801,
+     -2.1266923830001495e-54,
+     0.007816440788639181,
+     -2.3323917878680352e-59,
+     4.647493548654756e-52,
+     0.003607851747167351,
+     1.3479819087342165e-54,
+     -0.00047635651223793256,
+     -1.446778352239194e-56,
+     5.42484795834341e-63,
+     0.0061945832485176084,
+     0.00047635196140843503,
+     1.5380291208207767e-64,
+     1.074985583875135e-51,
+     -0.006194612950355405,
+     8.794802779221996e-62,
+     0.0916007401096806,
+     1.6030622049972922e-73,
+     9.886842075262066e-53,
+     0.06544674775272695
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -909,10 +939,12 @@
      "RZ": 160
     },
     "n_template_ops": 1,
-    "error_vs_casci": 4.228731880218106e-07,
+    "error_vs_casci": 4.2287320844991427e-07,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 7.74
+   "t_seconds": 15.79
   },
   {
    "tag": "R=2.8",
@@ -925,12 +957,13 @@
    "n_active_orbitals": 4,
    "n_spin_orbitals": 8,
    "n_qubits": 8,
-   "e_hf": -7.733991340166798,
-   "e_casci": -7.742477875709649,
+   "e_hf": -7.7339913401668,
+   "e_casci": -7.742477875709652,
    "e_casscf": null,
    "meta": {
     "basis": "sto-3g",
     "x2c": false,
+    "frac_occ": false,
     "charge": 0,
     "spin": 0,
     "nao": 6,
@@ -938,17 +971,17 @@
     "atom": "Li 0 0 0; H 0 0 2.8",
     "ncore": 0,
     "casci_converged": true,
-    "t_seconds": 0.14,
+    "t_seconds": 0.26,
     "spin_square": [
-     4.2992919334545143e-29,
+     9.939647405784749e-29,
      1.0
     ]
    },
    "integrals_file": "results\\integrals\\lih_cas44_R=2.8.npz",
    "lambda_from_integrals": {
-    "lambda_T": 3.369735261236264,
-    "lambda_V": 3.16243368107411,
-    "lambda_total": 6.532168942310374,
+    "lambda_T": 3.3697352612362623,
+    "lambda_V": 3.1624336810741065,
+    "lambda_total": 6.532168942310369,
     "n_spatial_orbitals": 4,
     "n_qubits": 8,
     "n_nonzero_eri": 136,
@@ -958,8 +991,8 @@
    "jw": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.532168942310377,
-    "constant": -4.917441905155134,
+    "lambda_pauli": 6.532168942310374,
+    "constant": -4.9174419051551315,
     "max_pauli_weight": 8,
     "weight_histogram": {
      "1": 8,
@@ -970,21 +1003,21 @@
      "6": 36,
      "8": 4
     },
-    "lambda_identity_check": 2.6645352591003757e-15
+    "lambda_identity_check": 5.329070518200751e-15
    },
    "qpe_proxy_jw": {
     "eps_ha": 0.001,
-    "lambda": 6.532168942310377,
+    "lambda": 6.532168942310374,
     "queries_qpe": 10261,
-    "toffoli_proxy_sparse": 656704,
+    "toffoli_proxy_sparse": 1970112,
     "logical_qubits_proxy": 30,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "bk": {
     "n_qubits": 8,
     "n_pauli_terms": 192,
-    "lambda_pauli": 6.532168942310374,
-    "constant": -4.917441905155135,
+    "lambda_pauli": 6.532168942310365,
+    "constant": -4.917441905155132,
     "max_pauli_weight": 7,
     "weight_histogram": {
      "1": 7,
@@ -1005,70 +1038,73 @@
     ],
     "n_qubits_tapered": 5,
     "n_pauli_terms_tapered": 154,
-    "lambda_pauli_tapered": 6.357459333496452
+    "lambda_pauli_tapered": 6.357459333496448
    },
    "qpe_proxy_tapered": {
     "eps_ha": 0.001,
-    "lambda": 6.357459333496452,
+    "lambda": 6.357459333496448,
     "queries_qpe": 9987,
-    "toffoli_proxy_sparse": 399480,
+    "toffoli_proxy_sparse": 1537998,
     "logical_qubits_proxy": 27,
-    "note": "Pauli-1-norm proxy; not an optimised fault-tolerant resource count"
+    "note": "Fock-space Pauli-1-norm proxy (sparse LCU, SELECT ~ L Toffolis/query); not an optimised fault-tolerant resource count (no DF/THC, no error correction)"
    },
    "ed": {
     "energies": [
-     -7.742477875709653
+     -7.742477875709652
     ],
-    "e0": -7.742477875709653,
+    "e0": -7.742477875709652,
     "sector": "N=4,Sz=0.0",
     "dim": 36,
-    "t_seconds": 0.285,
-    "error_vs_casci": -4.440892098500626e-15
+    "t_seconds": 0.649,
+    "error_vs_casci": 0.0
    },
    "vqe_uccsd": {
     "ansatz": "UCCSD",
     "n_qubits": 8,
-    "n_electrons": 4,
+    "n_electrons": [
+     2,
+     2
+    ],
     "n_params": 26,
     "n_singles": 8,
     "n_doubles": 18,
-    "e_hf_circuit": -7.733991340166797,
-    "energy": -7.742473744805591,
+    "e_hf_circuit": -7.733991340166794,
+    "energy": -7.742473744805601,
     "success": true,
     "message": "Optimization terminated successfully.",
     "n_iter": 14,
-    "final_grad_maxabs": 1.1980489658835382e-07,
+    "final_grad_maxabs": 1.1980489673168765e-07,
     "polished_lbfgsb": false,
     "n_energy_evals": 16,
     "n_gradient_evals": 16,
-    "t_seconds": 7.55,
+    "t_seconds": 15.82,
     "theta": [
-     0.0005161810177971241,
-     2.49524995953151e-56,
-     0.0005161809936961314,
-     -7.522680021882136e-55,
-     0.21442011706547898,
-     5.77787182202322e-53,
-     0.2144201235766021,
-     8.014659951979723e-54,
-     0.006118690931799691,
-     1.5489227306627037e-56,
-     -6.222514176838242e-51,
-     0.0036606200654269233,
-     -3.744570268657256e-55,
-     -0.0015897758195869667,
-     -1.1903447743420315e-54,
-     -7.990855814590361e-61,
-     0.007107365664437491,
-     0.0015897562598689392,
-     -2.2476099678178477e-61,
-     3.7774891135608664e-50,
-     -0.007107410513052224,
-     -7.25547834954141e-60,
-     0.34037289978267843,
-     7.618372880064325e-71,
-     -2.9568178420777796e-52,
-     0.07019410471126471
+     0.000516181017797249,
+     -8.423511584341941e-47,
+     0.0005161809936962511,
+     -8.011340066462118e-47,
+     0.21442011706547556,
+     1.3121467375928124e-44,
+     0.2144201235765973,
+     -3.233170391224005e-45,
+     0.006118690931799794,
+     6.875860691135897e-45,
+     -9.72265215131027e-46,
+     0.0036606200654268903,
+     -4.425365721220208e-42,
+     -0.0015897758195869787,
+     -5.5719525680146404e-55,
+     -4.194901413102057e-38,
+     0.007107365664437572,
+     0.0015897562598689075,
+     -1.6850557510223993e-61,
+     4.84187110672402e-51,
+     -0.007107410513052128,
+     -5.441944539882054e-59,
+     0.3403728997826596,
+     2.599610795054537e-72,
+     -5.5658889582477035e-52,
+     0.07019410471126314
     ],
     "optimizer": "BFGS",
     "gtol": 1e-06,
@@ -1084,11 +1120,13 @@
      "RZ": 160
     },
     "n_template_ops": 1,
-    "error_vs_casci": 4.130904057930707e-06,
+    "error_vs_casci": 4.130904051713458e-06,
+    "restart_energies": [],
+    "n_restarts_used": 0,
     "chemical_accuracy_reached": true
    },
-   "t_seconds": 8.28
+   "t_seconds": 17.6
   }
  ],
- "finished": "2026-10-24 10:06:47"
+ "finished": "2026-10-24 11:08:47"
 }
