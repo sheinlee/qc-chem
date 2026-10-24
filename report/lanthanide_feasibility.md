@@ -85,7 +85,7 @@ What the ladder shows, and what it cannot show.
 3. **λ and term counts along the ladder.** λ per qubit is roughly constant (4.0 at L1, 4.3 at L3 and L5) and
    L4 (32 qubits, λ = 92 Ha) sits below L2 (24 qubits, 118 Ha): λ tracks which orbitals are present (5d
    contributes large exchange integrals) more than the qubit count. The JW term count over all systems
-   follows N^4.2 in the number of active orbitals (fig. 3), i.e. of order 2–3e5 explicit terms at 42 qubits.
+   follows N^4.35 in the number of active orbitals (fig. 3, fit over all systems), i.e. of order 2–3e5 explicit terms at 42 qubits.
 
 ## 4. Scalar versus two-component: what spin-orbit coupling does to the qubit Hamiltonian
 

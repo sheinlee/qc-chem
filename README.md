@@ -62,7 +62,7 @@ CASCI job.
 - `results/figures/fig1_ladder.png` qubits / Pauli terms / λ / QPE-proxy queries along the ladder with the
   simulation-regime bands.
 - `results/figures/fig2_curves.png` N2 and H2O: energies and E − E_CASCI for HF and UCCSD-VQE.
-- `results/figures/fig3_scaling.png` Pauli terms and λ vs active orbitals (N^4.2 fit).
+- `results/figures/fig3_scaling.png` Pauli terms and λ vs active orbitals (N^4.35 fit).
 
 ## Known limitations
 

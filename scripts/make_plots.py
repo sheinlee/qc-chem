@@ -190,7 +190,7 @@ def fig_scaling(data):
                         xytext=(5, -9 if "cl3p" in nm else 3), textcoords="offset points")
     ax.set_yscale("log"); ax.set_xticks([2, 4, 6, 7, 12, 16, 21]); ax.set_xlim(1, 24)
     ax.set_xlabel("active spatial orbitals N"); ax.set_ylabel("Pauli 1-norm λ / Ha")
-    ax.legend(fontsize=7.5, loc="upper left")
+    ax.legend(fontsize=7.5, loc="lower right")
     fig.tight_layout()
     fig.savefig(FIG / "fig3_scaling.png")
     plt.close(fig)
