@@ -1,0 +1,47 @@
+{
+ "name": "cecl3_L1_4f_sa",
+ "tag": "single",
+ "n_qubits": 14,
+ "nelecas": [
+  1,
+  0
+ ],
+ "adapt": {
+  "energy": -10239.408439515786,
+  "e_hf": -10239.408439515786,
+  "n_ops": 0,
+  "n_singles": 0,
+  "n_doubles": 0,
+  "ops": [],
+  "theta": [],
+  "history": [
+   {
+    "iter": 0,
+    "stop": "gradient",
+    "max_grad": 5.6930834666305e-08
+   }
+  ],
+  "pool_size": 6,
+  "n_energy_evals_total": 0,
+  "cnot_givens": 0,
+  "t_seconds": 0.1,
+  "stop_reason": "gradient",
+  "cnot_fermionic": 0,
+  "depth_fermionic": 0,
+  "n_gates_fermionic": 0,
+  "error_vs_exact": 1.8189894035458565e-12,
+  "e_exact": -10239.408439515788,
+  "e_casci": -10239.40843951578,
+  "uccsd": {
+   "energy": -10239.40843951578,
+   "error_vs_casci": 0.0,
+   "n_params": 6,
+   "n_singles": 6,
+   "n_doubles": 0,
+   "cnot_fermionic": 168,
+   "depth_fermionic": 205,
+   "n_energy_evals": 2,
+   "cnot_givens_equivalent": 12
+  }
+ }
+}

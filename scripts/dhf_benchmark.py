@@ -81,8 +81,9 @@ def run(charge, basis, do_gaunt):
 
 if __name__ == "__main__":
     basis = sys.argv[1] if len(sys.argv) > 1 else "cc-pvdz-dk"
+    with_gaunt = len(sys.argv) > 2 and sys.argv[2] == "gaunt"   # Gaunt 4c-HF is very slow for Ce: opt-in
     out = {"experiment_ce3_2F_split_cm": 2253.0, "results": []}
-    for charge, gaunt in [(4, True), (3, False)]:
+    for charge, gaunt in [(4, with_gaunt), (3, False)]:
         r = run(charge, basis, gaunt)
         out["results"].append(r)
         for k in ("x2c_hf", "dc_hf", "dcg_hf"):
