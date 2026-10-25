@@ -253,4 +253,4 @@ stated; CASCI at every CeCl3 level (CASSCF does not preserve the chemically defi
 pairs are compared energetically; no dynamic correlation outside the active space; no noise; ADAPT run only up to 14 qubits on an exact statevector; resource
 estimates are logical-level costings without error-correction overhead and without THC; L5 has no classical
 reference. Term counts, λ and tapering yields depend on the orbital basis for degenerate shells. The
-four-component Dirac-Coulomb(-Gaunt) HF screening benchmark was still running when this revision was written.
+four-component Dirac-Coulomb HF benchmark of the 4f screening did not produce a usable number: both 4c-HF runs (Ce4+, Ce3+, cc-pVDZ-DK, ~2 h each) ended unconverged and the automatic 4f-spinor assignment failed on them (`results/soc_dhf_benchmark.json`, `scripts/dhf_benchmark.py`); the Gaunt variant ran for 8 h without finishing. The two-component X2C-HF half of the benchmark is consistent with the rest of the work (Ce4+ virtual-4f one-electron splitting 4791 cm⁻¹). The screening evidence therefore rests on the SOMF comparison with experiment (§4), not on an independent four-component reference.
