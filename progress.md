@@ -86,3 +86,12 @@
 - `scripts/lambda_orbital_opt.py`（Koridon 思路，固定活性子空间内正交旋转，平滑 |·| + L-BFGS，3 次起点）：N2 0.940、Ce3+ 0.958、L1 0.997、C3 0.951、L3 0.852、L5 0.743；CASCI 能量不变（≤2e-12，L5 因 CI 不可解只能靠幺正性）。项数可能上升（C3 13776→15830），λ 与项数要分开报。L3 的优化 56 分钟主要花在两次 CASCI 检查上。
 - 报告第三版：lanthanide_feasibility.md §3（嵌套、固定轨道占据、措辞）、§4（λ 定义含 SOC）、§5（分解估算）、§6（λ 优化）；technical_report.md §5–6；README。
 - 仍在跑：四分量 DHF/DCG 基准（本机，已 >6 h）。集群连不通后不再探测。
+
+
+## 2026-10-24 夜：ADAPT-VQE（第三优先级，完成）
+- `qcchem/adapt.py`：费米子池（与 UCCSD 相同的自旋守恒单双激发生成元，可重复选取）、精确态矢量、<[H,A]> 梯度筛选、每步全参数 BFGS（伴随梯度）。`scripts/run_adapt.py`，环境变量 ADAPT_GRAD_TOL / ADAPT_MAX_OPS / ADAPT_SUFFIX。
+- 宽松阈值 1e-3：各点精度与 UCCSD 相同（N2 1.2 Å 0.69 vs 0.74 mHa……），参数与 CNOT 少 2–4 倍。
+- 严格阈值 1e-4、<=150 算符：N2 1.5/2.0/2.4 Å 达到 4.6e-6/2.2e-6/9.2e-7 Ha（86–97 算符，仅 47–51 个不同生成元——靠重复选取突破单次 Trotter 的限制），UCCSD 同点 1.75/5.46/13.4 mHa；参数 86–97 vs 117，费米子编译 CNOT 7.8–8.8k vs 9.0k。
+- H2O 2.2 Å：ADAPT 与 UCCSD 都停在 3.1 mHa；诊断：精确基态可达（与 HF 重叠 36%，N=8，激发态高 6.6 mHa），所有池梯度 <1e-4 —— 自旋轨道池的梯度谷，需换自旋适配/qubit 池或重启。如实记录。
+- 4f 空间：Ce3+/CeCl3 L1-SA 参考行列式已是本征态（0 算符）；Pr3+ 6 个算符 7.6e-6。
+- 上一会话中断时本机 DHF 进程被杀（8 h CPU 无产出，Gaunt 太慢）；已改为 Gaunt 可选并重跑纯 Dirac–Coulomb 版本。

@@ -89,6 +89,12 @@ Cost observation: for 12 qubits the UCCSD circuit for N2 CAS(6,6) is 9024 CNOTs 
 for a problem whose classical FCI space is 400 determinants. Efficient excitation compilations reduce this
 substantially; the number is an upper bound.
 
+**ADAPT-VQE** (fermionic pool, exact statevector, `qcchem/adapt.py`; table and discussion in
+`lanthanide_feasibility.md` §7): with a loose gradient criterion it reproduces the UCCSD accuracy at every
+point with 2-4x fewer parameters and CNOTs; with a tight criterion it reaches 1e-6 Ha at N2 1.5/2.0/2.4 A
+(86-97 operators, 47-51 distinct, 7.8-8.8k CNOTs) where UCCSD stays at 1.7/5.5/13.4 mHa, and it stalls at
+H2O 2.2 A (3.1 mHa, all pool gradients < 1e-4) exactly where UCCSD does.
+
 ## 4. Lanthanide free ions: the reference problem comes first
 
 Ce3+, Pr3+, Eu3+, Gd3+ in 4f-only CAS(n,7), 14 qubits, scalar X2C, cc-pVDZ-DK, AVAS with ANO-RCC projectors.

@@ -13,7 +13,7 @@ sfx2c1e, cc-pVDZ-DK, PySCF 2.14 / OpenFermion 1.8.1 / PennyLane 0.45.1 / pyscf-p
 `PLAN.md` set out the claim that *4f-only lanthanide active spaces are classically trivial; the problem only
 becomes hard once ligand orbitals and relativistic/spin-orbit effects enter, and at that point NISQ-style
 VQE is already out of reach, leaving only fault-tolerant phase estimation to discuss.* The calculations were
-set up so that the numbers, not the claim, decide. Section 7 states what survived.
+set up so that the numbers, not the claim, decide. Section 8 states what survived.
 
 ## 2. Free ions: the reference problem comes before the quantum problem
 
@@ -173,7 +173,41 @@ rotation. Term counts can go up while λ goes down (C3), so the two metrics must
 Combined with double factorisation (which itself profits from more localised orbitals) this is the first
 lever to pull before any hardware-side optimisation.
 
-## 7. What the numbers say about the original claim
+## 7. ADAPT-VQE versus UCCSD: compactness and the multireference regime
+
+`qcchem/adapt.py`: fermionic-pool ADAPT (the same spin-conserving single/double generators that UCCSD uses,
+operators may be selected repeatedly), exact statevector, gradient screening by <[H, A]>, full BFGS
+re-optimisation with analytic adjoint gradients after every addition; stop when all pool gradients are below
+the tolerance or |E - E_exact| < 1e-6 Ha. Circuit cost in the same two gate sets as before: PennyLane's
+fermionic (JW-string) excitation gates ("CNOT") and Givens-type particle-conserving gates (2 CNOT per single,
+14 per double, "Givens"). `results/adapt_*.json`.
+
+| System | exact-reference error: UCCSD | ADAPT (tolerance 1e-3) | ADAPT (tolerance 1e-4, <= 150 ops) | parameters UCCSD / ADAPT-tight (distinct) | CNOT UCCSD / ADAPT-tight | Givens UCCSD / ADAPT-tight |
+|---|---|---|---|---|---|---|
+| N2 1.2 A (minimum) | 0.74 mHa | 0.69 mHa (47 ops) | - | 117 / 47 | 9024 / 4112 | 1422 / 658 |
+| N2 1.5 A | 1.75 mHa | 1.63 mHa (45) | **4.6e-6 Ha** (93 ops, 51 distinct) | 117 / 93 (51) | 9024 / 8464 | 1422 / 1302 |
+| N2 2.0 A | 5.46 mHa | 5.15 mHa (60, cap) | **2.2e-6 Ha** (97, 51 distinct) | 117 / 97 (51) | 9024 / 8816 | 1422 / 1358 |
+| N2 2.4 A | 13.4 mHa | 1.18 mHa (58) | **9.2e-7 Ha** (86, 47 distinct) | 117 / 86 (47) | 9024 / 7776 | 1422 / 1204 |
+| H2O 0.96 A | 0.098 mHa | 0.098 mHa (24) | - | 92 / 24 | 6976 / 1792 | 1096 / 336 |
+| H2O 2.2 A | 3.13 mHa | 3.10 mHa (26) | 3.10 mHa (28, all gradients < 1e-4) | 92 / 28 | 6976 / 1744 | 1096 / 344 |
+| LiH (4,4) | 8e-9 | 3.4e-7 (8 ops) | - | 26 / 8 | 1312 / 336 | 268 / 88 |
+| Pr3+ 4f2 (SA) | 1e-8 | 7.6e-6 (6 ops) | - | 20 / 6 | 1400 / 488 | 160 / 60 |
+| Ce3+, CeCl3 4f1 (SA) | 1e-8 | reference determinant already exact (0 ops) | - | 6 / 0 | 168 / 0 | 12 / 0 |
+
+Reading. (i) With a loose gradient criterion ADAPT lands at the *same* accuracy as UCCSD at every point
+(0.69 vs 0.74, 1.63 vs 1.75, 3.10 vs 3.13 mHa ...) with 2-4x fewer parameters and 2-4x fewer CNOTs: at that
+level the two ansatze share the same limitation, a single application of each excitation generator. (ii) With
+a tight criterion ADAPT keeps going by *re-selecting* operators (51 distinct generators among 93-97) and
+reaches 1e-6 Ha at 1.5, 2.0 and 2.4 A - where first-order UCCSD is stuck at 1.7, 5.5 and 13.4 mHa - with
+still fewer parameters (86-97 vs 117) and marginally fewer CNOTs (7.8-8.8k vs 9.0k). The accuracy gain in
+the multireference regime therefore comes from operator ordering and repetition, not from a smaller circuit.
+(iii) H2O at 2.2 A is a genuine failure of this pool: all pool gradients fall below 1e-4 while the energy is
+3.1 mHa above the exact (N, S_z) ground state, which is reachable (36 % overlap with the HF determinant,
+excited states 6.6 mHa higher); UCCSD stalls at the same 3.13 mHa. A spin-adapted or qubit pool, or
+restarts, would be the next thing to try. (iv) For the 4f spaces ADAPT confirms the earlier picture: the
+problem is the reference, not the ansatz - once the SA reference is right, 0-6 operators suffice.
+
+## 8. What the numbers say about the original claim
 
 - *4f-only is classically trivial*: confirmed — the hard part is the orbital reference, not the many-body
   problem; the Fock-space Hamiltonian's apparent density is an orbital artefact.
@@ -185,9 +219,10 @@ lever to pull before any hardware-side optimisation.
 - *Spin-orbit makes it hard*: not for the Hamiltonian (+7.5 % strings, +0.2–0.5 % λ, −1 symmetry, basis-
   dependent); yes for the physics (one-electron SOC 2.3× off; mean-field screening brings Ln multiplet
   intervals to ~5 %).
-- *NISQ VQE is out of reach there*: supported by the molecular numbers (9024 CNOTs for 12 qubits in a naive
-  compilation; UCCSD errors of 2–13 mHa in the multireference regime) but not proven; compact ansätze were not
-  run.
+- *NISQ VQE is out of reach there*: refined rather than confirmed. ADAPT-VQE reaches 1e-6 Ha on the stretched
+  N2 points where UCCSD fails by 2-13 mHa, so the multireference regime is not an ansatz wall; but it does so
+  with 86-97 operators and ~8000 CNOTs (fermionic compilation) on 12 qubits, and it stalls on one of the two
+  H2O points. The cost, not the accuracy, is the obstacle, and it was measured without noise.
 - *Only fault-tolerant QPE remains*: for L5 the factorised estimate is ~1.3e9 Toffolis and ~1000 logical
   qubits (DF, 1e-4, before orbital optimisation), not the 6e10 of the earlier proxy; whether that beats DMRG at
   21 orbitals is still the open question, but the number is now one that can be compared.
@@ -198,22 +233,24 @@ orbitals, 5d in the active space) and a screened relativistic Hamiltonian.** Onc
 Hamiltonians of chemically meaningful Ln(III) halide spaces are 24–42 qubits, with factorised λ of 50–105 Ha
 and 1e8–1e9 Toffolis per 1-mHa phase estimation.
 
-## 8. Three research projects, ranked
+## 9. Three research projects, ranked
 
 1. **Two-component lanthanide Hamiltonians with SOMF screening, a spinor (Kramers) basis and symmetry-adapted
    tapering** (feasibility high, novelty high, cost low–medium).
-2. **ADAPT-VQE and pool design for 4f exchange-dominated Hamiltonians, on λ-optimised orbitals**
-   (feasibility high, novelty medium, cost medium).
+2. **Pool design for ADAPT (spin-adapted, qubit, λ-optimised orbitals) on the ligand-containing Ln spaces**
+   (feasibility high, novelty medium, cost medium): the 4f-only spaces are trivial for ADAPT; the 24-34-qubit
+   4f+σ(+5d) spaces are the first non-trivial targets, and the H2O 2.2 A stall shows the spin-orbital pool is
+   not enough.
 3. **Classical-vs-fault-tolerant crossover on the CeCl3 ladder** (feasibility medium, novelty high, cost
    medium–high): DMRG references for L5 and larger spaces, THC λ, orbital-optimised DF, and a crossover plot of
    DMRG cost vs Toffoli count.
 
-## 9. Limitations
+## 10. Limitations
 
 cc-pVDZ-DK basis; scalar X2C; one-electron X2C SOC plus Breit-Pauli SOMF screening (no spin-dependent
 two-electron terms beyond the mean field; core frozen at the scalar level); AVAS selection thresholds as
 stated; CASCI at every CeCl3 level (CASSCF does not preserve the chemically defined spaces); only nested
-pairs are compared energetically; no dynamic correlation outside the active space; no noise; resource
+pairs are compared energetically; no dynamic correlation outside the active space; no noise; ADAPT run only up to 14 qubits on an exact statevector; resource
 estimates are logical-level costings without error-correction overhead and without THC; L5 has no classical
 reference. Term counts, λ and tapering yields depend on the orbital basis for degenerate shells. The
 four-component Dirac-Coulomb(-Gaunt) HF screening benchmark was still running when this revision was written.
