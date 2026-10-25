@@ -1,0 +1,24 @@
+{
+ "name": "cecl3_L5_full",
+ "ncas": 21,
+ "lambda_initial": 182.39241203911624,
+ "lambda_optimised": 135.55978259640753,
+ "ratio": 0.7432314814025,
+ "casci_energy_initial": null,
+ "casci_energy_rotated": null,
+ "casci_invariance_ha": null,
+ "casci_check": "skipped (CI space too large; invariance holds by unitarity)",
+ "restarts": [
+  {
+   "restart": 0,
+   "lambda": 135.55978259640753,
+   "nit": 66
+  },
+  {
+   "restart": 1,
+   "lambda": 157.21377324811937,
+   "nit": 67
+  }
+ ],
+ "t_seconds": 1305.7
+}

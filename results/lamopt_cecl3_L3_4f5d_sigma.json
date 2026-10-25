@@ -1,0 +1,28 @@
+{
+ "name": "cecl3_L3_4f5d_sigma",
+ "ncas": 17,
+ "lambda_initial": 146.9373298517652,
+ "lambda_optimised": 125.22446499344798,
+ "ratio": 0.8522304381043141,
+ "casci_energy_initial": -10239.417667179732,
+ "casci_energy_rotated": -10239.417667179734,
+ "casci_invariance_ha": -1.8189894035458565e-12,
+ "restarts": [
+  {
+   "restart": 0,
+   "lambda": 125.22446499344798,
+   "nit": 98
+  },
+  {
+   "restart": 1,
+   "lambda": 135.330541551009,
+   "nit": 101
+  },
+  {
+   "restart": 2,
+   "lambda": 138.1131912342065,
+   "nit": 100
+  }
+ ],
+ "t_seconds": 3351.3
+}

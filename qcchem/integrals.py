@@ -210,6 +210,7 @@ def make_active_space(
     chkfile: Optional[str] = None,
     restart_from_chk: bool = False,
     freeze_core: bool = False,
+    ci_conv_tol: float = 1e-12,
     mf=None,
 ) -> ActiveSpace:
     """Build an active space and fold integrals.
@@ -275,6 +276,8 @@ def make_active_space(
 
     mc = (mcscf.CASSCF if casscf else mcscf.CASCI)(mf, ncas, (na, nb))
     mc.max_memory = ci_max_memory_mb
+    mc.fcisolver.conv_tol = ci_conv_tol
+    meta["ci_conv_tol"] = ci_conv_tol
     if fix_spin is not None:
         mc.fix_spin_(ss=fix_spin)
     macro_log: list = []
@@ -362,6 +365,7 @@ def make_active_space(
         meta["ci_natural_occupations"] = [round(float(x), 4) for x in nocc]
         occ_state = np.zeros(mc.mo_coeff.shape[1]); occ_state[:mc.ncore] = 2.0
         occ_state[mc.ncore:mc.ncore + ncas] = np.diag(dm1)   # occupations of the (fixed) active orbitals
+        meta["fixed_orbital_occupations"] = [round(float(x), 5) for x in np.diag(dm1)]
         if locals().get("occ_state_sa") is not None:
             occ_state = occ_state_sa      # state-averaged density (spherical for a complete multiplet)
         if composition_labels:

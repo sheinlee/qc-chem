@@ -58,6 +58,7 @@ def run_point(cfg: dict, tag: str, atom: str, methods: dict, outdir: Path) -> di
         casscf_conv_tol=cas.get("casscf_conv_tol", 1e-7),
         chkfile=(str(ROOT / "results" / "chk" / f"{cfg['name']}.chk") if cas.get("chkfile") else None),
         restart_from_chk=cas.get("restart_from_chk", False), freeze_core=cas.get("freeze_core", False),
+        ci_conv_tol=cas.get("ci_conv_tol", 1e-12),
         fix_spin=cas.get("fix_spin"), composition_labels=cfg.get("composition_labels"))
     nq = asp.n_spin_orbitals
     rec = {"tag": tag, "atom": atom, "n_active_electrons": asp.n_electrons, "nelecas": list(asp.nelecas),

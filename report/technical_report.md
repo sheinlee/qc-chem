@@ -104,23 +104,23 @@ the orbital rotation chosen within the degenerate 4f shell. Discussion and the t
 
 ## 5. CeCl3 active-space ladder
 
-Six levels on one reference (the 4f1 ROHF, E = −10239.411130 Ha; AVAS orbitals; CASCI with CI natural
-occupations recorded): 4f; 4f+5d; 4f+σ donors without 5d (control); 4f+5d+σ; 4f+all Cl 3p without 5d;
-everything — 14 to 42 qubits, CASCI references up to 9.2e7 determinants. Without 5d the ligand electrons
-do not correlate with the 4f shell (natural occupations 2/1/0 to 1e-4; energy gains 0.09 and 0.02 mHa); with
-5d the nested 4f+5d+σ space gains 6.45 mHa and the 5d natural occupations sum to 0.010 e. A fully variational
-CASSCF does not preserve these spaces (σ → Ce 4d without a frozen core, 4f → σ* with one), which is why the
-ladder is CASCI. λ: 56 / 116 / 65 / 145 / 93 / 179 Ha. With state-averaged orbitals the 4f ligand-field
-splitting is 0.68–5.96 mHa in the D3h 1-2-2-1-1 pattern. Full table and discussion:
-`lanthanide_feasibility.md` §3; the spin-orbit results, including SOMF screening (Ce3+ 2F splitting 5266 →
-2397 cm⁻¹ vs 2253 experimental), in §4.
+Six levels on one reference (4f1 ROHF, E = −10239.411130 Ha, SOMO kept unprojected so that one-electron
+spaces reproduce the ROHF energy exactly; AVAS orbitals; CASCI with CI convergence 1e-12; fixed-orbital and
+natural occupations recorded): 4f (0.000 mHa); 4f+5d (0.000); 4f+σ donors without 5d (−0.093; 4f virtual
+occupations 1–3e-5); 4f+5d+σ (−6.537; 5d occupations Σ 0.0105 e); 4f+all Cl 3p without 5d (−0.267; 4f
+virtuals ≤ 1e-4); everything (42 qubits, no CI reference). Subspace nestedness was checked explicitly and
+only nested pairs are compared. A fully variational CASSCF does not preserve these spaces (σ → Ce 4d without
+a frozen core, 4f → σ* with one). λ: 56 / 116 / 66 / 147 / 93 / 182 Ha. Full table, nesting data and
+discussion: `lanthanide_feasibility.md` §3; spin-orbit (one-electron and SOMF-screened) in §4.
 
-## 6. Resource proxies
+## 6. Resource estimates
 
-For every Hamiltonian the records give λ, the qubitised-walk query count π λ / (2ε) for ε = 1 mHa, a
-sparse-LCU Toffoli proxy (queries × Pauli terms; SELECT by unary iteration) and a logical-qubit proxy. They
-are Fock-space 1-norm numbers without double factorisation / THC and without error-correction overhead,
-intended for comparing Hamiltonians along the ladder (fig. 1), not for absolute hardware estimates.
+Factorised fault-tolerant costings (OpenFermion `resource_estimates`: sparse, single and double
+factorisation; ε = 1 mHa) with the exact CASCI energy error of each factorisation where the CI is solvable,
+and λ-minimising orbital rotations within the fixed active subspaces (CASCI invariance checked):
+`lanthanide_feasibility.md` §5–6, `results/ft_*.json`, `results/lamopt_*.json`. The earlier Pauli-1-norm
+proxies (queries × Pauli terms) are superseded; they overestimated the sparse-LCU Toffoli count by about two
+orders of magnitude for the 42-qubit space. The JSON records still contain the proxy fields for traceability.
 
 ## 7. Reproducibility
 

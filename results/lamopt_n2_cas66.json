@@ -1,0 +1,29 @@
+{
+ "name": "n2_cas66",
+ "ncas": 6,
+ "lambda_initial": 14.862601181558254,
+ "lambda_optimised": 13.96759500150845,
+ "ratio": 0.9397813229920787,
+ "casci_energy_initial": -107.66151943718961,
+ "casci_energy_rotated": -107.66151943718961,
+ "casci_invariance_ha": 0.0,
+ "restarts": [
+  {
+   "restart": 0,
+   "lambda": 13.96759500150845,
+   "nit": 1
+  },
+  {
+   "restart": 1,
+   "lambda": 14.11689016989212,
+   "nit": 1
+  }
+ ],
+ "t_seconds": 0.8,
+ "pauli_terms_initial": 382,
+ "pauli_terms_optimised": 246,
+ "lambda_jw_check": [
+  14.862601181532177,
+  13.967594813046972
+ ]
+}

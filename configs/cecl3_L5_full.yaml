@@ -6,6 +6,6 @@ basis: cc-pvdz-dk
 charge: 0
 spin: 1
 x2c: true
-cas: {avas_labels: ["Ce 4f", "Ce 5d", "Cl 3p"], avas_minao: ano, casscf: false, solve_ci: false, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}}
+cas: {avas_labels: ["Ce 4f", "Ce 5d", "Cl 3p"], avas_minao: ano, avas_openshell_option: 3, casscf: false, solve_ci: false, fix_spin: 0.75, relax_reference: {labels: ["Ce 4f"], nelecas: 1, fix_spin: 0.75}}
 composition_labels: ["Ce 4f", "Ce 5f", "Ce 5d", "Ce 6d", "Ce 4d", "Ce 6s", "Ce 5p", "Ce 6p", "Cl 3p", "Cl 4p", "Cl 3s"]
 methods: {jw: false, bk: false, taper: false, ed: false, vqe: false}

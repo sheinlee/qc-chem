@@ -1,0 +1,122 @@
+{
+ "name": "ce3_4f_sa",
+ "ncas": 7,
+ "n_spin_orbitals": 14,
+ "nelecas": [
+  1,
+  0
+ ],
+ "dE": 0.001,
+ "chi": 10,
+ "beta": 20,
+ "e_casci_exact": -8855.070596685555,
+ "sparse": [
+  {
+   "threshold": 0.0,
+   "d_unique_nonzero": 434,
+   "lambda": 55.209384237446265,
+   "toffoli_per_step": 1394,
+   "toffoli_total": 120891862,
+   "logical_qubits": 1293
+  },
+  {
+   "threshold": 1e-05,
+   "d_unique_nonzero": 406,
+   "lambda": 55.209384237446265,
+   "toffoli_per_step": 1391,
+   "toffoli_total": 120631693,
+   "logical_qubits": 1293,
+   "casci_error_mha": 0.0
+  },
+  {
+   "threshold": 0.0001,
+   "d_unique_nonzero": 402,
+   "lambda": 55.209384237446265,
+   "toffoli_per_step": 1391,
+   "toffoli_total": 120631693,
+   "logical_qubits": 1293,
+   "casci_error_mha": 0.0
+  },
+  {
+   "threshold": 0.001,
+   "d_unique_nonzero": 352,
+   "lambda": 55.209384237446265,
+   "toffoli_per_step": 1369,
+   "toffoli_total": 118723787,
+   "logical_qubits": 1295,
+   "casci_error_mha": 0.0
+  }
+ ],
+ "sf": [
+  {
+   "rank": 7,
+   "eri_error_fro": 0.1385075422884913,
+   "lambda": 47.80055021674099,
+   "costing_error": "In function QR: L is smaller than M: increase RANK or lower THRESH (or alternatively decrease CHI)",
+   "casci_error_mha": 0.0
+  },
+  {
+   "rank": 14,
+   "eri_error_fro": 0.09531945013491268,
+   "lambda": 49.39078402288341,
+   "costing_error": "In function QR: L is smaller than M: increase RANK or lower THRESH (or alternatively decrease CHI)",
+   "casci_error_mha": 0.0
+  },
+  {
+   "rank": 28,
+   "eri_error_fro": 5.353217635076899e-14,
+   "lambda": 51.469301456140286,
+   "toffoli_per_step": 980,
+   "toffoli_total": 79231040,
+   "logical_qubits": 263,
+   "casci_error_mha": 0.0
+  }
+ ],
+ "df": [
+  {
+   "threshold": 0.01,
+   "rank_L": 28,
+   "n_eigenvectors_Lxi": 145,
+   "eri_error_fro": 0.014119630825173528,
+   "lambda": 43.47059999325739,
+   "toffoli_per_step": 1993,
+   "toffoli_total": 136090012,
+   "logical_qubits": 292,
+   "casci_error_mha": 0.0
+  },
+  {
+   "threshold": 0.001,
+   "rank_L": 28,
+   "n_eigenvectors_Lxi": 167,
+   "eri_error_fro": 0.0013974718397582481,
+   "lambda": 43.514387045433224,
+   "toffoli_per_step": 2052,
+   "toffoli_total": 140260356,
+   "logical_qubits": 292,
+   "casci_error_mha": 0.0
+  },
+  {
+   "threshold": 0.0001,
+   "rank_L": 28,
+   "n_eigenvectors_Lxi": 183,
+   "eri_error_fro": 0.0001326539583443181,
+   "lambda": 43.517691317214414,
+   "toffoli_per_step": 2096,
+   "toffoli_total": 143278368,
+   "logical_qubits": 292,
+   "casci_error_mha": 0.0
+  },
+  {
+   "threshold": 1e-05,
+   "rank_L": 28,
+   "n_eigenvectors_Lxi": 187,
+   "eri_error_fro": 1.1249054818809352e-05,
+   "lambda": 43.51785569190343,
+   "toffoli_per_step": 2108,
+   "toffoli_total": 144098664,
+   "logical_qubits": 292,
+   "casci_error_mha": 0.0
+  }
+ ],
+ "note": "OpenFermion resource_estimates costings: sparse (Lee et al. 2021), SF (Berry et al. 2019), DF (von Burg et al. 2021); dE = 1 mHa, chi = 10, beta = 20; Toffoli counts and logical qubits exclude surface-code overhead. Sparse lambda is the exact JW Pauli 1-norm."
+}
