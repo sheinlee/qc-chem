@@ -1,0 +1,31 @@
+{
+ "name": "n2_cas66",
+ "tag": "R=1.2",
+ "n_qubits": 12,
+ "e_casci": -107.66151943718961,
+ "e_uccsd_noiseless": -107.66078068838354,
+ "shot_noise": [
+  {
+   "shots": 1000,
+   "mean": -107.66227512256694,
+   "std": 0.01851635913736296,
+   "mean_error_vs_casci": -0.0007556853773280636,
+   "reps": 20
+  },
+  {
+   "shots": 10000,
+   "mean": -107.65947836039797,
+   "std": 0.004663608738216588,
+   "mean_error_vs_casci": 0.0020410767916416717,
+   "reps": 20
+  },
+  {
+   "shots": 100000,
+   "mean": -107.66087852615786,
+   "std": 0.0015194720039214944,
+   "mean_error_vs_casci": 0.0006409110317520117,
+   "reps": 20
+  }
+ ],
+ "note": "fixed theta* from the noiseless optimisation; depolarising channel on every wire after every gate of the CNOT/rotation-decomposed circuit; shot noise = term-by-term sampling of H without grouping"
+}

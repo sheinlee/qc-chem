@@ -1,0 +1,38 @@
+{
+ "name": "n2_cas66",
+ "ncas": 6,
+ "n_spin_orbitals": 12,
+ "dE": 0.001,
+ "chi": 10,
+ "beta": 20,
+ "e_casci_exact": -107.66151943718961,
+ "thc": [
+  {
+   "nthc": 48,
+   "eri_error_fro": 0.02119839357383839,
+   "lambda": 113.11598362268876,
+   "lambda_z": 111.20759023676703,
+   "lambda_T": 1.9083933859217284,
+   "best_seed": 1,
+   "t_seconds": 250.1,
+   "toffoli_per_step": 1686,
+   "toffoli_total": 299573538,
+   "logical_qubits": 307,
+   "casci_error_mha": -6.987057248380779
+  },
+  {
+   "nthc": 72,
+   "eri_error_fro": 0.013423494761712304,
+   "lambda": 1742.2379159704112,
+   "lambda_z": 1740.3295225844895,
+   "lambda_T": 1.9083933859217284,
+   "best_seed": 1,
+   "t_seconds": 321.6,
+   "toffoli_per_step": 2037,
+   "toffoli_total": 5574659937,
+   "logical_qubits": 335,
+   "casci_error_mha": -6.631143120088723
+  }
+ ],
+ "note": "random-start L-BFGS THC fit (no CP3 initialisation); lambda per Lee et al. 2021; costs exclude error correction"
+}

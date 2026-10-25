@@ -1,0 +1,77 @@
+{
+ "name": "h2_sto3g",
+ "tag": "R=0.74",
+ "n_qubits": 4,
+ "nelecas": [
+  1,
+  1
+ ],
+ "adapt": {
+  "energy": -1.1372838344885017,
+  "e_hf": -1.116759307396425,
+  "n_ops": 1,
+  "n_singles": 0,
+  "n_doubles": 1,
+  "ops": [
+   [
+    "D1",
+    [
+     0,
+     0,
+     1,
+     1
+    ]
+   ]
+  ],
+  "theta": [
+   -0.056391416935859216
+  ],
+  "history": [
+   {
+    "iter": 1,
+    "op": [
+     "D1",
+     [
+      0,
+      0,
+      1,
+      1
+     ]
+    ],
+    "max_grad": 0.7248418480607881,
+    "energy": -1.1372838344885017,
+    "n_params": 1,
+    "bfgs_nit": 4,
+    "error": 0.0
+   },
+   {
+    "iter": 1,
+    "stop": "energy",
+    "error": 0.0
+   }
+  ],
+  "pool_size": 2,
+  "n_energy_evals_total": 6,
+  "n_qubit_ops": 0,
+  "pool_type": "spin_adapted",
+  "cnot_givens": 14,
+  "t_seconds": 0.0,
+  "stop_reason": "energy",
+  "grad_tol": 0.0001,
+  "max_ops": 60,
+  "error_vs_exact": 0.0,
+  "e_exact": -1.1372838344885017,
+  "e_casci": -1.1372838344885023,
+  "uccsd": {
+   "energy": -1.1372838344884926,
+   "error_vs_casci": 9.769962616701378e-15,
+   "n_params": 3,
+   "n_singles": 2,
+   "n_doubles": 1,
+   "cnot_fermionic": 64,
+   "depth_fermionic": 100,
+   "n_energy_evals": 5,
+   "cnot_givens_equivalent": 18
+  }
+ }
+}

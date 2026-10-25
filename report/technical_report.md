@@ -93,7 +93,9 @@ substantially; the number is an upper bound.
 `lanthanide_feasibility.md` §7): with a loose gradient criterion it reproduces the UCCSD accuracy at every
 point with 2-4x fewer parameters and CNOTs; with a tight criterion it reaches 1e-6 Ha at N2 1.5/2.0/2.4 A
 (86-97 operators, 47-51 distinct, 7.8-8.8k CNOTs) where UCCSD stays at 1.7/5.5/13.4 mHa, and it stalls at
-H2O 2.2 A (3.1 mHa, all pool gradients < 1e-4) exactly where UCCSD does.
+H2O 2.2 A (3.1 mHa, all pool gradients < 1e-4) exactly where UCCSD does; a spin-adapted pool halves the
+operator count on N2 (43 ops, 2e-8 Ha) and a qubit pool escapes the H2O trough (2.7e-5 Ha, 75 Pauli
+rotations). A bounded noise study (`scripts/run_noise.py`) is in `lanthanide_feasibility.md` §8.
 
 ## 4. Lanthanide free ions: the reference problem comes first
 

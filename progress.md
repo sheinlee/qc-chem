@@ -97,3 +97,10 @@
 - 上一会话中断时本机 DHF 进程被杀（8 h CPU 无产出，Gaunt 太慢）；已改为 Gaunt 可选并重跑纯 Dirac–Coulomb 版本。
 
 - **DHF 基准（失败，不采用）**：纯 Dirac–Coulomb 版重跑，Ce4+ 与 Ce3+ 的 4c-HF 各约 2 h 均未收敛（conv=False），4f 旋量自动指认在未收敛解上失效（"分裂"800–1000 mHa 显然混入了非 4f 旋量）。X2C-HF 一侧正常（Ce4+ 虚 4f 一电子分裂 4791 cm⁻¹，与 Ce3+ 的 5266 自洽）。屏蔽的证据仍是 SOMF 与实验的 5% 一致；若要独立四分量基准，需换基组/收敛策略（如从 X2C 密度初猜、level shift）并按 j 值而不是 4f 权重指认旋量。
+
+
+## 2026-10-25：剩余项目（换池 ADAPT、THC、噪声）
+- **ADAPT 换池**（`ADAPT_POOL=spin_adapted|qubit`）：自旋适配单重态池在 N2 2.4 Å 只用 43 个算符到 2.3e-8 Ha（费米子池 86 个），Givens 602 CNOT；在 H2O 2.2 Å 仍停在 3.10 mHa。qubit 池（JW 展开的每条 Pauli 串单独作算符）在 H2O 2.2 Å 达到 2.7e-5 Ha（75 个 Pauli 旋转，630 CNOT），在 N2 2.4 Å 150 个算符仍 2.8 mHa。结论：H2O 的停滞是对称性保持池的一阶梯度谷，不是精确态不可达（重叠 36%、单重态）。
+- **THC（失败，不报数）**：jax 装上了，pybtas（CP3 初始化）在 Windows 上装不了；用 OpenFermion 的随机起点 L-BFGS 拟合，N2 CAS(6,6) 在 48/72 个因子下 |dERI| 2e-2/1e-2，但 λ 炸到 113/1742 Ha，CASCI 误差 7–40 mHa。记为"需 CP3 初始化或正则化"，不采用。
+- **噪声（计划内的有界版本）**：固定 θ*，分解电路每门每线退极化：H2（158 门）p=1e-4 时 +15 mHa，LiH(4,4)（2692 门）+457 mHa；散粒噪声（逐项采样无分组）：N2 12 qubit 1e5 shots 标准差 1.5 mHa，LiH 0.2，H2 0.7。
+- 报告：lanthanide_feasibility.md §7（换池）、新 §8（噪声）、§5（THC 失败说明）；README、technical_report 同步。

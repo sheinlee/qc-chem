@@ -13,7 +13,7 @@ sfx2c1e, cc-pVDZ-DK, PySCF 2.14 / OpenFermion 1.8.1 / PennyLane 0.45.1 / pyscf-p
 `PLAN.md` set out the claim that *4f-only lanthanide active spaces are classically trivial; the problem only
 becomes hard once ligand orbitals and relativistic/spin-orbit effects enter, and at that point NISQ-style
 VQE is already out of reach, leaving only fault-tolerant phase estimation to discuss.* The calculations were
-set up so that the numbers, not the claim, decide. Section 8 states what survived.
+set up so that the numbers, not the claim, decide. Section 9 states what survived.
 
 ## 2. Free ions: the reference problem comes before the quantum problem
 
@@ -149,8 +149,10 @@ competitive or cheaper in Toffolis (its advantage is the small d: 4e3–1e4 uniq
 costs ~1e9 Toffolis and ~870 logical qubits for 1 mHa with DF — three orders of magnitude below the earlier
 Pauli-1-norm proxy (which was a per-query SELECT-by-unary-iteration estimate and is now withdrawn). (iii) The
 full 42-qubit space (L5) costs 1.3e9 Toffolis and ~1000 logical qubits at DF 1e-4 — the first point on the
-ladder with no classical CASCI reference, and a size at which DMRG is still routine. THC was not evaluated
-(requires jax, not installed).
+ladder with no classical CASCI reference, and a size at which DMRG is still routine. THC was attempted with a random-start L-BFGS
+fit (jax; `pybtas` for the CP3 initialisation is not installable here): for N2 CAS(6,6) the fit reaches
+|dERI| 1e-2 only with lambda blowing up (113 Ha at 48 factors, 1742 Ha at 72) and CASCI errors of 7-40 mHa
+(`results/thc_n2_cas66.json`), so no THC numbers are reported.
 
 ## 6. λ-minimising orbital rotations within the fixed active subspaces
 
@@ -207,7 +209,42 @@ excited states 6.6 mHa higher); UCCSD stalls at the same 3.13 mHa. A spin-adapte
 restarts, would be the next thing to try. (iv) For the 4f spaces ADAPT confirms the earlier picture: the
 problem is the reference, not the ansatz - once the SA reference is right, 0-6 operators suffice.
 
-## 8. What the numbers say about the original claim
+**Other pools.** A singlet spin-adapted pool (closed-shell references only) and a qubit pool (every Pauli
+string of the JW-mapped generators, as in qubit-ADAPT) were run on the two hard points (`results/adapt_*_
+spin_adapted.json`, `*_qubit.json`):
+
+| Pool | N2 2.4 A: error / operators / CNOT | H2O 2.2 A: error / operators / CNOT |
+|---|---|---|
+| fermionic (spin-orbital) | 9.2e-7 Ha / 86 / 7776 (fermionic gates) | 3.1e-3 Ha / 28 / 1744 - stalls |
+| spin-adapted singlet | **2.3e-8 Ha / 43 / 602 (Givens)** | 3.1e-3 Ha / 19 / 230 - stalls at the same energy |
+| qubit (Pauli strings) | 2.8e-3 Ha / 150 (cap) / 1668 | **2.7e-5 Ha / 75 / 630** |
+
+The spin-adapted pool halves the operator count on N2 and converges to 2e-8 Ha; on H2O it stalls exactly
+where the fermionic pool does. The qubit pool, whose operators do not individually conserve spin or spatial
+symmetry, escapes the H2O trough (2.7e-5 Ha with 75 Pauli rotations, 630 CNOTs) but is slow and symmetry-
+breaking on N2. The H2O stall is therefore not a symmetry obstruction of the exact state (36 % overlap with
+the closed-shell reference, singlet) but a first-order gradient trough of the symmetry-preserving pools.
+
+## 8. Noise, within the limits set in the plan
+
+Fixed optimal angles, no re-optimisation (`scripts/run_noise.py`, `results/noise_*.json`). Depolarising
+channel on every wire after every gate of the CNOT/rotation-decomposed UCCSD circuit (density matrix, <= 8
+qubits); shot noise by term-by-term sampling of H without grouping (statevector, 20 repetitions).
+
+| System (gates) | p = 1e-4 | 3e-4 | 1e-3 | 1e-2 | shots 1e3 / 1e4 / 1e5: std of E |
+|---|---|---|---|---|---|
+| H2 (158 gates) | +15 mHa | +45 | +143 | +778 | 7.2 / 1.9 / 0.70 mHa |
+| LiH (4,4) (2692 gates) | +457 mHa | +1176 | +2428 | +2946 (fully mixed) | 2.1 / 0.59 / 0.20 mHa |
+| N2 (6,6), 12 qubits | - | - | - | - | 18.5 / 4.7 / 1.5 mHa |
+
+Reading. The energy error under uniform depolarising noise scales as p x (number of gates) x (energy scale
+of H): with the naive fermionic-excitation compilation even 1e-4 per gate puts a 4-qubit H2 circuit 15 mHa
+off and an 8-qubit LiH circuit half an Hartree off, so chemical accuracy would need p ~ 1e-5 (H2) to 1e-6
+(LiH) per gate without mitigation; compilation (Givens gates, 5-10x fewer CNOTs) and error mitigation are
+not optional. Shot noise without grouping needs ~1e5 shots per energy evaluation for 1-2 mHa on 12 qubits,
+i.e. ~1e7 shots for a 100-evaluation VQE; measurement grouping or classical shadows would reduce this.
+
+## 9. What the numbers say about the original claim
 
 - *4f-only is classically trivial*: confirmed — the hard part is the orbital reference, not the many-body
   problem; the Fock-space Hamiltonian's apparent density is an orbital artefact.
@@ -233,7 +270,11 @@ orbitals, 5d in the active space) and a screened relativistic Hamiltonian.** Onc
 Hamiltonians of chemically meaningful Ln(III) halide spaces are 24–42 qubits, with factorised λ of 50–105 Ha
 and 1e8–1e9 Toffolis per 1-mHa phase estimation.
 
-## 9. Three research projects, ranked
+On the NISQ side the noise study adds a quantitative bound: at 1e-4 depolarising per gate the UCCSD
+circuits of even the smallest molecules here are tens to hundreds of mHa off, so the 4f/CeCl3 circuits
+(10^2-10^4 CNOTs) are out of reach without error mitigation and compilation far beyond what was used.
+
+## 10. Three research projects, ranked
 
 1. **Two-component lanthanide Hamiltonians with SOMF screening, a spinor (Kramers) basis and symmetry-adapted
    tapering** (feasibility high, novelty high, cost low–medium).
@@ -242,10 +283,11 @@ and 1e8–1e9 Toffolis per 1-mHa phase estimation.
    4f+σ(+5d) spaces are the first non-trivial targets, and the H2O 2.2 A stall shows the spin-orbital pool is
    not enough.
 3. **Classical-vs-fault-tolerant crossover on the CeCl3 ladder** (feasibility medium, novelty high, cost
-   medium–high): DMRG references for L5 and larger spaces, THC λ, orbital-optimised DF, and a crossover plot of
-   DMRG cost vs Toffoli count.
+   medium–high): DMRG references for L5 and larger spaces, THC λ with a CP3-initialised fit (the random-start
+   L-BFGS fit tried here does not converge to a usable factorisation), orbital-optimised DF, and a crossover plot
+   of DMRG cost vs Toffoli count.
 
-## 10. Limitations
+## 11. Limitations
 
 cc-pVDZ-DK basis; scalar X2C; one-electron X2C SOC plus Breit-Pauli SOMF screening (no spin-dependent
 two-electron terms beyond the mean field; core frozen at the scalar level); AVAS selection thresholds as

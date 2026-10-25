@@ -33,7 +33,9 @@ at ~1e9 Toffolis and ~870 logical qubits per 1-mHa phase estimation (DF, 1e-4, C
 the full 42-qubit space at 1.3e9 / ~1000; λ-minimising orbital rotations within the same subspaces lower λ
 by 15 % (34 qubits) and 26 % (42 qubits) with the CASCI energy unchanged. ADAPT-VQE with the same operator
 pool reaches 1e-6 Ha on the stretched N2 points where UCCSD is 2-13 mHa off, using 86-97 operators (47-51
-distinct) and fewer CNOTs than UCCSD, and stalls together with UCCSD at one H2O point.
+distinct) and fewer CNOTs than UCCSD, and stalls together with UCCSD at one H2O point (a qubit pool escapes it;
+a spin-adapted pool halves the N2 operator count). At 1e-4 depolarising noise per gate the naive UCCSD
+circuits are 15 mHa (H2) to 0.46 Ha (LiH) off, and 1e5 ungrouped shots give 1.5 mHa on 12 qubits.
 
 ## Layout
 
@@ -43,7 +45,7 @@ qcchem/        integrals (PySCF, AVAS, SA-CASSCF, reference relaxation), hamilto
                resources (QPE proxies), soc (one-electron X2C spin-orbit block), somf (Breit-Pauli SOMF screening),
                adapt (fermionic-pool ADAPT-VQE on an exact statevector)
 configs/       one YAML per system / active-space level
-scripts/       run_system.py (YAML -> JSON), run_soc.py, run_adapt.py, resource_estimates_ft.py, lambda_orbital_opt.py, check_nesting.py,
+scripts/       run_system.py (YAML -> JSON), run_soc.py, run_adapt.py, run_noise.py, resource_estimates_ft.py, resource_estimates_thc.py, lambda_orbital_opt.py, check_nesting.py,
                dhf_benchmark.py, make_plots.py, qpy.sh (env wrapper), sync.sh (cluster)
 results/       JSON per system, ft_*.json (resource estimates), lamopt_*.json, soc_*.json, integrals/*.npz, summary_table.csv, figures/
 tests/         unit (deterministic) and integration (optimizer runs)
@@ -76,6 +78,7 @@ CASCI job.
 ## Known limitations
 
 cc-pVDZ-DK basis, scalar X2C, one-electron X2C SOC plus mean-field (SOMF) screening only, AVAS thresholds as
-stated, CASCI rather than CASSCF across the CeCl3 ladder (CASSCF does not preserve the chemically defined spaces), no noise model, ADAPT-VQE only on <= 14 qubits with a spin-orbital pool, no THC, logical-level resource estimates without error-correction overhead, naive
+stated, CASCI rather than CASSCF across the CeCl3 ladder (CASSCF does not preserve the chemically defined spaces), noise only as a fixed-angle depolarising/shot study on <= 12 qubits, ADAPT-VQE only on <= 14 qubits, THC fit
+not converged (no CP3 initialisation available), logical-level resource estimates without error-correction overhead, naive
 CNOT compilation. Term counts, λ and tapering yields depend on the orbital basis for
 degenerate shells. See `report/lanthanide_feasibility.md` §8 and `progress.md` (developer log, in Chinese).

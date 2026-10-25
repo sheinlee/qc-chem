@@ -17,7 +17,7 @@ import time
 import numpy as np
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
-from openfermion import FermionOperator, get_sparse_operator, jordan_wigner
+from openfermion import FermionOperator, QubitOperator, get_sparse_operator, hermitian_conjugated, jordan_wigner
 from scipy.optimize import minimize
 
 from .vqe import uccsd_setup
@@ -33,7 +33,7 @@ def _ref_state(n_qubits: int, occ: np.ndarray) -> np.ndarray:
     return v
 
 
-def build_pool(nelecas, n_qubits: int):
+def _fermionic_generators(nelecas, n_qubits: int):
     singles, doubles, _, _, hf = uccsd_setup(nelecas, n_qubits)
     ops, labels = [], []
     for i, a in singles:
@@ -44,16 +44,72 @@ def build_pool(nelecas, n_qubits: int):
         T = FermionOperator(((b, 1), (a, 1), (j, 0), (i, 0)))
         ops.append(T - FermionOperator(((i, 1), (j, 1), (a, 0), (b, 0))))
         labels.append(("D", (i, j, a, b)))
-    mats = [get_sparse_operator(jordan_wigner(op), n_qubits=n_qubits).tocsc() for op in ops]
+    return ops, labels, hf
+
+
+def _spin_adapted_generators(nelecas, n_qubits: int):
+    """Singlet spin-adapted singles and doubles (closed-shell reference; na == nb required) in terms of
+    spatial orbitals p (alpha = 2p, beta = 2p+1)."""
+    na, nb = nelecas if isinstance(nelecas, (tuple, list)) else ((nelecas + 1) // 2, nelecas // 2)
+    assert na == nb, "spin-adapted pool needs a closed-shell reference"
+    nocc, norb = na, n_qubits // 2
+    occ, vir = range(nocc), range(nocc, norb)
+    hf = np.zeros(n_qubits, dtype=int); hf[: 2 * nocc] = 1
+
+    def E(p, q):   # singlet excitation operator E_pq = sum_sigma a+_{p sigma} a_{q sigma}
+        return FermionOperator(((2 * p, 1), (2 * q, 0))) + FermionOperator(((2 * p + 1, 1), (2 * q + 1, 0)))
+
+    ops, labels = [], []
+    for i in occ:
+        for a in vir:
+            T = E(a, i)
+            ops.append(T - hermitian_conjugated(T)); labels.append(("S1", (i, a)))
+    for i in occ:
+        for j in occ:
+            if j < i:
+                continue
+            for a in vir:
+                for b in vir:
+                    if b < a:
+                        continue
+                    T = E(a, i) * E(b, j)
+                    if (i != j) and (a != b):
+                        T2 = E(a, j) * E(b, i)
+                        Tp = T + T2
+                        ops.append(Tp - hermitian_conjugated(Tp)); labels.append(("D1+", (i, j, a, b)))
+                        Tm = T - T2
+                        ops.append(Tm - hermitian_conjugated(Tm)); labels.append(("D1-", (i, j, a, b)))
+                    else:
+                        ops.append(T - hermitian_conjugated(T)); labels.append(("D1", (i, j, a, b)))
+    return ops, labels, hf
+
+
+def build_pool(nelecas, n_qubits: int, pool: str = "fermionic"):
+    """pool: 'fermionic' (spin-orbital singles/doubles), 'spin_adapted' (singlet-coupled, closed shell),
+    'qubit' (every Pauli string of the JW-mapped fermionic generators, as in qubit-ADAPT)."""
+    if pool == "spin_adapted":
+        ops, labels, hf = _spin_adapted_generators(nelecas, n_qubits)
+    else:
+        ops, labels, hf = _fermionic_generators(nelecas, n_qubits)
+    qops = [jordan_wigner(op) for op in ops]
+    if pool == "qubit":
+        seen = {}
+        for q in qops:
+            for term, c in q.terms.items():
+                if term and term not in seen:
+                    seen[term] = ("Q", term)
+        qops = [QubitOperator(term, 1j) for term in seen]          # i*Pauli: anti-Hermitian generator
+        labels = list(seen.values())
+    mats = [get_sparse_operator(q, n_qubits=n_qubits).tocsc() for q in qops]
     return mats, labels, hf
 
 
 def adapt_vqe(H_sparse, nelecas, n_qubits: int, *, e_ref: float | None = None, max_ops: int = 60,
               grad_tol: float = 1e-3, energy_tol: float | None = 1e-6, bfgs_gtol: float = 1e-7,
-              verbose: bool = False) -> dict:
+              verbose: bool = False, pool_type: str = "fermionic") -> dict:
     t0 = time.time()
     H = H_sparse.tocsc()
-    pool, labels, hf = build_pool(nelecas, n_qubits)
+    pool, labels, hf = build_pool(nelecas, n_qubits, pool=pool_type)
     psi0 = _ref_state(n_qubits, hf)
     chosen: list[int] = []
     theta = np.zeros(0)
@@ -110,12 +166,14 @@ def adapt_vqe(H_sparse, nelecas, n_qubits: int, *, e_ref: float | None = None, m
         if e_ref is not None and energy_tol is not None and abs(e_cur - e_ref) < energy_tol:
             history.append({"iter": it + 1, "stop": "energy", "error": e_cur - e_ref})
             break
-    n_s = sum(1 for i in chosen if labels[i][0] == "S")
-    n_d = len(chosen) - n_s
+    n_s = sum(1 for i in chosen if labels[i][0] in ("S", "S1"))
+    n_q = sum(1 for i in chosen if labels[i][0] == "Q")
+    n_d = len(chosen) - n_s - n_q
     return {"energy": e_cur, "e_hf": e_hf, "n_ops": len(chosen), "n_singles": n_s, "n_doubles": n_d,
             "ops": [labels[i] for i in chosen], "theta": [float(x) for x in theta], "history": history,
             "pool_size": len(pool), "n_energy_evals_total": int(n_energy_evals),
-            "cnot_givens": 2 * n_s + 14 * n_d, "t_seconds": round(time.time() - t0, 1),
+            "n_qubit_ops": n_q, "pool_type": pool_type,
+            "cnot_givens": (2 * n_s + 14 * n_d) if n_q == 0 else None, "t_seconds": round(time.time() - t0, 1),
             "stop_reason": history[-1].get("stop", "max_ops") if history else "none"}
 
 

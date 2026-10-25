@@ -26,6 +26,7 @@ import os
 GRAD_TOL = float(os.environ.get("ADAPT_GRAD_TOL", "1e-3"))
 MAX_OPS = int(os.environ.get("ADAPT_MAX_OPS", "60"))
 SUFFIX = os.environ.get("ADAPT_SUFFIX", "")
+POOL = os.environ.get("ADAPT_POOL", "fermionic")
 
 
 def run(name, tag):
@@ -36,9 +37,12 @@ def run(name, tag):
     sz = (asp.nelecas[0] - asp.nelecas[1]) / 2
     e_exact = sparse_ground_state(q, nq, n_electrons=asp.n_electrons, sz=sz)["e0"]
     print(f"[{name} {tag}] {nq} qubits, nelec {asp.nelecas}, E_exact {e_exact:.10f}", flush=True)
-    res = adapt_vqe(H, asp.nelecas, nq, e_ref=e_exact, verbose=True, grad_tol=GRAD_TOL, max_ops=MAX_OPS)
+    res = adapt_vqe(H, asp.nelecas, nq, e_ref=e_exact, verbose=True, grad_tol=GRAD_TOL, max_ops=MAX_OPS, pool_type=POOL)
     res["grad_tol"] = GRAD_TOL; res["max_ops"] = MAX_OPS
-    res.update(fermionic_gate_counts(res["ops"], nq))
+    if POOL == "fermionic":
+        res.update(fermionic_gate_counts(res["ops"], nq))
+    elif POOL == "qubit":
+        res["cnot_pauli"] = int(sum(2 * (len(lab[1]) - 1) for lab in res["ops"]))   # exp(i t P): 2(w-1) CNOTs
     res["error_vs_exact"] = res["energy"] - e_exact
     res["e_exact"] = e_exact
     res["e_casci"] = asp.e_casci
@@ -59,7 +63,7 @@ def run(name, tag):
     out = {"name": name, "tag": tag, "n_qubits": nq, "nelecas": list(asp.nelecas), "adapt": res}
     json.dump(out, open(ROOT / "results" / f"adapt_{name}_{tag}{SUFFIX}.json", "w"), indent=1, default=str)
     print(f"  ADAPT: {res['n_ops']} ops ({res['n_singles']}S+{res['n_doubles']}D), err {res['error_vs_exact']:.2e}, "
-          f"CNOT fermionic {res['cnot_fermionic']} / Givens {res['cnot_givens']}, evals {res['n_energy_evals_total']}, "
+          f"CNOT fermionic {res.get('cnot_fermionic')} / Givens {res.get('cnot_givens')} / Pauli {res.get('cnot_pauli')}, evals {res['n_energy_evals_total']}, "
           f"{res['t_seconds']} s, stop={res['stop_reason']}"
           + (f" | UCCSD: {ucc['n_params']} params, err {ucc['error_vs_casci']:.2e}, CNOT {ucc['cnot_fermionic']} / Givens-eq {ucc['cnot_givens_equivalent']}" if ucc else ""), flush=True)
 

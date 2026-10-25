@@ -1,0 +1,74 @@
+{
+ "name": "h2_sto3g",
+ "tag": "R=0.74",
+ "n_qubits": 4,
+ "e_casci": -1.1372838344885023,
+ "e_uccsd_noiseless": -1.1372838344884926,
+ "depolarizing": [
+  {
+   "p": 0.0,
+   "energy": -1.1372838344884928,
+   "error_vs_casci": 9.547918011776346e-15
+  },
+  {
+   "p": 0.0001,
+   "energy": -1.121930657576097,
+   "error_vs_casci": 0.015353176912405342
+  },
+  {
+   "p": 0.0003,
+   "energy": -1.091964011993052,
+   "error_vs_casci": 0.0453198224954503
+  },
+  {
+   "p": 0.001,
+   "energy": -0.9944180140331311,
+   "error_vs_casci": 0.14286582045537122
+  },
+  {
+   "p": 0.003,
+   "energy": -0.7692286208342982,
+   "error_vs_casci": 0.3680552136542041
+  },
+  {
+   "p": 0.01,
+   "energy": -0.3597528365662618,
+   "error_vs_casci": 0.7775309979222406
+  },
+  {
+   "p": 0.03,
+   "energy": -0.12805438959694843,
+   "error_vs_casci": 1.009229444891554
+  },
+  {
+   "p": 0.1,
+   "energy": -0.09715192850664678,
+   "error_vs_casci": 1.0401319059818555
+  }
+ ],
+ "n_gates_decomposed": 158,
+ "shot_noise": [
+  {
+   "shots": 1000,
+   "mean": -1.1383927697762746,
+   "std": 0.007234400462802177,
+   "mean_error_vs_casci": -0.001108935287772228,
+   "reps": 20
+  },
+  {
+   "shots": 10000,
+   "mean": -1.1374421495238562,
+   "std": 0.0018553016283363259,
+   "mean_error_vs_casci": -0.00015831503535390645,
+   "reps": 20
+  },
+  {
+   "shots": 100000,
+   "mean": -1.1370135796681862,
+   "std": 0.0007018490712593058,
+   "mean_error_vs_casci": 0.00027025482031617365,
+   "reps": 20
+  }
+ ],
+ "note": "fixed theta* from the noiseless optimisation; depolarising channel on every wire after every gate of the CNOT/rotation-decomposed circuit; shot noise = term-by-term sampling of H without grouping"
+}
